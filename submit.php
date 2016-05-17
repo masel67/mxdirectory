@@ -91,7 +91,7 @@ if (!empty($_POST['submit'])) {
     $submitter = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
 
     $notify = !empty($_POST['notify']) ? 1 : 0;
-    $cid    = (!empty($_POST['cid'])) ? intval($_POST['cid']) : 0;
+    $cid    = (!empty($_POST['cid'])) ? (int)$_POST['cid'] : 0;
 
     // Check if title is invalid - will only happen if someone tries to spoof the form
     if (!isset($_POST['title']) || (trim($_POST['title']) == '')) {

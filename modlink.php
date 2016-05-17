@@ -83,11 +83,11 @@ if (!empty($_POST['submit'])) {
     }
     // end of security graphic validation check
 
-    $cid = intval($_POST['cid']);
-    $lid = intval($_POST['lid']);
+    $cid = (int)$_POST['cid'];
+    $lid = (int)$_POST['lid'];
     if (!isset($_POST['title']) || (trim($_POST['title']) == '')) {
         redirect_header('./', 5, _MD_MXDIR_FIELDEMPTY);
-    } elseif ((!isset($_POST['modifysubmitter']) || (intval($_POST['modifysubmitter']) <= 0)) && $xoopsModuleConfig['showmod'] != 1) {
+    } elseif ((!isset($_POST['modifysubmitter']) || ((int)$_POST['modifysubmitter'] <= 0)) && $xoopsModuleConfig['showmod'] != 1) {
         //		$url = $myts->formatURL($_POST["url"]);
         //		$url = urlencode($url);
         redirect_header('./', 5, _MD_MXDIR_NOPERM);
@@ -172,10 +172,10 @@ if (!empty($_POST['submit'])) {
     redirect_header('index.php', 2, _MD_MXDIR_THANKSFORINFO);
 } else {    // Display modification form for lid
 
-    if (!isset($_GET['lid']) || intval($_GET['lid'] == 0)) {
+    if (!isset($_GET['lid']) || (int)($_GET['lid'] == 0)) {
         redirect_header('./', 5, _MD_MXDIR_NOLISTAVAIL);
     } else {
-        $lid = intval($_GET['lid']);
+        $lid = (int)$_GET['lid'];
     }
     $thisuser = empty($xoopsUser) ? redirect_header('./', 5, _MD_MXDIR_MUSTREGFIRST) : $xoopsUser->uid();
 

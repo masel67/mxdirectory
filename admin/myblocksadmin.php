@@ -48,7 +48,7 @@ $module_handler =& xoops_getHandler('module');
 if (!empty($_GET['dirname'])) {
     $target_module =& $module_handler->getByDirname($_GET['dirname']);
 }/* else if( ! empty( $_GET['mid'] ) ) {
-    $target_module =& $module_handler->get( intval( $_GET['mid'] ) );
+    $target_module =& $module_handler->get( (int)( $_GET['mid'] ) );
 }*/
 
 if (!empty($target_module) && is_object($target_module)) {
@@ -172,7 +172,7 @@ function list_blocks()
         $result        = $db->query('SELECT module_id FROM ' . $db->prefix('block_module_link') . " WHERE block_id='$bid'");
         $selected_mids = array();
         while (list($selected_mid) = $db->fetchRow($result)) {
-            $selected_mids[] = intval($selected_mid);
+            $selected_mids[] = (int)$selected_mid;
         }
         $module_handler =& xoops_getHandler('module');
         $criteria       = new CriteriaCompo(new Criteria('hasmain', 1));

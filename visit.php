@@ -31,8 +31,8 @@
 // ------------------------------------------------------------------------- //
 include '../../mainfile.php';
 $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
-$lid  = intval($_GET['lid']);
-$cid  = intval($_GET['cid']);
+$lid  = (int)$_GET['lid'];
+$cid  = (int)$_GET['cid'];
 $sql  = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND STATUS > 0', $xoopsDB->prefix('xdir_links'), $lid);
 $xoopsDB->queryF($sql);
 $result = $xoopsDB->query('select url from ' . $xoopsDB->prefix('xdir_links') . " where lid=$lid and status>0");

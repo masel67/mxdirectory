@@ -20,7 +20,7 @@
  * @since           1.0.6
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 /**
  * Abstract base class for forms
@@ -64,7 +64,7 @@ class mxdirectorytree
      */
     public function getFirstChild($sel_id, $order = '')
     {
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $arr    = array();
         $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
         if ($order != '') {
@@ -89,7 +89,7 @@ class mxdirectorytree
      */
     public function getFirstChildId($sel_id)
     {
-        $sel_id  = intval($sel_id);
+        $sel_id  = (int)$sel_id;
         $idarray = array();
         $result  = $this->db->query('SELECT ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '');
         $count   = $this->db->getRowsNum($result);
@@ -112,7 +112,7 @@ class mxdirectorytree
      */
     public function getAllChildId($sel_id, $order = '', $idarray = array())
     {
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $sql    = 'SELECT ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
         if ($order != '') {
             $sql .= " ORDER BY $order";
@@ -139,7 +139,7 @@ class mxdirectorytree
      */
     public function getAllParentId($sel_id, $order = '', $idarray = array())
     {
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $sql    = 'SELECT ' . $this->pid . ' FROM ' . $this->table . ' WHERE ' . $this->id . '=' . $sel_id . '';
         if ($order != '') {
             $sql .= " ORDER BY $order";
@@ -165,7 +165,7 @@ class mxdirectorytree
      */
     public function getPathFromId($sel_id, $title, $path = '')
     {
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $result = $this->db->query('SELECT ' . $this->pid . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->id . "=$sel_id");
         if ($this->db->getRowsNum($result) == 0) {
             return $path;
@@ -244,7 +244,7 @@ class mxdirectorytree
     public function getNicePathFromId($sel_id, $title, $funcURL, $path = '')
     {
         $path   = !empty($path) ? '&nbsp;:&nbsp;' . $path : $path;
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $sql    = 'SELECT ' . $this->pid . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->id . "=$sel_id";
         $result = $this->db->query($sql);
         if ($this->db->getRowsNum($result) == 0) {
@@ -271,7 +271,7 @@ class mxdirectorytree
      */
     public function getIdPathFromId($sel_id, $path = '')
     {
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $result = $this->db->query('SELECT ' . $this->pid . ' FROM ' . $this->table . ' WHERE ' . $this->id . "=$sel_id");
         if ($this->db->getRowsNum($result) == 0) {
             return $path;
@@ -296,7 +296,7 @@ class mxdirectorytree
      */
     public function getAllChild($sel_id = 0, $order = '', $parray = array())
     {
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
         if ($order != '') {
             $sql .= " ORDER BY $order";
@@ -325,7 +325,7 @@ class mxdirectorytree
      */
     public function getChildTreeArray($sel_id = 0, $order = '', $parray = array(), $r_prefix = '')
     {
-        $sel_id = intval($sel_id);
+        $sel_id = (int)$sel_id;
         $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
         if ($order != '') {
             $sql .= " ORDER BY $order";

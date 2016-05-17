@@ -1,9 +1,7 @@
 <?php
 // $Id$
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit;
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 if (substr(XOOPS_VERSION, 6, 3) < 2.1) {
 

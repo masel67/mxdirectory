@@ -30,7 +30,7 @@
 //	the mylinks module as the foundation.									 //
 // ------------------------------------------------------------------------- //
 
-defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 $path = dirname(dirname(dirname(__DIR__)));
 include_once $path . '/mainfile.php';

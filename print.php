@@ -26,7 +26,7 @@
 //  ------------------------------------------------------------------------ //
 include '../../mainfile.php';
 $mydirname = basename(__DIR__);
-$lid       = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
+$lid       = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
 if (!($lid > 0)) {
     redirect_header('index.php');
 }

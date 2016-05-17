@@ -38,10 +38,10 @@ $myts           = MyTextSanitizer::getInstance();// MyTextSanitizer object
 $coupon_handler = new XdirectoryCouponHandler($xoopsDB);
 
 $list  = isset($_GET['list']) ? $_GET['list'] : 0;
-$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
 $show  = $xoopsModuleConfig['perpage'];
 
-$lid = (empty($_GET['lid']) || (intval($_GET['lid']) == 0)) ? '' : intval($_GET['lid']);
+$lid = (empty($_GET['lid']) || ((int)$_GET['lid'] == 0)) ? '' : (int)$_GET['lid'];
 if (!$xoopsUser) {
     redirect_header('./index.php', 3, _NOAUTH);
 } else {
@@ -91,9 +91,9 @@ if ($xoopsModuleConfig['useshots'] == 1) {
 $countresult1 = $xoopsDB->query('select count(*) from ' . $xoopsDB->prefix('xdir_links') . " WHERE submitter=$userid");
 list($count1) = $xoopsDB->fetchRow($countresult1);
 
-$fullcountresult = intval($count1);
+$fullcountresult = (int)$count1;
 
-$navcheck = intval($fullcountresult);
+$navcheck = (int)$fullcountresult;
 $numrows  = $navcheck;
 $page_nav = '';
 
@@ -143,7 +143,7 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
         } else {
             $ntitle = $myts->htmlspecialchars($ltitle) . $new . $pop;
         }
-        $ratingfl   = (($rating / 2) - floor($rating / 2) < 0.5) ? intval(floor($rating / 2) * 10) : intval((floor($rating / 2) + .5) * 10);
+        $ratingfl   = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
         $ratingfl   = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
         $rating     =
             "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "' /> ";
@@ -185,7 +185,7 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
     );
 }
 
-$page_nav = new XoopsPageNav($numrows, intval($show), $start, 'start', 'list=' . $list . '&amp;show=' . $show);
+$page_nav = new XoopsPageNav($numrows, (int)$show, $start, 'start', 'list=' . $list . '&amp;show=' . $show);
 
 $xoopsTpl->assign('links', $newlink);
 

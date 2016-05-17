@@ -2,19 +2,11 @@
 //
 // This code was tested using Waiting 0.94 & - zyspec
 //
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit;
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 $mydirname = basename(dirname(__DIR__));
 
-eval('
-
-function b_waiting_' . $mydirname . '(){
-	return b_waiting_mxdirectory_base( "' . $mydirname . '" ) ;
-}
-
-');
+eval('function b_waiting_' . $mydirname . '(){return b_waiting_mxdirectory_base( "' . $mydirname . '" ) ;}');
 
 if (!function_exists('b_waiting_mxdirectory_base')) {
     /**
@@ -32,7 +24,7 @@ if (!function_exists('b_waiting_mxdirectory_base')) {
         if (!preg_match('/^(\D+)(\d*)$/', $mydirname, $regs)) {
             echo('invalid dirname: ' . htmlspecialchars($mydirname));
         }
-        $mydirnumber = $regs[2] === '' ? '' : intval($regs[2]);
+        $mydirnumber = $regs[2] === '' ? '' : (int)$regs[2];
         $result      = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('xdir_links') . ' WHERE status=0');
         if ($result) {
             //		$block['adminlink'] = XOOPS_URL."/modules/."$mydirname."/admin/index.php";

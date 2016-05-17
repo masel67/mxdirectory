@@ -44,9 +44,9 @@ if (!empty($HTTP_POST_VARS['submit'])) {
     //Make sure only 1 anonymous from an IP in a single day.
     $anonwaitdays = 1;
     $ip           = getenv('REMOTE_ADDR');
-    $lid          = intval($HTTP_POST_VARS['lid']);
-    $cid          = intval($HTTP_POST_VARS['cid']);
-    $rating       = intval($HTTP_POST_VARS['rating']);
+    $lid          = (int)$HTTP_POST_VARS['lid'];
+    $cid          = (int)$HTTP_POST_VARS['cid'];
+    $rating       = (int)$HTTP_POST_VARS['rating'];
 
     // Check if Rating is Null
     if ($rating == '--') {
@@ -103,8 +103,8 @@ if (!empty($HTTP_POST_VARS['submit'])) {
 } else {
     $xoopsOption['template_main'] = 'xdir_ratelink.html';
     include XOOPS_ROOT_PATH . '/header.php';
-    $lid    = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
-    $cid    = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
+    $lid    = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
+    $cid    = isset($_GET['cid']) ? (int)$_GET['cid'] : 0;
     $result = $xoopsDB->query('select title from ' . $xoopsDB->prefix('xdir_links') . " where lid=$lid");
     list($title) = $xoopsDB->fetchRow($result);
     $xoopsTpl->assign('link', array('id' => $lid, 'cid' => $cid, 'title' => $myts->htmlSpecialChars($title)));

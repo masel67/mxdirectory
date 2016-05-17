@@ -30,9 +30,7 @@
 //	the mylinks module as the foundation.									 //
 // ------------------------------------------------------------------------- //
 //Inserted as Global replacement of $xoopsModule->getVar('dirname') and for module directory name in handlers
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit();
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 $mydirname = basename(dirname(__DIR__));
 
@@ -374,7 +372,7 @@ function displayTime($value)
             $ampmarray[$tkey] = ($j != 0) ? $hrsarray[$i] . ':' . $j : $hrsarray[$i] . ':0' . $j;
         }
     }
-    $clocktype = intval($clocktype);
+    $clocktype = (int)$clocktype;
     $clocktype = ($clocktype < 1) ? $clocktype = $timearray : $clocktype = $ampmarray;
 
     //display specific
@@ -400,7 +398,7 @@ function getPremiumOptions($olvl)
 {
     global $xoopsModuleConfig, $mydirname;
     $myLevelOption = $xoopsModuleConfig['premium_listing' . $olvl . 'opts'];
-    //$nl = intval(count($mylvlopt));
+    //$nl = (int)(count($mylvlopt));
     // $nlvls with 11
     for ($opi = 1; $opi < 12; $opi++) {
         $premiumOption      = in_array($opi, $myLevelOption) ? '1' : '0';

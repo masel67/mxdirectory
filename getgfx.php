@@ -27,8 +27,8 @@
 include 'header.php';
 include 'include/securitycheck.php';
 
-$random_num = (!isset($_GET['random_num']) || intval($_GET['random_num'] == 0)) ? die() : intval($_GET['random_num']);
-$gd         = isset($_GET['gd']) ? intval($_GET['gd']) : 0;
+$random_num = (!isset($_GET['random_num']) || (int)($_GET['random_num'] == 0)) ? die() : (int)$_GET['random_num'];
+$gd         = isset($_GET['gd']) ? (int)$_GET['gd'] : 0;
 
 $code = mx_calc_security($random_num);
 
@@ -40,9 +40,9 @@ $img_extend      = 2;        // number of additional chars to extend image
 $str_start_pos = $img_extend * 0.25;    // horiz. center string in image
 
 //
-$img_width  = imagefontwidth($max_font_sz) * (strlen($code) + intval($img_extend));
-$img_height = intval(imagefontheight($max_font_sz) * $img_height_mult);
-$xoff       = imagefontwidth(intval($max_font_sz) * $str_start_pos);
+$img_width  = imagefontwidth($max_font_sz) * (strlen($code) + (int)$img_extend);
+$img_height = (int)(imagefontheight($max_font_sz) * $img_height_mult);
+$xoff       = imagefontwidth((int)$max_font_sz * $str_start_pos);
 
 switch ($gd) {
     case 2:
@@ -66,8 +66,8 @@ for ($i = 0; $i < $len; $i++) {
     $font_size = rand($min_font_sz, $max_font_sz);
     $xpos += imagefontwidth($font_size);
 
-    $yoff_max = $img_height - intval((1 + $bdr_keepout) * imagefontheight($font_size));
-    $yoff_min = intval($bdr_keepout * imagefontheight($font_size));
+    $yoff_max = $img_height - (int)((1 + $bdr_keepout) * imagefontheight($font_size));
+    $yoff_min = (int)($bdr_keepout * imagefontheight($font_size));
 
     $ypos = rand($yoff_min, $yoff_max);
     $vert = false;

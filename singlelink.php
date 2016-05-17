@@ -43,8 +43,8 @@ $mydirname = basename(__DIR__);
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
 $mytree = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
-$lid    = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
-$cid    = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
+$lid    = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
+$cid    = isset($_GET['cid']) ? (int)$_GET['cid'] : 0;
 if (!($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid()))) {
     $sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND STATUS > 0', $xoopsDB->prefix('xdir_links'), $lid);
     $xoopsDB->queryF($sql);
@@ -138,7 +138,7 @@ $path     = substr($path, 1);
 $path     = str_replace('/', " <img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images/arrow.gif' board='0' alt='' /> ", $path);
 $new      = newlinkgraphic($time, $status);
 $pop      = popgraphic($hits);
-$ratingfl = (($rating / 2) - floor($rating / 2) < 0.5) ? intval(floor($rating / 2) * 10) : intval((floor($rating / 2) + .5) * 10);
+$ratingfl = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
 $ratingfl = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
 $rating   = "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "' /> ";
 //$coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);

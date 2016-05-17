@@ -41,13 +41,13 @@ if (!empty($_POST['op'])) {
     $op = $_POST['op'];
 }
 if (!empty($_POST['bid'])) {
-    $bid = intval($_POST['bid']);
+    $bid = (int)$_POST['bid'];
 }
 
 if (isset($_GET['op'])) {
     if ($_GET['op'] === 'edit' || $_GET['op'] === 'delete' || $_GET['op'] === 'delete_ok' || $_GET['op'] === 'clone' /* || $_GET['op'] === 'previewpopup'*/) {
         $op  = $_GET['op'];
-        $bid = isset($_GET['bid']) ? intval($_GET['bid']) : 0;
+        $bid = isset($_GET['bid']) ? (int)$_GET['bid'] : 0;
     }
 }
 
@@ -64,17 +64,17 @@ if (isset($_POST['previewblock'])) {
     }
 
     if (!empty($_POST['bside'])) {
-        $bside = intval($_POST['bside']);
+        $bside = (int)$_POST['bside'];
     } else {
         $bside = 0;
     }
     if (!empty($_POST['bweight'])) {
-        $bweight = intval($_POST['bweight']);
+        $bweight = (int)$_POST['bweight'];
     } else {
         $bweight = 0;
     }
     if (!empty($_POST['bvisible'])) {
-        $bvisible = intval($_POST['bvisible']);
+        $bvisible = (int)$_POST['bvisible'];
     } else {
         $bvisible = 0;
     }
@@ -99,7 +99,7 @@ if (isset($_POST['previewblock'])) {
         $bctype = '';
     }
     if (!empty($_POST['bcachetime'])) {
-        $bcachetime = intval($_POST['bcachetime']);
+        $bcachetime = (int)$_POST['bcachetime'];
     } else {
         $bcachetime = 0;
     }
@@ -143,7 +143,7 @@ if (isset($_POST['previewblock'])) {
     $block['modules']   =& $bmodule;
     $block['ctype']     = isset($bctype) ? $bctype : $myblock->getVar('c_type');
     $block['is_custom'] = true;
-    $block['cachetime'] = intval($bcachetime);
+    $block['cachetime'] = (int)$bcachetime;
     echo '<a href="myblocksadmin.php">' . _AM_MXDIR_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $block['form_title'] . '<br /><br />';
     include __DIR__ . '/../admin/myblockform.php'; //GIJ
     //echo '<a href="admin.php?fct=blocksadmin">'. _AM_MXDIR_BADMIN .'</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;'.$block['form_title'].'<br /><br />';
@@ -243,7 +243,7 @@ if ($op === 'order2') {
 
         // addblock
         foreach ($_POST['addblock'] as $bid => $val) {
-            myblocksadmin_update_blockinstance(0, 0, 0, 0, '', null, null, 0, array(), array(), intval($bid));
+            myblocksadmin_update_blockinstance(0, 0, 0, 0, '', null, null, 0, array(), array(), (int)$bid);
         }
     } else {
 
@@ -287,14 +287,14 @@ if ($op === 'order2') {
   if ( ! $xoopsGTicket->check( true , 'myblocksadmin' ) ) {
     redirect_header(XOOPS_URL.'/',3,$xoopsGTicket->getErrors());
   }
-  if ( !empty($_POST['bside']) ) { $bside = intval($_POST['bside']); } else { $bside = 0; }
-  if ( !empty($_POST['bweight']) ) { $bweight = intval($_POST['bweight']); } else { $bweight = 0; }
-  if ( !empty($_POST['bvisible']) ) { $bvisible = intval($_POST['bvisible']); } else { $bvisible = 0; }
+  if ( !empty($_POST['bside']) ) { $bside = (int)($_POST['bside']); } else { $bside = 0; }
+  if ( !empty($_POST['bweight']) ) { $bweight = (int)($_POST['bweight']); } else { $bweight = 0; }
+  if ( !empty($_POST['bvisible']) ) { $bvisible = (int)($_POST['bvisible']); } else { $bvisible = 0; }
   if ( !empty($_POST['bmodule']) ) { $bmodule = $_POST['bmodule']; } else { $bmodule = array(); }
   if ( !empty($_POST['btitle']) ) { $btitle = $_POST['btitle']; } else { $btitle = ""; }
   if ( !empty($_POST['bcontent']) ) { $bcontent = $_POST['bcontent']; } else { $bcontent = ""; }
   if ( !empty($_POST['bctype']) ) { $bctype = $_POST['bctype']; } else { $bctype = ""; }
-  if ( !empty($_POST['bcachetime']) ) { $bcachetime = intval($_POST['bcachetime']); } else { $bcachetime = 0; }
+  if ( !empty($_POST['bcachetime']) ) { $bcachetime = (int)($_POST['bcachetime']); } else { $bcachetime = 0; }
   save_block($bside, $bweight, $bvisible, $btitle, $bcontent, $bctype, $bmodule, $bcachetime);
   exit();
 } */
@@ -306,18 +306,18 @@ if ($op === 'update') {
     if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
         redirect_header(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
     }
-    /*  if ( !empty($_POST['bside']) ) { $bside = intval($_POST['bside']); } else { $bside = 0; }
-      if ( !empty($_POST['bweight']) ) { $bweight = intval($_POST['bweight']); } else { $bweight = 0; }
-      if ( !empty($_POST['bvisible']) ) { $bvisible = intval($_POST['bvisible']); } else { $bvisible = 0; }
+    /*  if ( !empty($_POST['bside']) ) { $bside = (int)($_POST['bside']); } else { $bside = 0; }
+      if ( !empty($_POST['bweight']) ) { $bweight = (int)($_POST['bweight']); } else { $bweight = 0; }
+      if ( !empty($_POST['bvisible']) ) { $bvisible = (int)($_POST['bvisible']); } else { $bvisible = 0; }
       if ( !empty($_POST['btitle']) ) { $btitle = $_POST['btitle']; } else { $btitle = ""; }
       if ( !empty($_POST['bcontent']) ) { $bcontent = $_POST['bcontent']; } else { $bcontent = ""; }
       if ( !empty($_POST['bctype']) ) { $bctype = $_POST['bctype']; } else { $bctype = ""; }
-      if ( !empty($_POST['bcachetime']) ) { $bcachetime = intval($_POST['bcachetime']); } else { $bcachetime = 0; }
+      if ( !empty($_POST['bcachetime']) ) { $bcachetime = (int)($_POST['bcachetime']); } else { $bcachetime = 0; }
       if ( !empty($_POST['bmodule']) ) { $bmodule = $_POST['bmodule']; } else { $bmodule = array(); }
       if ( !empty($_POST['options']) ) { $options = $_POST['options']; } else { $options = array(); }
       update_block($bid, $bside, $bweight, $bvisible, $btitle, $bcontent, $bctype, $bcachetime, $bmodule, $options);*/
 
-    $bcachetime = isset($_POST['bcachetime']) ? intval($_POST['bcachetime']) : 0;
+    $bcachetime = isset($_POST['bcachetime']) ? (int)$_POST['bcachetime'] : 0;
     $options    = isset($_POST['options']) ? $_POST['options'] : array();
     $bcontent   = isset($_POST['bcontent']) ? $_POST['bcontent'] : '';
     $bctype     = isset($_POST['bctype']) ? $_POST['bctype'] : '';
@@ -380,11 +380,11 @@ if ($op === 'edit') {
     $myblock = new XoopsBlock($bid);
 
     $db      = XoopsDatabaseFactory::getDatabaseConnection();
-    $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . intval($bid);
+    $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
     $result  = $db->query($sql);
     $modules = array();
     while ($row = $db->fetchArray($result)) {
-        $modules[] = intval($row['module_id']);
+        $modules[] = (int)$row['module_id'];
     }
     $is_custom = ($myblock->getVar('block_type') === 'C' || $myblock->getVar('block_type') === 'E') ? true : false;
     $block     = array(
@@ -421,11 +421,11 @@ if ($op === 'clone') {
     $myblock = new XoopsBlock($bid);
 
     $db      = XoopsDatabaseFactory::getDatabaseConnection();
-    $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . intval($bid);
+    $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
     $result  = $db->query($sql);
     $modules = array();
     while ($row = $db->fetchArray($result)) {
-        $modules[] = intval($row['module_id']);
+        $modules[] = (int)$row['module_id'];
     }
     $is_custom = ($myblock->getVar('block_type') === 'C' || $myblock->getVar('block_type') === 'E') ? true : false;
     $block     = array(
@@ -608,7 +608,7 @@ function myblocksadmin_update_block($bid, $bside, $bweight, $bvisible, $btitle, 
         $sql = sprintf('DELETE FROM %s WHERE block_id = %u', $db->prefix('block_module_link'), $bid);
         $db->query($sql);
         foreach ($bmodule as $bmid) {
-            $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, intval($bmid));
+            $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, (int)$bmid);
             $db->query($sql);
         }
         include_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -694,9 +694,9 @@ function myblocksadmin_update_blockinstance($id, $bside, $bweight, $bvisible, $b
                                        ' VALUES (' .
                                        $instance->getVar('instanceid') .
                                        ', ' .
-                                       intval($mid) .
+                                       (int)$mid .
                                        ', ' .
-                                       intval($pageid) .
+                                       (int)$pageid .
                                        ')');
         }
 

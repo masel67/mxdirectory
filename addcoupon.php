@@ -42,7 +42,7 @@ include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php
 
 $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
-$couponid = isset($_GET['couponid']) ? intval($_GET['couponid']) : 0;
+$couponid = isset($_GET['couponid']) ? (int)$_GET['couponid'] : 0;
 
 if ($couponid > 0) {
     $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
@@ -67,7 +67,7 @@ if ($couponid > 0) {
         $expire    = time() + 3600 * 24 * 7;
     }
 } else {
-    $lid      = isset($_POST['lid']) ? intval($_POST['lid']) : (isset($_GET['lid']) ? intval($_GET['lid']) : 0);
+    $lid      = isset($_POST['lid']) ? (int)$_POST['lid'] : (isset($_GET['lid']) ? (int)$_GET['lid'] : 0);
     $couponid = isset($_POST['couponid']) ? $_POST['couponid'] : null;
     $descr    = isset($_POST['descr']) ? $_POST['descr'] : '';
     $publish  = isset($_POST['publish']) ? $_POST['publish'] : 0;
@@ -130,7 +130,7 @@ if (!empty($_POST['submit'])) {
         }
     } else {
         include XOOPS_ROOT_PATH . '/header.php';
-        xoops_confirm(array('delete' => 'yes', 'couponid' => intval($_POST['couponid']), 'ok' => 1), 'addcoupon.php', _MD_MXDIR_COUPONRUSURE);
+        xoops_confirm(array('delete' => 'yes', 'couponid' => (int)$_POST['couponid'], 'ok' => 1), 'addcoupon.php', _MD_MXDIR_COUPONRUSURE);
         include_once XOOPS_ROOT_PATH . '/footer.php';
         exit();
     }

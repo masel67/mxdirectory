@@ -29,9 +29,8 @@
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
 //XoopsFormTime==>GNARGNAR>Hack&Slash~Tripmon~WhoopWhoop
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 /**
  *
@@ -109,7 +108,7 @@ class XoopsFormTime extends XoopsFormElementTray
                 $ampmarray[$tkey] = ($j != 0) ? $hrsarray[$i] . ':' . $j : $hrsarray[$i] . ':0' . $j;
             }
         }
-        $clocktype = intval($clocktype);
+        $clocktype = (int)$clocktype;
         $clocktype = ($clocktype < 1) ? $clocktype = $timearray : $clocktype = $ampmarray;
 
         //Box1

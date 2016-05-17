@@ -29,7 +29,7 @@ include '../../mainfile.php';
 include XOOPS_ROOT_PATH . '/header.php';
 $mydirname = basename(__DIR__);
 global $xoopsTpl;
-$coupid = isset($_GET['coupid']) ? intval($_GET['coupid']) : 0;
+$coupid = isset($_GET['coupid']) ? (int)$_GET['coupid'] : 0;
 if (!($coupid > 0)) {
     redirect_header('index.php');
 }

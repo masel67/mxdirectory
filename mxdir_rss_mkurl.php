@@ -70,7 +70,7 @@ if (!empty($_POST['submit'])) {
     if (!isset($_POST['rss_catid']) || empty($_POST['rss_catid'])) {
         $rss_catid = 0;
     } else {
-        $rss_catid = intval($_POST['rss_catid']);
+        $rss_catid = (int)$_POST['rss_catid'];
         if ($rss_catid != 0) {
             $result    = $xoopsDB->query('SELECT cid FROM ' . $xoopsDB->prefix('xdir_cat') . ' WHERE cid=' . $rss_catid . ' LIMIT 0,1');
             $mycat     = $xoopsDB->fetchArray($result);
@@ -85,9 +85,9 @@ if (!empty($_POST['submit'])) {
     if (!isset($_POST['rss_qty']) || empty($_POST['rss_qty'])) {
         $rss_qty = current($rss_qkey);
     } else {
-        $qtyck = in_array(intval($_POST['rss_qty']), $q_array);
+        $qtyck = in_array((int)$_POST['rss_qty'], $q_array);
         reset($rss_qkey);
-        $rss_qty = ($qtyck != false) ? intval($_POST['rss_qty']) : current($rss_qkey);
+        $rss_qty = ($qtyck != false) ? (int)$_POST['rss_qty'] : current($rss_qkey);
     }
 } else {
 
@@ -128,7 +128,7 @@ $rssform->addElement($sel_cat);
 // Get RSS Quantity
 $sel_qty = (new XoopsFormSelect(_MD_MXDIR_RSSQTYLBL, 'rss_qty', $rss_qty, 1, false));
 for ($i = 0; $i < count($q_array); $i++) {
-    $sel_qty->addOption(intval($rss_qkey[$i]), intval($rss_qkey[$i]));
+    $sel_qty->addOption((int)$rss_qkey[$i], (int)$rss_qkey[$i]);
 }
 $rssform->addElement($sel_qty);
 

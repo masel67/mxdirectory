@@ -48,7 +48,7 @@ include XOOPS_ROOT_PATH . '/header.php';
 $xoopsTpl->assign('xoops_module_header', $xoops_module_header);
 //Paging
 $list  = isset($_GET['list']) ? $_GET['list'] : 0;
-$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
 $show  = $xoopsModuleConfig['perpage'];
 //Alpha List
 $letters = letters();
@@ -80,7 +80,7 @@ if (!empty($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
 $fullcountresult = $xoopsDB->query('select count(*) from ' . $xoopsDB->prefix('xdir_links') . " WHERE status>0 AND (title LIKE '$list%')");
 list($numrows) = $xoopsDB->fetchRow($fullcountresult);
 
-$navcheck = intval($numrows);
+$navcheck = (int)$numrows;
 $page_nav = '';
 $pcount   = 0;
 
@@ -111,7 +111,7 @@ if ($numrows > 0) {
     while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $submitter, $status,
         $time, $hits, $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result)) {
         $lvlopts  = getPremiumOptions($premium);
-        $pcounter = intval($lvlopts['9']);
+        $pcounter = (int)$lvlopts['9'];
         $pcount   = ($pcounter != 0) ? ($pcount + 1) : $pcount;
 
         if ($isadmin) {
@@ -152,7 +152,7 @@ if ($numrows > 0) {
         $path     = str_replace('/', " <img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images/arrow.gif' alt='' /> ", $path);
         $new      = newlinkgraphic($time, $status);
         $pop      = popgraphic($hits);
-        $ratingfl = (($rating / 2) - floor($rating / 2) < 0.5) ? intval(floor($rating / 2) * 10) : intval((floor($rating / 2) + .5) * 10);
+        $ratingfl = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
         $ratingfl = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
         $rating   =
             "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "'/> ";
@@ -203,12 +203,12 @@ if ($numrows > 0) {
         ));
         //   	$xoopsTpl->append('links', array('bizhrs', $bizhrs));
         //    	$xoopsTpl->append('links', array('biznums', $biznums));
-        $page_nav = new XoopsPageNav(intval($numrows), intval($show), $start, 'start', 'list=' . $list . '&amp;show=' . $show);
+        $page_nav = new XoopsPageNav((int)$numrows, (int)$show, $start, 'start', 'list=' . $list . '&amp;show=' . $show);
     }
 
     //Nav Invoke
-    $start    = isset($_GET['start']) ? intval($_GET['start']) : 0;
-    $page_nav = new XoopsPageNav(intval($numrows), intval($show), $start, 'start', 'list=' . $list . '&amp;show=' . $show);
+    $start    = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+    $page_nav = new XoopsPageNav((int)$numrows, (int)$show, $start, 'start', 'list=' . $list . '&amp;show=' . $show);
 }
 $xoopsTpl->assign('pcount', $pcount);
 //Nav assign

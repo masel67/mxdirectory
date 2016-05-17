@@ -29,9 +29,7 @@
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit;
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/formelement.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/formhidden.php';
@@ -88,7 +86,7 @@ class MyXoopsGroupPermForm extends XoopsForm
     {
         //		$this->XoopsForm($title, 'groupperm_form', XOOPS_URL.'/modules/system/admin/groupperm.php', 'post'); GIJ
         parent::__construct($title, 'groupperm_form', '', 'post');
-        $this->_modid    = intval($modid);
+        $this->_modid    = (int)$modid;
         $this->_permName = $permname;
         $this->_permDesc = $permdesc;
         $this->addElement(new XoopsFormHidden('modid', $this->_modid));

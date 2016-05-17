@@ -5,9 +5,7 @@
 //                          GIJOE <http://www.peak.ne.jp/>                   //
 // ------------------------------------------------------------------------- //
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit;
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 include_once('../../../include/cp_header.php');
 
@@ -47,7 +45,7 @@ $module_handler =& xoops_getHandler('module');
 if (!empty($_GET['dirname'])) {
     $target_module =& $module_handler->getByDirname($_GET['dirname']);
 }/* else if( ! empty( $_GET['mid'] ) ) {
-    $target_module =& $module_handler->get( intval( $_GET['mid'] ) );
+    $target_module =& $module_handler->get( (int)( $_GET['mid'] ) );
 }*/
 
 if (!empty($target_module) && is_object($target_module)) {

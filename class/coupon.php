@@ -119,7 +119,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
         if ($coupid == false) {
             return false;
         }
-        $coupid = intval($coupid);
+        $coupid = (int)$coupid;
         if ($coupid > 0) {
             $sql = 'SELECT * FROM ' . $this->db->prefix('xdir_coupon') . ' WHERE couponid=' . $coupid;
             if (!$result = $this->db->query($sql)) {
@@ -188,7 +188,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
      */
     public function delete(&$coupon)
     {
-        $couponid = intval($coupon->getVar('couponid'));
+        $couponid = (int)$coupon->getVar('couponid');
         $sql      = 'DELETE FROM ' . $this->db->prefix('xdir_coupon') . ' WHERE couponid = ' . $couponid;
         if (!$this->db->query($sql)) {
             return false;
@@ -261,7 +261,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
         $sql   = 'SELECT cat.title AS catTitle, l.title AS linkTitle, coup.couponid, coup.heading, coup.counter, l.lid, l.cid, l.address, l.address2, l.city, l.zip, l.state, l.country, l.phone, l.fax, l.email, l.url, l.logourl, coup.description, coup.image, coup.lbr, coup.publish, coup.expire
                 FROM ' . $this->db->prefix('xdir_coupon') . ' coup, ' . $this->db->prefix('xdir_cat') . ' cat, ' . $this->db->prefix('xdir_links') . ' l';
         $sql .= ' WHERE coup.lid = l.lid AND l.cid = cat.cid AND coup.publish < ' . $now . ' AND (coup.expire = 0 OR coup.expire > ' . $now . ')';
-        $catid = intval($catid);
+        $catid = (int)$catid;
         if ($catid > 0) {
             $sql .= " AND cat.cid = $catid";
         }
@@ -292,7 +292,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     //          if ( !empty($catid) ) {
     //            $lp_count = 0;
     //            foreach ($catid as $multicat) {
-    //              $imc = intval($multicat);
+    //              $imc = (int)($multicat);
     //     		      $cat_term .= ($lp_count == 0) ? " AND (l.cid = ".$imc : " OR l.cid = ".$imc;
     //          		$cat_term .= " OR l.cidalt1 = ".$imc;
     //          		$cat_term .= " OR l.cidalt2 = ".$imc;
@@ -305,7 +305,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     //        } else {
     ////            echo "<br />CATID [".$catid."]<br />";
     //          if ($catid > 0) {
-    //            $icid = intval($catid);
+    //            $icid = (int)($catid);
     //            $cat_term .= ' AND (l.cid = '.$icid.' OR l.catalt1 = '.$icid.' OR l.catalt2 = '.$icid.' OR l.catalt3 = '.$icid.' OR l.catalt4 = '.$icid.')';
     //          }
     //        }
@@ -336,7 +336,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
         $ret = array();
         //        $limit = $start = 0;
         $now = time();
-        $lid = intval($lid);
+        $lid = (int)$lid;
         $sql = 'SELECT cat.title AS catTitle, l.title AS linkTitle, coup.couponid, coup.heading, coup.counter, l.lid, l.cid, l.cidalt1, l.cidalt2, l.cidalt3, l.cidalt4, l.address, l.address2, l.city, l.zip, l.state, l.country, l.phone, l.fax, l.email, l.url, l.logourl, l.premium, coup.description, coup.image, coup.lbr, coup.publish, coup.expire
                 FROM ' . $this->db->prefix('xdir_coupon') . ' coup, ' . $this->db->prefix('xdir_cat') . ' cat, ' . $this->db->prefix('xdir_links') . ' l';
         $sql .= ' WHERE coup.lid = l.lid AND coup.lid=' . $lid;
@@ -370,7 +370,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     {
         $ret = 0;
         $now = time();
-        $lid = intval($lid);
+        $lid = (int)$lid;
         $sql = 'SELECT count(*) FROM ' . $this->db->prefix('xdir_coupon') . ' WHERE lid=' . $lid . ' AND publish < ' . $now . ' AND (expire = 0 OR expire > ' . $now . ')';
         if (!$result = $this->db->query($sql)) {
             return false;
@@ -392,7 +392,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
         $ret    = array();
         $limit  = $start = 0;
         $now    = time();
-        $coupid = intval($coupid);
+        $coupid = (int)$coupid;
         $sql    = 'SELECT cat.title AS catTitle, l.title AS linkTitle, coup.couponid, coup.heading, coup.counter, l.lid, l.cid, l.address, l.address2, l.city, l.zip, l.state, l.country, l.phone, l.fax, l.email, l.url, l.logourl, coup.description,  coup.image, coup.lbr, coup.publish, coup.expire
                 FROM ' . $this->db->prefix('xdir_coupon') . ' coup, ' . $this->db->prefix('xdir_cat') . ' cat, ' . $this->db->prefix('xdir_links') . ' l';
         $sql .= ' WHERE coup.lid = l.lid AND coup.couponid=' . $coupid;
@@ -449,7 +449,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
                 'publish'     => formatTimestamp($myrow['publish'], 's'),
                 'expire'      => $expire,
                 'mydirname'   => $mydirname,
-                'counter'     => intval($myrow['counter'])
+                'counter'     => (int)$myrow['counter']
             );
             if ($justclean) {
                 $ret[] = $tarray;
@@ -472,7 +472,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
      */
     public function increment($couponid)
     {
-        $couponid = intval($couponid);
+        $couponid = (int)$couponid;
         $sql      = 'UPDATE ' . $this->db->prefix('xdir_coupon') . ' SET counter=counter+1 WHERE couponid=' . $couponid;
 
         return $this->db->queryF($sql);

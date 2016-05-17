@@ -79,7 +79,7 @@ if ($admintest != 0) {
             }
             include XOOPS_ROOT_PATH . '/modules/system/admin/' . $fct . '/xoops_version.php';
             $sysperm_handler =& xoops_getHandler('groupperm');
-            $category        = !empty($modversion['category']) ? intval($modversion['category']) : 0;
+            $category        = !empty($modversion['category']) ? (int)$modversion['category'] : 0;
             unset($modversion);
             if ($category > 0) {
                 $groups = $xoopsUser->getGroups();
@@ -132,7 +132,7 @@ if (false != $error) {
             if (strtolower($file) !== 'cvs' && !preg_match('/[.]/', $file) && is_dir($admin_dir . '/' . $file)) {
                 include $admin_dir . '/' . $file . '/xoops_version.php';
                 if ($modversion['hasAdmin']) {
-                    $category = isset($modversion['category']) ? intval($modversion['category']) : 0;
+                    $category = isset($modversion['category']) ? (int)$modversion['category'] : 0;
                     if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
                         echo "<td class='$class' align='center' valign='bottom' width='19%'>";
                         echo "<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=' . $file . "'><b>" . trim($modversion['name']) . "</b></a>\n";

@@ -66,13 +66,13 @@ function b_xdir_coup_show($options)
         $catlist = 0;
     } else {
         $catlist   = array();
-        $catlist[] = intval($options[5]);
-        $tree      = $mytree->getChildTreeArray(intval($options[5]), 'title ASC');
+        $catlist[] = (int)$options[5];
+        $tree      = $mytree->getChildTreeArray((int)$options[5], 'title ASC');
         foreach ($tree as $branch) {
             $catlist[] .= $branch['cid'];
         }
     }
-    $coups = $coupon_handler->getByCategory($catlist, intval($options[1]));
+    $coups = $coupon_handler->getByCategory($catlist, (int)$options[1]);
     foreach ($coups as $key => $values) {
         if (!XOOPS_USE_MULTIBYTES) {
             if (strlen($coups[$key]['linkTitle']) >= $options[2]) {

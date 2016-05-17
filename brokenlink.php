@@ -38,7 +38,7 @@ if (!empty($HTTP_POST_VARS['submit'])) {
     } else {
         $sender = $xoopsUser->getVar('uid');
     }
-    $lid = intval($HTTP_POST_VARS['lid']);
+    $lid = (int)$HTTP_POST_VARS['lid'];
     $ip  = getenv('REMOTE_ADDR');
     if ($sender != 0) {
         // Check if REG user is trying to report twice.
@@ -70,7 +70,7 @@ if (!empty($HTTP_POST_VARS['submit'])) {
     $xoopsOption['template_main'] = 'xdir_brokenlink.html';
     include XOOPS_ROOT_PATH . '/header.php';
     $xoopsTpl->assign('lang_reportbroken', _MD_MXDIR_REPORTBROKEN);
-    $xoopsTpl->assign('link_id', intval($_GET['lid']));
+    $xoopsTpl->assign('link_id', (int)$_GET['lid']);
     $xoopsTpl->assign('lang_thanksforhelp', _MD_MXDIR_THANKSFORHELP);
     $xoopsTpl->assign('lang_forsecurity', _MD_MXDIR_FORSECURITY);
     $xoopsTpl->assign('lang_cancel', _MD_MXDIR_CANCEL);

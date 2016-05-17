@@ -29,9 +29,8 @@
 //	Purpose: Create a yellow-page like business directory for xoops using 	 //
 //	the mylinks module as the foundation.									 //
 // ------------------------------------------------------------------------- //
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 //$mydirname = $xoopsModule->getVar('dirname')
 //2.2.x Change for dir discovery
 $mydirname = basename(__DIR__);
@@ -60,8 +59,8 @@ $modversion['release_date']        = '2013/08/02';
 $modversion['module_website_url']  = 'www.xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'Beta 1';
-$modversion['min_php']             = '5.2';
-$modversion['min_xoops']           = '2.5.6';
+$modversion['min_php']             = '5.5';
+$modversion['min_xoops']           = '2.5.8';
 $modversion['min_admin']           = '1.1';
 $modversion['min_db']              = array(
     'mysql'  => '5.0.7',

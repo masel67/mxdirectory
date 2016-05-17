@@ -43,8 +43,8 @@ $pathIcon16 = $xoopsModule->getInfo('icons16');
 
 $mytree  = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
 $orderby = isset($_GET['orderby']) ? convertorderbyin($_GET['orderby']) : 'title ASC';
-$start   = isset($_GET['start']) ? intval($_GET['start']) : 0;
-$cid     = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
+$start   = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+$cid     = isset($_GET['cid']) ? (int)$_GET['cid'] : 0;
 //$cid = $_GET['cid'];
 $pagecid                      = $cid;
 $xoopsOption['template_main'] = 'xdir_viewcat.html';
@@ -176,8 +176,8 @@ if ($numrows > 0) {
     while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $submitter, $status,
         $time, $hits, $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result)) {
         $lvlopts = getPremiumOptions($premium);
-        //	$pcounter = intval($lvlopts['9']);
-        $pcounter = isset($lvlopts['9']) ? intval($lvlopts['9']) : 0;
+        //	$pcounter = (int)($lvlopts['9']);
+        $pcounter = isset($lvlopts['9']) ? (int)$lvlopts['9'] : 0;
         $pcount   = ($pcounter != 0) ? ($pcount + 1) : $pcount;
 
         //	include_once "include/functions.php";
@@ -209,7 +209,7 @@ if ($numrows > 0) {
         $path       = str_replace('/', " <img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images/arrow.gif' board='0' alt=''> ", $path);
         $new        = newlinkgraphic($time, $status);
         $pop        = popgraphic($hits);
-        $ratingfl   = (($rating / 2) - floor($rating / 2) < 0.5) ? intval(floor($rating / 2) * 10) : intval((floor($rating / 2) + .5) * 10);
+        $ratingfl   = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
         $ratingfl   = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
         $rating     =
             "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "'/> ";
@@ -268,13 +268,13 @@ if ($numrows > 0) {
     $orderby = convertorderbyout($orderby);
     $xoopsTpl->assign('pcount', $pcount);
     if ($navcheck > 0) {
-        $page_nav = new XoopsPageNav($numrows, intval($show), $start, 'start', '&amp;cid=' . $pagecid . '&amp;show=' . $show . '$orderby=' . $orderby);
+        $page_nav = new XoopsPageNav($numrows, (int)$show, $start, 'start', '&amp;cid=' . $pagecid . '&amp;show=' . $show . '$orderby=' . $orderby);
     }
 }
 
 //$xoopsTpl->assign('pcount', $pcount);
 
-$page_nav = new XoopsPageNav($numrows, intval($show), $start, 'start', '&amp;cid=' . $pagecid . '&amp;show=' . $show . '$orderby=' . $orderby);
+$page_nav = new XoopsPageNav($numrows, (int)$show, $start, 'start', '&amp;cid=' . $pagecid . '&amp;show=' . $show . '$orderby=' . $orderby);
 
 //Premium from admin
 $xoopsTpl->assign('sponson', $xoopsModuleConfig['sponsor_active']);

@@ -57,7 +57,7 @@ if (!isset($_GET['op'])) {
 }
 $op       = trim($_GET['op']);
 $criteria = new CriteriaCompo();
-$lid      = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
+$lid      = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
 
 $sql     = 'SELECT lid, title FROM ' . $xoopsDB->prefix('xdir_links') . ' ORDER BY title ASC';
 $result3 = $xoopsDB->query($sql);

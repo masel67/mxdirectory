@@ -385,7 +385,7 @@ function linksConfigMenu()
 function multicat()
 {
     global $xoopsDB, $_GET, $myts, $eh, $mytree, $xoopsConfig, $mydirname, $xoopsModuleConfig;
-    $lid = empty($_GET['lid']) ? '' : intval($_GET['lid']);
+    $lid = empty($_GET['lid']) ? '' : (int)$_GET['lid'];
     if ($lid == '') {
         $uploadirectory = '/modules/' . $mydirname . '/images/shots/';
         $linkimg_array  = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/images/shots/');
@@ -560,7 +560,7 @@ function modLink()
     global $xoopsDB, $_POST, $_GET, $myts, $eh, $mytree, $xoopsConfig, $mydirname, $xoopsModuleConfig;
     //	include XOOPS_ROOT_PATH."/class/xoopsformloader.php";
     $uploadirectory = '/modules/' . $mydirname . '/images/shots/';
-    $lid            = isset($_POST['lid']) ? intval($_POST['lid']) : intval($_GET['lid']);
+    $lid            = isset($_POST['lid']) ? (int)$_POST['lid'] : (int)$_GET['lid'];
 
     $linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/images/shots/');
     // 	$lid = $_POST['lid'];
@@ -991,7 +991,7 @@ function doModReq()
 
         return;
     }
-    $lid              = !empty($_GET['lid']) ? intval($_GET['lid']) : 0;
+    $lid              = !empty($_GET['lid']) ? (int)$_GET['lid'] : 0;
     $result           = $xoopsDB->query('select * from ' . $xoopsDB->prefix('xdir_mod') . " where lid=$lid order by requestid");
     $totalmodrequests = $xoopsDB->getRowsNum($result);
     echo '<table>';
@@ -1462,8 +1462,8 @@ function delCat()
 
         return;
     }
-    $cid = isset($_POST['cid']) ? intval($_POST['cid']) : intval($_GET['cid']);
-    $ok  = isset($_POST['ok']) ? intval($_POST['ok']) : 0;
+    $cid = isset($_POST['cid']) ? (int)$_POST['cid'] : (int)$_GET['cid'];
+    $ok  = isset($_POST['ok']) ? (int)$_POST['ok'] : 0;
     if ($ok == 1) {
         //get all subcategories under the specified category
         $arr    = $mytree->getAllChildId($cid);

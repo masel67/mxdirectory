@@ -82,7 +82,7 @@ function b_xdir_top_show($options)
     if ($options[5] === 'All') {
         $dispcat = '';
     } else {
-        $start   = intval($options[5]);
+        $start   = (int)$options[5];
         $tree    = $mytree->getChildTreeArray($start, 'title ASC');
         $dispcat = ' AND ((cid = ' . $options[5] . ')';
         $dispcat .= ' OR (cidalt1 = ' . $options[5] . ')';

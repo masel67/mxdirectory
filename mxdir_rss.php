@@ -53,13 +53,13 @@ global $xoopsDB, $xoopsConfig;
 //What to show in RSS listing
 $op = isset($_GET['op']) ? $_GET['op'] : 'date';
 //category to use
-$opcid = (isset($_GET['catid']) && (is_numeric($_GET['catid']) && $_GET['catid'] > 0)) ? intval($_GET['catid']) : 0;
+$opcid = (isset($_GET['catid']) && (is_numeric($_GET['catid']) && $_GET['catid'] > 0)) ? (int)$_GET['catid'] : 0;
 //granularity for number of items to show
 $rss_qkey = explode(',', _MD_MXDIR_RSSQTY);
 $opsep    = $rss_qkey[0];
 //number of items to show
-$opqty  = (isset($_GET['qty']) && is_numeric($_GET['qty']) && ($_GET['qty'] >= 0)) ? intval($_GET['qty']) : $opsep;
-$getqty = intval($opsep * ceil($opqty / $opsep));
+$opqty  = (isset($_GET['qty']) && is_numeric($_GET['qty']) && ($_GET['qty'] >= 0)) ? (int)$_GET['qty'] : $opsep;
+$getqty = (int)($opsep * ceil($opqty / $opsep));
 
 $mytree = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
 
