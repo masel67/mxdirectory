@@ -26,30 +26,34 @@
 //  ------------------------------------------------------------------------ //
 
 include '../../mainfile.php';
-include XOOPS_ROOT_PATH."/header.php";
-$mydirname = basename( dirname( __FILE__ ) ) ;
+include XOOPS_ROOT_PATH . '/header.php';
+$mydirname = basename(__DIR__);
 global $xoopsTpl;
 $coupid = isset($_GET['coupid']) ? intval($_GET['coupid']) : 0;
-if (!($coupid > 0) ) {
-    redirect_header("index.php");
+if (!($coupid > 0)) {
+    redirect_header('index.php');
 }
 
+/**
+ * @param $coupid
+ */
 function PrintPage($coupid)
 {
     global $xoopsModule, $xoopsTpl, $xoopsModuleConfig, $mydirname;
-    include "./class/coupon.php";
+    include './class/coupon.php';
     $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
 
-//    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
+    //    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
     $coupon_handler->increment($coupid);
-    $coupon = $coupon_handler->getLinkedCoupon($coupid);
-    $coupon_arr = $coupon_handler->prepare2show($coupon);
+    $coupon     =& $coupon_handler->getLinkedCoupon($coupid);
+    $coupon_arr =& $coupon_handler->prepare2show($coupon);
     $xoopsTpl->assign('coupon_footer', $xoopsModuleConfig['coupon_footer']);
     $xoopsTpl->assign('coupon', $coupon_arr[$coupon[0]['cid']]['coupons'][0]);
-//    $xoopsTpl->template_dir = XOOPS_ROOT_PATH."/modules/".$xoopsModule->dirname();
+    //    $xoopsTpl->template_dir = XOOPS_ROOT_PATH."/modules/".$xoopsModule->dirname();
     $xoopsTpl->display('db:xdir_print_savings.html');
 }
-    //Smarty directory autodetect
-    $smartydir = $mydirname;
-    $xoopsTpl->assign('smartydir', $smartydir);
+
+//Smarty directory autodetect
+$smartydir = $mydirname;
+$xoopsTpl->assign('smartydir', $smartydir);
 PrintPage($coupid);

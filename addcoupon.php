@@ -30,79 +30,73 @@
 //	the mylinks module as the foundation.									 //
 // ------------------------------------------------------------------------- //
 global $xoopsDB;
-include "header.php";
-include "./class/coupon.php";
+include 'header.php';
+include './class/coupon.php';
 //include_once XOOPS_ROOT_PATH."/class/xoopstree.php";
-include_once XOOPS_ROOT_PATH."/class/module.errorhandler.php";
-include_once XOOPS_ROOT_PATH."/include/xoopscodes.php";
-include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
+include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
+include_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-$mydirname = basename ( dirname( __FILE__ ) ) ;
-include XOOPS_ROOT_PATH."/modules/" . $mydirname . "/class/mxdirectorytree.php";
+$mydirname = basename(__DIR__);
+include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
-$myts =& MyTextSanitizer::getInstance(); // MyTextSanitizer object
+$myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
 $couponid = isset($_GET['couponid']) ? intval($_GET['couponid']) : 0;
 
 if ($couponid > 0) {
-
     $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
-    $coupon =& $coupon_handler->get($couponid);
+    $coupon         =& $coupon_handler->get($couponid);
 
-//    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
-//    $coupon =& $coupon_handler->get($couponid);
+    //    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
+    //    $coupon =& $coupon_handler->get($couponid);
     $lid = $coupon->getVar('lid');
-//    $myts =& MyTextSanitizer::getInstance();
+    //    $myts = MyTextSanitizer::getInstance();
     $lbr = $coupon->getVar('lbr');
     $coupon->setVar('dohtml', 1);
     $coupon->setVar('dobr', $lbr);
-    $descr = $coupon->getVar('description', 'E');
-    $image = $coupon->getVar('image', 'E');
-      $heading = $coupon->getVar('heading', 'E');
+    $descr   = $coupon->getVar('description', 'E');
+    $image   = $coupon->getVar('image', 'E');
+    $heading = $coupon->getVar('heading', 'E');
     $publish = $coupon->getVar('publish') > 0 ? $coupon->getVar('publish') : time();
-    $expire = $coupon->getVar('expire');
+    $expire  = $coupon->getVar('expire');
     if ($expire > 0) {
         $setexpire = 1;
-    }
-    else {
+    } else {
         $setexpire = 0;
-        $expire = time() + 3600 * 24 * 7;
+        $expire    = time() + 3600 * 24 * 7;
     }
-}
-else {
-    $lid = isset($_POST['lid']) ? intval($_POST['lid']) : (isset($_GET['lid']) ? intval($_GET['lid']) : 0);
+} else {
+    $lid      = isset($_POST['lid']) ? intval($_POST['lid']) : (isset($_GET['lid']) ? intval($_GET['lid']) : 0);
     $couponid = isset($_POST['couponid']) ? $_POST['couponid'] : null;
-    $descr = isset($_POST['descr']) ? $_POST['descr'] : "";
-    $publish = isset($_POST['publish']) ? $_POST['publish'] : 0;
-    $image = isset($_POST['image']) ? $_POST['image'] : "";
-        $expire = isset($_POST['expire']) ? $_POST['expire'] : 0;
-    $heading = isset($_POST['heading']) ? $_POST['heading'] : "";
-    $lbr = isset($_POST['lbr']) ? $lbr : 0;
+    $descr    = isset($_POST['descr']) ? $_POST['descr'] : '';
+    $publish  = isset($_POST['publish']) ? $_POST['publish'] : 0;
+    $image    = isset($_POST['image']) ? $_POST['image'] : '';
+    $expire   = isset($_POST['expire']) ? $_POST['expire'] : 0;
+    $heading  = isset($_POST['heading']) ? $_POST['heading'] : '';
+    $lbr      = isset($_POST['lbr']) ? $lbr : 0;
     if ($expire > 0) {
         $setexpire = 1;
-    }
-    else {
+    } else {
         $setexpire = 0;
-        $expire = time() + 3600 * 24 * 7;
+        $expire    = time() + 3600 * 24 * 7;
     }
-    
 }
 
-if ((empty($xoopsUser)) || !$xoopsUser->isAdmin($xoopsModule->mid()) || ($lid == 0 && empty($_POST['delete']))) {
+if (empty($xoopsUser) || !$xoopsUser->isAdmin($xoopsModule->mid()) || ($lid == 0 && empty($_POST['delete']))) {
     redirect_header('index.php', 3, _NOPERM);
     exit();
 }
 
 if (!empty($_POST['submit'])) {
     $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
-//    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
+    //    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
     if (isset($_POST['couponid'])) {
         $thiscoupon =& $coupon_handler->get($_POST['couponid']);
-        $message = _MD_MXDIR_COUPONEDITED;
-    }
-    else {
+        $message    = _MD_MXDIR_COUPONEDITED;
+    } else {
         $thiscoupon =& $coupon_handler->create();
-        $message = _MD_MXDIR_COUPONADDED;
+        $message    = _MD_MXDIR_COUPONADDED;
     }
     $thiscoupon->setVar('description', $_POST['descr']);
     $thiscoupon->setVar('image', $_POST['image']);
@@ -112,38 +106,35 @@ if (!empty($_POST['submit'])) {
     $thiscoupon->setVar('lbr', $lbr);
     if (isset($_POST['expire_enable']) && ($_POST['expire_enable'] == 1)) {
         $thiscoupon->setVar('expire', strtotime($_POST['expire']['date']) + $_POST['expire']['time']);
-    }
-    else {
+    } else {
         $thiscoupon->setVar('expire', 0);
     }
     $thiscoupon->setVar('heading', $_POST['heading']);
     if ($coupon_handler->insert($thiscoupon)) {
-        redirect_header('singlelink.php?lid='.$thiscoupon->getVar('lid'), 3, $message);
+        redirect_header('singlelink.php?lid=' . $thiscoupon->getVar('lid'), 3, $message);
         exit();
     }
-}
-elseif (!empty($_POST['delete'])) {
-    if ( !empty($_POST['ok']) ) {
+} elseif (!empty($_POST['delete'])) {
+    if (!empty($_POST['ok'])) {
         if (empty($_POST['couponid'])) {
-            redirect_header('index.php',2,"error");
+            redirect_header('index.php', 2, 'error');
             exit();
         }
         $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
-//        $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
+        //        $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
         $coupon =& $coupon_handler->get($_POST['couponid']);
-        $lid = $coupon->getVar('lid');
+        $lid    = $coupon->getVar('lid');
         if ($coupon_handler->delete($coupon)) {
-            redirect_header("singlelink.php?lid=".$lid,3, _MD_MXDIR_COUPONDELETED);
+            redirect_header('singlelink.php?lid=' . $lid, 3, _MD_MXDIR_COUPONDELETED);
             exit();
         }
-    }
-    else {
-        include XOOPS_ROOT_PATH.'/header.php';
+    } else {
+        include XOOPS_ROOT_PATH . '/header.php';
         xoops_confirm(array('delete' => 'yes', 'couponid' => intval($_POST['couponid']), 'ok' => 1), 'addcoupon.php', _MD_MXDIR_COUPONRUSURE);
-        include_once XOOPS_ROOT_PATH.'/footer.php';
+        include_once XOOPS_ROOT_PATH . '/footer.php';
         exit();
     }
 }
-include XOOPS_ROOT_PATH.'/header.php';
+include XOOPS_ROOT_PATH . '/header.php';
 include 'include/couponform.php';
-include_once XOOPS_ROOT_PATH.'/footer.php';
+include_once XOOPS_ROOT_PATH . '/footer.php';

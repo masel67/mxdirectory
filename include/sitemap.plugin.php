@@ -1,16 +1,18 @@
 <?php
 
-if( ! defined( 'XOOPS_ROOT_PATH' ) ) exit ;
+if (!defined('XOOPS_ROOT_PATH')) {
+    exit;
+}
 
-$mydirname = basename( dirname( dirname( __FILE__ ) ) ) ;
+$mydirname = basename(dirname(__DIR__));
 
-eval( '
+eval('
 
-function b_sitemap_'.$mydirname.'(){
+function b_sitemap_' . $mydirname . '(){
 
 	$db =& XoopsDatabaseFactory::getDatabaseConnection();
   $smtree = new MxdirectoryTree($db->prefix("xdir_cat"),"cid","pid");
-	$myts =& MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 
 	$ret = array() ;
 	$tree = $smtree->getFirstChild(0,"title ASC");
@@ -23,4 +25,4 @@ function b_sitemap_'.$mydirname.'(){
 	return $ret ;
 }
 
-' ) ;
+');

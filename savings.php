@@ -29,34 +29,33 @@
 //	Purpose: Create a yellow-page like business directory for xoops using 	 //
 //	the mylinks module as the foundation.									 //
 // ------------------------------------------------------------------------- //
-include "../../mainfile.php";
-include "header.php";
-$mydirname = basename( dirname( __FILE__ ) ) ;
+include '../../mainfile.php';
+include 'header.php';
+$mydirname = basename(__DIR__);
 //added global to test coupon under 2.2
 global $xoopsDB;
-include_once "class/coupon.php";
+include_once 'class/coupon.php';
 
 $lid = isset($_GET['lid']) ? $_GET['lid'] : 0;
 $cid = isset($_GET['cid']) ? $_GET['cid'] : 0;
 
 $xoopsOption['template_main'] = 'xdir_savings.html';
-include XOOPS_ROOT_PATH."/header.php";
+include XOOPS_ROOT_PATH . '/header.php';
 
 $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
 
 $xoopsTpl->assign('xoops_module_header', $xoops_module_header);
 
 if ($lid) {
-    $categories = $coupon_handler->getByLink($lid);
-}
-else {
-    $categories = $coupon_handler->getByCategory($cid);
+    $categories =& $coupon_handler->getByLink($lid);
+} else {
+    $categories =& $coupon_handler->getByCategory($cid);
 }
 $xoopsTpl->assign('categories', $coupon_handler->prepare2show($categories));
 if ($xoopsUser) {
     $xoopsTpl->assign('admin', $xoopsUser->isAdmin($xoopsModule->mid()));
 }
-    //Smarty directory autodetect
-    $xoopsTpl->assign('smartydir', $mydirname);
+//Smarty directory autodetect
+$xoopsTpl->assign('smartydir', $mydirname);
 
-include XOOPS_ROOT_PATH.'/footer.php';
+include XOOPS_ROOT_PATH . '/footer.php';

@@ -30,29 +30,29 @@
 //	the mylinks module as the foundation.									 //
 // ------------------------------------------------------------------------- //
 include '../../mainfile.php';
-$myts =& MyTextSanitizer::getInstance(); // MyTextSanitizer object
-$lid = intval($_GET['lid']);
-$cid = intval($_GET['cid']);
-$sql = sprintf("UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0", $xoopsDB->prefix("xdir_links"), $lid);
+$myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
+$lid  = intval($_GET['lid']);
+$cid  = intval($_GET['cid']);
+$sql  = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND STATUS > 0', $xoopsDB->prefix('xdir_links'), $lid);
 $xoopsDB->queryF($sql);
-$result = $xoopsDB->query("select url from ".$xoopsDB->prefix("xdir_links")." where lid=$lid and status>0");
+$result = $xoopsDB->query('select url from ' . $xoopsDB->prefix('xdir_links') . " where lid=$lid and status>0");
 list($url) = $xoopsDB->fetchRow($result);
 
-if ( $xoopsModuleConfig['frame'] != "" ) {
-    header('Content-Type:text/html; charset='._CHARSET);
+if ($xoopsModuleConfig['frame'] != '') {
+    header('Content-Type:text/html; charset=' . _CHARSET);
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
     header('Cache-Control: no-store, no-cache, must-revalidate');
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");
-    echo "<html><head>
-		<title>".$xoopsConfig['sitename']."</title>
+    header('Cache-Control: post-check=0, pre-check=0', false);
+    header('Pragma: no-cache');
+    echo '<html><head>
+		<title>' . $xoopsConfig['sitename'] . "</title>
 		</head>
 		<frameset rows='70px,100%' cols='*' border='0' frameborder='0' framespacing='0' >
 		<frame src='myheader.php?url=$url&amp;cid=$cid&amp;lid=$lid' frame name='xoopshead' scrolling='no' target='main' Noresize>
-		<frame src='".$myts->oopsHtmlSpecialChars($url)."' frame name='main' scrolling='auto' target='Main'>
+		<frame src='" . $myts->oopsHtmlSpecialChars($url) . "' frame name='main' scrolling='auto' target='Main'>
 		</frameset></html>";
 } else {
-    echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL=".$myts->oopsHtmlSpecialChars($url)."\"></meta></head><body></body></html>";
+    echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL=" . $myts->oopsHtmlSpecialChars($url) . "\"></meta></head><body></body></html>";
 }
 exit();

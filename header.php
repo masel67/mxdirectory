@@ -30,9 +30,9 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include_once "../../mainfile.php";
+include_once '../../mainfile.php';
 
-//$whatdir = basename ( dirname( __FILE__ ) ) ;
+//$whatdir = basename ( __DIR__ ) ;
 //if (preg_match("#[\]#", $whatdir)) {
 //	$split = preg_split('/[^\]/',$whatdir);
 //} else {
@@ -41,14 +41,14 @@ include_once "../../mainfile.php";
 //$count = count($split) - 1;
 //$mydirname = $split[$count];
 
-$mydirname = basename ( dirname( __FILE__ ) ) ;
+$mydirname = basename(__DIR__);
 
-include XOOPS_ROOT_PATH."/modules/" . $mydirname . "/include/functions.php";
+include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/include/functions.php';
 
-$xoops_module_header = '<link rel="stylesheet" type="text/css" href="'.XOOPS_URL.'/modules/'.$mydirname.'/images/style.css" />';
+$xoops_module_header = '<link rel="stylesheet" type="text/css" href="' . XOOPS_URL . '/modules/' . $mydirname . '/images/style.css" />';
 
-if(empty($xoopsModuleConfig['rss_enable'])){
+if (empty($xoopsModuleConfig['rss_enable'])) {
     $xoops_module_header .= '
-	<link rel="alternate" type="application/rss+xml" title="'.$mydirname.'" href="'.XOOPS_URL.'/modules/'.$mydirname.'/mxdir_rss.php" />
+	<link rel="alternate" type="application/rss+xml" title="' . $mydirname . '" href="' . XOOPS_URL . '/modules/' . $mydirname . '/mxdir_rss.php" />
 	';
 }

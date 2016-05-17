@@ -31,7 +31,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * @package   xoopstubetree
  * @access    public
  */
-class MxdirectoryTree
+class mxdirectorytree
 {
     public $table; //table with parent-child structure
     public $id; //name of unique id for records in table $table
@@ -42,21 +42,32 @@ class MxdirectoryTree
 
     //constructor of class XoopsTree
     //sets the names of table, unique id, and parend id
+    /**
+     * mxdirectorytree constructor.
+     * @param $table_name
+     * @param $id_name
+     * @param $pid_name
+     */
     public function __construct($table_name, $id_name, $pid_name)
     {
-        $this->db = & XoopsDatabaseFactory::getDatabaseConnection();;
+        $this->db    = XoopsDatabaseFactory::getDatabaseConnection();
         $this->table = $table_name;
         $this->id    = $id_name;
         $this->pid   = $pid_name;
     }
 
     // returns an array of first child objects for a given id($sel_id)
-    public function getFirstChild($sel_id, $order = "")
+    /**
+     * @param        $sel_id
+     * @param string $order
+     * @return array
+     */
+    public function getFirstChild($sel_id, $order = '')
     {
         $sel_id = intval($sel_id);
         $arr    = array();
-        $sql    = "SELECT * FROM " . $this->table . " WHERE " . $this->pid . "=" . $sel_id . "";
-        if ($order != "") {
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        if ($order != '') {
             $sql .= " ORDER BY $order";
         }
         $result = $this->db->query($sql);
@@ -72,18 +83,20 @@ class MxdirectoryTree
     }
 
     // returns an array of all FIRST child ids of a given id($sel_id)
+    /**
+     * @param $sel_id
+     * @return array
+     */
     public function getFirstChildId($sel_id)
     {
         $sel_id  = intval($sel_id);
         $idarray = array();
-        $result  = $this->db->query(
-            "SELECT " . $this->id . " FROM " . $this->table . " WHERE " . $this->pid . "=" . $sel_id . ""
-        );
+        $result  = $this->db->query('SELECT ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '');
         $count   = $this->db->getRowsNum($result);
         if ($count == 0) {
             return $idarray;
         }
-        while (list ($id) = $this->db->fetchRow($result)) {
+        while (list($id) = $this->db->fetchRow($result)) {
             array_push($idarray, $id);
         }
 
@@ -91,11 +104,17 @@ class MxdirectoryTree
     }
 
     //returns an array of ALL child ids for a given id($sel_id)
-    public function getAllChildId($sel_id, $order = "", $idarray = array())
+    /**
+     * @param        $sel_id
+     * @param string $order
+     * @param array  $idarray
+     * @return array
+     */
+    public function getAllChildId($sel_id, $order = '', $idarray = array())
     {
         $sel_id = intval($sel_id);
-        $sql    = "SELECT " . $this->id . " FROM " . $this->table . " WHERE " . $this->pid . "=" . $sel_id . "";
-        if ($order != "") {
+        $sql    = 'SELECT ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        if ($order != '') {
             $sql .= " ORDER BY $order";
         }
         $result = $this->db->query($sql);
@@ -103,7 +122,7 @@ class MxdirectoryTree
         if ($count == 0) {
             return $idarray;
         }
-        while (list ($r_id) = $this->db->fetchRow($result)) {
+        while (list($r_id) = $this->db->fetchRow($result)) {
             array_push($idarray, $r_id);
             $idarray = $this->getAllChildId($r_id, $order, $idarray);
         }
@@ -112,15 +131,21 @@ class MxdirectoryTree
     }
 
     //returns an array of ALL parent ids for a given id($sel_id)
-    public function getAllParentId($sel_id, $order = "", $idarray = array())
+    /**
+     * @param        $sel_id
+     * @param string $order
+     * @param array  $idarray
+     * @return array
+     */
+    public function getAllParentId($sel_id, $order = '', $idarray = array())
     {
         $sel_id = intval($sel_id);
-        $sql    = "SELECT " . $this->pid . " FROM " . $this->table . " WHERE " . $this->id . "=" . $sel_id . "";
-        if ($order != "") {
+        $sql    = 'SELECT ' . $this->pid . ' FROM ' . $this->table . ' WHERE ' . $this->id . '=' . $sel_id . '';
+        if ($order != '') {
             $sql .= " ORDER BY $order";
         }
         $result = $this->db->query($sql);
-        list ($r_id) = $this->db->fetchRow($result);
+        list($r_id) = $this->db->fetchRow($result);
         if ($r_id == 0) {
             return $idarray;
         }
@@ -132,19 +157,23 @@ class MxdirectoryTree
 
     //generates path from the root id to a given id($sel_id)
     // the path is delimetered with "/"
-    public function getPathFromId($sel_id, $title, $path = "")
+    /**
+     * @param        $sel_id
+     * @param        $title
+     * @param string $path
+     * @return string
+     */
+    public function getPathFromId($sel_id, $title, $path = '')
     {
         $sel_id = intval($sel_id);
-        $result = $this->db->query(
-            "SELECT " . $this->pid . ", " . $title . " FROM " . $this->table . " WHERE " . $this->id . "=$sel_id"
-        );
+        $result = $this->db->query('SELECT ' . $this->pid . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->id . "=$sel_id");
         if ($this->db->getRowsNum($result) == 0) {
             return $path;
         }
-        list ($parentid, $name) = $this->db->fetchRow($result);
+        list($parentid, $name) = $this->db->fetchRow($result);
         $myts = MyTextSanitizer::getInstance();
         $name = $myts->htmlspecialchars($name);
-        $path = "/" . $name . $path . "";
+        $path = '/' . $name . $path . '';
         if ($parentid == 0) {
             return $path;
         }
@@ -156,60 +185,75 @@ class MxdirectoryTree
     //makes a nicely ordered selection box
     //$preset_id is used to specify a preselected item
     //set $none to 1 to add a option with value 0
-    public function makeMySelBox($title, $order = "", $preset_id = 0, $none = 0, $sel_name = "", $onchange = "")
+    /**
+     * @param        $title
+     * @param string $order
+     * @param int    $preset_id
+     * @param int    $none
+     * @param string $sel_name
+     * @param string $onchange
+     */
+    public function makeMySelBox($title, $order = '', $preset_id = 0, $none = 0, $sel_name = '', $onchange = '')
     {
-        if ($sel_name == "") {
+        if ($sel_name == '') {
             $sel_name = $this->id;
         }
         $myts = MyTextSanitizer::getInstance();
         echo "<select name='" . $sel_name . "'";
-        if ($onchange != "") {
+        if ($onchange != '') {
             echo " onchange='" . $onchange . "'";
         }
         echo ">\n";
-        $sql = "SELECT " . $this->id . ", " . $title . " FROM " . $this->table . " WHERE " . $this->pid . "=0";
-        if ($order != "") {
+        $sql = 'SELECT ' . $this->id . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=0';
+        if ($order != '') {
             $sql .= " ORDER BY $order";
         }
         $result = $this->db->query($sql);
         if ($none) {
             echo "<option value='0'>----</option>\n";
         }
-        while (list ($catid, $name) = $this->db->fetchRow($result)) {
-            $sel = "";
+        while (list($catid, $name) = $this->db->fetchRow($result)) {
+            $sel = '';
             if ($catid == $preset_id) {
                 $sel = " selected='selected'";
             }
             echo "<option value='$catid'$sel>$name</option>\n";
-            $sel = "";
+            $sel = '';
             $arr = $this->getChildTreeArray($catid, $order);
             foreach ($arr as $option) {
-                $option['prefix'] = str_replace(".", "--", $option['prefix']);
-                $catpath          = $option['prefix'] . "&nbsp;" . $myts->htmlspecialchars($option[$title]);
+                $option['prefix'] = str_replace('.', '--', $option['prefix']);
+                $catpath          = $option['prefix'] . '&nbsp;' . $myts->htmlspecialchars($option[$title]);
                 if ($option[$this->id] == $preset_id) {
                     $sel = " selected='selected'";
                 }
                 echo "<option value='" . $option[$this->id] . "'$sel>$catpath</option>\n";
-                $sel = "";
+                $sel = '';
             }
         }
         echo "</select>\n";
     }
 
     //generates nicely formatted linked path from the root id to a given id
-    public function getNicePathFromId($sel_id, $title, $funcURL, $path = "")
+    /**
+     * @param        $sel_id
+     * @param        $title
+     * @param        $funcURL
+     * @param string $path
+     * @return string
+     */
+    public function getNicePathFromId($sel_id, $title, $funcURL, $path = '')
     {
-        $path   = !empty($path) ? "&nbsp;:&nbsp;" . $path : $path;
+        $path   = !empty($path) ? '&nbsp;:&nbsp;' . $path : $path;
         $sel_id = intval($sel_id);
-        $sql    = "SELECT " . $this->pid . ", " . $title . " FROM " . $this->table . " WHERE " . $this->id . "=$sel_id";
+        $sql    = 'SELECT ' . $this->pid . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->id . "=$sel_id";
         $result = $this->db->query($sql);
         if ($this->db->getRowsNum($result) == 0) {
             return $path;
         }
-        list ($parentid, $name) = $this->db->fetchRow($result);
+        list($parentid, $name) = $this->db->fetchRow($result);
         $myts = MyTextSanitizer::getInstance();
         $name = $myts->htmlspecialchars($name);
-        $path = "<a href='" . $funcURL . "&amp;" . $this->id . "=" . $sel_id . "'>" . $name . "</a>" . $path . "";
+        $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . "'>" . $name . '</a>' . $path . '';
         if ($parentid == 0) {
             return $path;
         }
@@ -220,17 +264,20 @@ class MxdirectoryTree
 
     //generates id path from the root id to a given id
     // the path is delimetered with "/"
-    public function getIdPathFromId($sel_id, $path = "")
+    /**
+     * @param        $sel_id
+     * @param string $path
+     * @return string
+     */
+    public function getIdPathFromId($sel_id, $path = '')
     {
         $sel_id = intval($sel_id);
-        $result = $this->db->query(
-            "SELECT " . $this->pid . " FROM " . $this->table . " WHERE " . $this->id . "=$sel_id"
-        );
+        $result = $this->db->query('SELECT ' . $this->pid . ' FROM ' . $this->table . ' WHERE ' . $this->id . "=$sel_id");
         if ($this->db->getRowsNum($result) == 0) {
             return $path;
         }
-        list ($parentid) = $this->db->fetchRow($result);
-        $path = "/" . $sel_id . $path . "";
+        list($parentid) = $this->db->fetchRow($result);
+        $path = '/' . $sel_id . $path . '';
         if ($parentid == 0) {
             return $path;
         }
@@ -247,11 +294,11 @@ class MxdirectoryTree
      * @param  array  $parray
      * @return array
      */
-    public function getAllChild($sel_id = 0, $order = "", $parray = array())
+    public function getAllChild($sel_id = 0, $order = '', $parray = array())
     {
         $sel_id = intval($sel_id);
-        $sql    = "SELECT * FROM " . $this->table . " WHERE " . $this->pid . "=" . $sel_id . "";
-        if ($order != "") {
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        if ($order != '') {
             $sql .= " ORDER BY $order";
         }
         $result = $this->db->query($sql);
@@ -276,11 +323,11 @@ class MxdirectoryTree
      * @param  string $r_prefix
      * @return array
      */
-    public function getChildTreeArray($sel_id = 0, $order = "", $parray = array(), $r_prefix = "")
+    public function getChildTreeArray($sel_id = 0, $order = '', $parray = array(), $r_prefix = '')
     {
         $sel_id = intval($sel_id);
-        $sql    = "SELECT * FROM " . $this->table . " WHERE " . $this->pid . "=" . $sel_id . "";
-        if ($order != "") {
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        if ($order != '') {
             $sql .= " ORDER BY $order";
         }
         $result = $this->db->query($sql);
@@ -289,7 +336,7 @@ class MxdirectoryTree
             return $parray;
         }
         while ($row = $this->db->fetchArray($result)) {
-            $row['prefix'] = $r_prefix . ".";
+            $row['prefix'] = $r_prefix . '.';
             array_push($parray, $row);
             $parray = $this->getChildTreeArray($row[$this->id], $order, $parray, $row['prefix']);
         }

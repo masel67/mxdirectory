@@ -29,19 +29,19 @@ include 'functions.php';
 xoops_cp_header();
 
 //adminmenu(-1);
-echo"<div style=\"position: relative; left: 1%;\"><table class=\"outer\" style=\"width: 100%; border-style: none; spacing: 1px;\">";
+echo "<div style=\"position: relative; left: 1%;\"><table class=\"outer\" style=\"width: 100%; border-style: none; spacing: 1px;\">";
 echo "<tr><th style=\"text-align: center;\">mx-directory Brought To You By:</th></tr>";
 echo "<tr><td class=\"odd\" style=\"width: 100%; text-align: center;\">";
 echo "<a href='http://dev.xoops.org' target='_blank'><h3>Dev.Xoops.Org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://www.shoalsmedia.com' target='_blank'>Tripmon</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://www.web-udvikling.dk' target='_blank'>JKP Software Development</h3></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://www.zyspec.com' target='_blank'>ZySpec</h3></a><br />";
 echo "<font style=\"font-style: italic;\">Check the readme for additional tweaks and options.</font>";
 echo '</td></tr></table>';
-echo"<table class=\"outer\" style=\"width: 100%; border-style: none; spacing: 1px;\"><tr>";
+echo "<table class=\"outer\" style=\"width: 100%; border-style: none; spacing: 1px;\"><tr>";
 echo "<td class=\"odd\" style=\"width: 48%; text-align: center\" >";
 echo "<font style=\"font-weight: bold;\"><a href='http://dev.xoops.org/modules/xfmod/project/?group_id=1223' target='_blank'>mx-directory Module Support</a></font><br />";
-echo "Need help with using mx-directory? <br /><br />- Xoops Support Forums</a><br /><br />";
+echo 'Need help with using mx-directory? <br /><br />- Xoops Support Forums</a><br /><br />';
 echo "Need additional help with PHP?<br /><br />- <a href='http://www.php.net/' target='_blank'>Official PHP Site</a><br /><br />";
-echo "Note: Xoops Donors (Friend of Xoops) will given priority.<br /><br />";
-echo "</td>";
+echo 'Note: Xoops Donors (Friend of Xoops) will given priority.<br /><br />';
+echo '</td>';
 echo "<td class=\"odd\" style=\"width: 48%; text-align: center;\">";
 echo "<font style=\"font-weight: bold;\">Make A Donation</font><br />Thank you for using mx-directory. If you find the module useful and plan to use it on your site, please show your appreciation by making a small donation at xoops.org to ensure its ongoing development. <br /><br />";
 
@@ -66,7 +66,7 @@ echo "<input type=\"hidden\" name=\"cancel_return\" value=\"http://www.xoops.org
 echo "<input type=\"hidden\" name=\"return\" value=\"http://www.xoops.org/modules/xdonations/success.php\" />";
 echo "<input type=\"hidden\" name=\"image_url\" value=\"\" />";
 echo "<input type=\"submit\" value=\"Submit Donation\" name=\"I1\" />";
-echo "</form>";
-echo "</td></tr></table></div>";
+echo '</form>';
+echo '</td></tr></table></div>';
 
 xoops_cp_footer();

@@ -24,26 +24,26 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-include_once XOOPS_ROOT_PATH."/class/xoopslists.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 
-$uploadirectory = "/uploads/";
+$uploadirectory = '/uploads/';
 
-$coupform = new XoopsThemeForm(_MD_MXDIR_COUPONFORM, 'couponform', $_SERVER['PHP_SELF'], "POST");
-$linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH."/uploads/");
+$coupform      = new XoopsThemeForm(_MD_MXDIR_COUPONFORM, 'couponform', $_SERVER['PHP_SELF'], 'POST');
+$linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/uploads/');
 $coupform->addElement(new XoopsFormHidden('lid', $lid));
 $coupform->addElement(new XoopsFormText(_MD_MXDIR_COUPONHEADER, 'heading', 25, 30, $heading), true);
 $coupform->addElement(new XoopsFormDhtmlTextArea(_MD_MXDIR_DESCRIPTIONC, 'descr', $descr));
-$image_option=new XoopsFormSelect(_MD_MXDIR_COUPONIMGMGR."<br />"._MD_MXDIR_COUPONIMG."<br />", 'image', $image);
+$image_option = new XoopsFormSelect(_MD_MXDIR_COUPONIMGMGR . '<br />' . _MD_MXDIR_COUPONIMG . '<br />', 'image', $image);
 $image_option->addOptionArray($linkimg_array);
-$imgtray = new XoopsFormElementTray(_MD_MXDIR_COUPSEL,'<br />');
+$imgtray = new XoopsFormElementTray(_MD_MXDIR_COUPSEL, '<br />');
 
-$image_option->setExtra("onchange='showImgSelected(\"imagex\", \"image\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'" );
-$imgtray->addElement($image_option,false);
-$imgtray -> addElement( new XoopsFormLabel( '', "<br /><img src='".XOOPS_URL.$uploadirectory . "/" . $image . "' name='imagex' id='imagex' alt='' />" ) );
+$image_option->setExtra("onchange='showImgSelected(\"imagex\", \"image\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+$imgtray->addElement($image_option, false);
+$imgtray->addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . $uploadirectory . '/' . $image . "' name='imagex' id='imagex' alt='' />"));
 //$coupform->addElement($image_option);
 $coupform->addElement($imgtray);
-$coupform->addelement(new XoopsFormRadioYN(_MD_MXDIR_CONVERTLBR, 'lbr', $lbr));
+$coupform->addElement(new XoopsFormRadioYN(_MD_MXDIR_CONVERTLBR, 'lbr', $lbr));
 $coupform->addElement(new XoopsFormDateTime(_MD_MXDIR_PUBLISHCOUPON, 'publish', 25, $publish));
 $expire_option = new XoopsFormCheckBox(_MD_MXDIR_SETEXPIRATION, 'expire_enable', $setexpire);
 $expire_option->addOption(1, _YES);

@@ -40,31 +40,34 @@
  *           $options[4]   = Checkbox value of whether to display empty block
  *           $options[5]   = Category to use
  * Output  : Returns the desired most recent or most popular links
- ******************************************************************************/
+ *****************************************************************************
+ * @param $options
+ * @return array|string
+ */
 function b_xdir_coup_show($options)
 {
     //include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
-    $mydirname = basename(dirname(dirname(__FILE__)));
-    include_once XOOPS_ROOT_PATH . "/modules/" . $mydirname . "/class/mxdirectorytree.php";
+    $mydirname = basename(dirname(__DIR__));
+    include_once XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
     global $xoopsDB, $xoopModuleConfig;
-    $mytree = new MxdirectoryTree($xoopsDB->prefix("xdir_cat"), "cid", "pid");
+    $mytree = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
 
-    $mydirname = (basename(dirname(dirname(__FILE__)), "a"));
-    include_once XOOPS_ROOT_PATH . "/modules/" . $mydirname . "/class/coupon.php";
-    $myts =& MyTextSanitizer::getInstance();
-//  include_once XOOPS_ROOT_PATH."/modules/" . $mydirname . "/header.php";
+    $mydirname = basename(dirname(__DIR__), 'a');
+    include_once XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/coupon.php';
+    $myts = MyTextSanitizer::getInstance();
+    //  include_once XOOPS_ROOT_PATH."/modules/" . $mydirname . "/header.php";
     $coupon_handler = new XdirectoryCouponHandler($xoopsDB);
 
     $block = array();
 
     // now get subcats of this category
-    if ($options[5] == 'All') {
+    if ($options[5] === 'All') {
         $catlist = 0;
     } else {
         $catlist   = array();
         $catlist[] = intval($options[5]);
-        $tree      = $mytree->getChildTreeArray(intval($options[5]), "title ASC");
+        $tree      = $mytree->getChildTreeArray(intval($options[5]), 'title ASC');
         foreach ($tree as $branch) {
             $catlist[] .= $branch['cid'];
         }
@@ -73,7 +76,7 @@ function b_xdir_coup_show($options)
     foreach ($coups as $key => $values) {
         if (!XOOPS_USE_MULTIBYTES) {
             if (strlen($coups[$key]['linkTitle']) >= $options[2]) {
-                $coups[$key]['linkTitle'] = substr($coups[$key]['linkTitle'], 0, ($options[2] - 1)) . "...";
+                $coups[$key]['linkTitle'] = substr($coups[$key]['linkTitle'], 0, $options[2] - 1) . '...';
             }
         }
     }
@@ -82,37 +85,41 @@ function b_xdir_coup_show($options)
         $block[$i]['mydirname'] = $mydirname;
     }
     if (empty($block)) {
-
-        $block = ($options[5] == 0) ? "" : array('ld' => '', 'cid' => '', 'image' => '','mydirname' => '' ,'linkTitle' => '');
+        $block = ($options[5] == 0) ? '' : array('ld' => '', 'cid' => '', 'image' => '', 'mydirname' => '', 'linkTitle' => '');
     }
 
     return $block;
 }
 
-function b_xdir_coup_edit($options) {
-  global $xoopsDB;
+/**
+ * @param $options
+ * @return string
+ */
+function b_xdir_coup_edit($options)
+{
+    global $xoopsDB;
     //include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
-  $mydirname = basename ( dirname(dirname( __FILE__ ) ) ) ;
-  include_once XOOPS_ROOT_PATH."/modules/" . $mydirname . "/class/mxdirectorytree.php";
+    $mydirname = basename(dirname(__DIR__));
+    include_once XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
-  $mytree = new MxdirectoryTree($xoopsDB->prefix("xdir_cat"),"cid","pid");
-    $form = ""._MB_MXDIR_DISP."&nbsp;";
+    $mytree = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
+    $form   = '' . _MB_MXDIR_DISP . '&nbsp;';
     $form .= "<input type='hidden' name='options[]' value='";
-    
+
     switch ($options[0]) {
-    case "image":
-          $form .= "image'";
-      break;
-    case "text":
-    default:
-        $form .= "text'";
-        break;
-  }
-    
-    $form .= " />";
-    $form .= "<input type='text' name='options[]' value='".$options[1]."' />&nbsp;"._MB_MXDIR_LINKS."";
-    $form .= "&nbsp;<br>"._MB_MXDIR_CHARS."&nbsp;<input type='text' name='options[]' value='".$options[2]."' />&nbsp;"._MB_MXDIR_LENGTH."";
-    $form .= "<input type='hidden' name='options[]' value='".$options[3]."' />";
+        case 'image':
+            $form .= "image'";
+            break;
+        case 'text':
+        default:
+            $form .= "text'";
+            break;
+    }
+
+    $form .= ' />';
+    $form .= "<input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_MXDIR_LINKS . '';
+    $form .= '&nbsp;<br>' . _MB_MXDIR_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "' />&nbsp;" . _MB_MXDIR_LENGTH . '';
+    $form .= "<input type='hidden' name='options[]' value='" . $options[3] . "' />";
     if ($options[4] == 1) {
         $ychk = 'checked';
         $nchk = '';
@@ -120,22 +127,22 @@ function b_xdir_coup_edit($options) {
         $ychk = '';
         $nchk = 'checked';
     }
-  $form .= "<br /><br />"._MB_MXDIR_BLANK."&nbsp;";
-  $form .= "<input type='radio' $ychk name='options[]' value='1' />"._YES;
-    $form .= "<input type='radio' $nchk name='options[]' value='0' />"._NO;
+    $form .= '<br /><br />' . _MB_MXDIR_BLANK . '&nbsp;';
+    $form .= "<input type='radio' $ychk name='options[]' value='1' />" . _YES;
+    $form .= "<input type='radio' $nchk name='options[]' value='0' />" . _NO;
 
-    $form .= "<br /><br />"._MB_MXDIR_SELECT_CAT."&nbsp;";
-    $tree = $mytree->getChildTreeArray(0,"title ASC");
-  $form .= "<select name='options[5]'>";
-    $form .= "<option value='All'>"._MB_MXDIR_ALLCATS;
-    foreach ($tree as $branch ) {
+    $form .= '<br /><br />' . _MB_MXDIR_SELECT_CAT . '&nbsp;';
+    $tree = $mytree->getChildTreeArray(0, 'title ASC');
+    $form .= "<select name='options[5]'>";
+    $form .= "<option value='All'>" . _MB_MXDIR_ALLCATS;
+    foreach ($tree as $branch) {
         $branch['prefix'] = substr($branch['prefix'], 0, -1);
-        $branch['prefix'] = str_replace(".","--",$branch['prefix']);
-        $form .= "<option value='".$branch['cid']."'";
-        $selopt = ($options[5] == $branch['cid']) ? " selected='selected' " : "" ;
-        $form .= $selopt.">".$branch['prefix'].$branch['title'];
+        $branch['prefix'] = str_replace('.', '--', $branch['prefix']);
+        $form .= "<option value='" . $branch['cid'] . "'";
+        $selopt = ($options[5] == $branch['cid']) ? " selected='selected' " : '';
+        $form .= $selopt . '>' . $branch['prefix'] . $branch['title'];
     }
-    $form .= "</select>";
+    $form .= '</select>';
 
     return $form;
 }

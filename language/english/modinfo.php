@@ -1,55 +1,55 @@
 <?php
 // $Id: modinfo.php 11970 2013-08-24 14:20:57Z beckmi $
 // Module Info
-$mydirname = basename( dirname ( dirname( dirname( __FILE__ ) ) ) ) ;
+$mydirname = basename(dirname(dirname(__DIR__)));
 
 // The name of this module
-define("_MI_MXDIR_NAME","Yellow Pages");
+define('_MI_MXDIR_NAME', 'Yellow Pages');
 
 // A brief description of this module
-define("_MI_MXDIR_DESC","Creates a directory listing section where users can search/submit/rate various web sites.");
+define('_MI_MXDIR_DESC', 'Creates a directory listing section where users can search/submit/rate various web sites.');
 
 // Names of blocks for this module (Not all module has blocks)
-define("_MI_MXDIR_BNAME1","Recent Listings");
-define("_MI_MXDIR_BNAME1DSC","Shows recently added listings");
-define("_MI_MXDIR_BNAME2","Top Listings");
-define("_MI_MXDIR_BNAME2DSC","Shows most visited listings");
-define("_MI_MXDIR_BNAME3","Coupon Listings");
-define("_MI_MXDIR_BNAME3DSC","Shows recently added coupons by name");
-define("_MI_MXDIR_BNAME4","Coupon Listings - Show Images");
-define("_MI_MXDIR_BNAME4DSC","Shows recently added coupons by coupon image");
-define("_MI_MXDIR_BNAME5","Random Listings");
-define("_MI_MXDIR_BNAME5DSC","Shows random listings");
-define("_MI_MXDIR_BNAME6","Category Menu");
-define("_MI_MXDIR_BNAME6DSC","Shows category links in a block");
-define("_MI_MXDIR_BNAME7","Rating Listings");
-define("_MI_MXDIR_BNAME7DSC","Shows top rated listings");
+define('_MI_MXDIR_BNAME1', 'Recent Listings');
+define('_MI_MXDIR_BNAME1DSC', 'Shows recently added listings');
+define('_MI_MXDIR_BNAME2', 'Top Listings');
+define('_MI_MXDIR_BNAME2DSC', 'Shows most visited listings');
+define('_MI_MXDIR_BNAME3', 'Coupon Listings');
+define('_MI_MXDIR_BNAME3DSC', 'Shows recently added coupons by name');
+define('_MI_MXDIR_BNAME4', 'Coupon Listings - Show Images');
+define('_MI_MXDIR_BNAME4DSC', 'Shows recently added coupons by coupon image');
+define('_MI_MXDIR_BNAME5', 'Random Listings');
+define('_MI_MXDIR_BNAME5DSC', 'Shows random listings');
+define('_MI_MXDIR_BNAME6', 'Category Menu');
+define('_MI_MXDIR_BNAME6DSC', 'Shows category links in a block');
+define('_MI_MXDIR_BNAME7', 'Rating Listings');
+define('_MI_MXDIR_BNAME7DSC', 'Shows top rated listings');
 
 // Sub menu titles
-define("_MI_MXDIR_SMNAME1","Submit");
-define("_MI_MXDIR_SMNAME2","Popular");
-define("_MI_MXDIR_SMNAME3","Top Rated");
-define("_MI_MXDIR_SMNAME4","Special Offers");
-define("_MI_MXDIR_SMNAME5","My Listings");
+define('_MI_MXDIR_SMNAME1', 'Submit');
+define('_MI_MXDIR_SMNAME2', 'Popular');
+define('_MI_MXDIR_SMNAME3', 'Top Rated');
+define('_MI_MXDIR_SMNAME4', 'Special Offers');
+define('_MI_MXDIR_SMNAME5', 'My Listings');
 
 // Names of admin menu items
-define("_MI_MXDIR_ADMENU1","Overview");
-define("_MI_MXDIR_ADMENU2","Listings");
-define("_MI_MXDIR_ADMENU3","Submitted Listings");
-define("_MI_MXDIR_ADMENU4","Broken Links");
-define("_MI_MXDIR_ADMENU5","Modified Listings");
-define("_MI_MXDIR_ADMENU6","Coupons");
-define("_MI_MXDIR_ADMENU7","Expired Coupons");
-define("_MI_MXDIR_ADMENU8","Future Coupons");
-define("_MI_MXDIR_ADMENU9","Categories");
-define("_MI_MXDIR_ADMENU10","Blocks & Groups");
-define("_MI_MXDIR_ADMENU11","No Exp. Coupons");
+define('_MI_MXDIR_ADMENU1', 'Overview');
+define('_MI_MXDIR_ADMENU2', 'Listings');
+define('_MI_MXDIR_ADMENU3', 'Submitted Listings');
+define('_MI_MXDIR_ADMENU4', 'Broken Links');
+define('_MI_MXDIR_ADMENU5', 'Modified Listings');
+define('_MI_MXDIR_ADMENU6', 'Coupons');
+define('_MI_MXDIR_ADMENU7', 'Expired Coupons');
+define('_MI_MXDIR_ADMENU8', 'Future Coupons');
+define('_MI_MXDIR_ADMENU9', 'Categories');
+define('_MI_MXDIR_ADMENU10', 'Blocks & Groups');
+define('_MI_MXDIR_ADMENU11', 'No Exp. Coupons');
 
 // Additional Admin menu items
-define("_MI_MXDIR_PREFERENCES","Preferences");
-define("_MI_MXDIR_GOMOD","Go to Module");
-define("_MI_MXDIR_MODADMIN","Module Administration");
-define("_MI_MXDIR_ABOUT","About");
+define('_MI_MXDIR_PREFERENCES', 'Preferences');
+define('_MI_MXDIR_GOMOD', 'Go to Module');
+define('_MI_MXDIR_MODADMIN', 'Module Administration');
+define('_MI_MXDIR_ABOUT', 'About');
 
 // Title of config items
 define('_MI_MXDIR_POPULAR', 'Select the number of hits for links to be marked as popular');
@@ -58,8 +58,8 @@ define('_MI_MXDIR_PERPAGE', 'Select the maximum number of listings displayed in 
 define('_MI_MXDIR_USESHOTS', 'Select yes to display Logo images in each listing (not links)');
 define('_MI_MXDIR_USEFRAMES', 'Would you like to display the linked page withing a frame?');
 define('_MI_MXDIR_SHOTWIDTH', 'Maximum allowed width of each screenshot image');
-define('_MI_MXDIR_ANONPOST','Allow anonymous users to post business listings?');
-define('_MI_MXDIR_AUTOAPPROVE','Auto approve new listings without admin intervention?');
+define('_MI_MXDIR_ANONPOST', 'Allow anonymous users to post business listings?');
+define('_MI_MXDIR_AUTOAPPROVE', 'Auto approve new listings without admin intervention?');
 define('_MI_MXDIR_SHOWMOD', 'Allow registered users to submit link modifications?');
 
 define('_MI_MXDIR_PREMIUM1', 'Default Level 1 Name');
@@ -77,7 +77,7 @@ define('_MI_MXDIR_COLOR', 'Color');
 
 //RC1
 //define('_MI_MXDIR_PREMDESC','&nbsp;&nbsp;<a href=\"javascript:openWithSelfMain('.XOOPS_URL.'/modules/'.$mydirname.'/admin/colors.html, \'\', 400, 300);\">Color Wheel</a>');
-define('_MI_MXDIR_PREMDESC','&nbsp;&nbsp;<a href="'.XOOPS_URL.'/modules/'.$mydirname.'/admin/colors.html" target="_blank" height="400" width="300">Color Wheel</a>');
+define('_MI_MXDIR_PREMDESC', '&nbsp;&nbsp;<a href="' . XOOPS_URL . '/modules/' . $mydirname . '/admin/colors.html" target="_blank" height="400" width="300">Color Wheel</a>');
 define('_MI_MXDIR_SPONSOR_ON', '-Sponsored listings- header Active?');
 define('_MI_MXDIR_PREMIUM1_OPTS', '-----Default Level 1 Options');
 define('_MI_MXDIR_PREMIUM2_OPTS', '-----Level 2 Options');
@@ -126,22 +126,22 @@ define('_MI_MXDIR_CHOOSETIME', 'Use 12 hour (am/pm) clock?');
 define('_MI_MXDIR_CHOOSETIMEDESC', 'For Business Hour Select Box <br />No to use 24 hr. clock');
 
 //Description of each template
-define("_MI_MXDIR_LISTINGFULLDSC","");
-define("_MI_MXDIR_VIEWALPHADSC","");
-define("_MI_MXDIR_BROKENLINKDSC","");
-define("_MI_MXDIR_LINKDSC","");
-define("_MI_MXDIR_INDEXDSC","");
-define("_MI_MXDIR_MODLINKDSC","");
-define("_MI_MXDIR_RATELINKDSC","");
-define("_MI_MXDIR_SINGLELINKDSC","");
-define("_MI_MXDIR_SUBMITDSC","");
-define("_MI_MXDIR_TOPTENDSC","");
-define("_MI_MXDIR_VIEWCATDSC","");
-define("_MI_MXDIR_PREMIUMLINKDSC","");
-define("_MI_MXDIR_PRINTDSC","");
-define("_MI_MXDIR_SAVINGSDSC","");
-define("_MI_MXDIR_PRINT_SAVINGSDSC","");
-define("_MI_MXDIR_MYLISTINGS","");
+define('_MI_MXDIR_LISTINGFULLDSC', '');
+define('_MI_MXDIR_VIEWALPHADSC', '');
+define('_MI_MXDIR_BROKENLINKDSC', '');
+define('_MI_MXDIR_LINKDSC', '');
+define('_MI_MXDIR_INDEXDSC', '');
+define('_MI_MXDIR_MODLINKDSC', '');
+define('_MI_MXDIR_RATELINKDSC', '');
+define('_MI_MXDIR_SINGLELINKDSC', '');
+define('_MI_MXDIR_SUBMITDSC', '');
+define('_MI_MXDIR_TOPTENDSC', '');
+define('_MI_MXDIR_VIEWCATDSC', '');
+define('_MI_MXDIR_PREMIUMLINKDSC', '');
+define('_MI_MXDIR_PRINTDSC', '');
+define('_MI_MXDIR_SAVINGSDSC', '');
+define('_MI_MXDIR_PRINT_SAVINGSDSC', '');
+define('_MI_MXDIR_MYLISTINGS', '');
 
 // Description of each config items
 define('_MI_MXDIR_POPULARDSC', '');
@@ -150,7 +150,7 @@ define('_MI_MXDIR_PERPAGEDSC', '');
 define('_MI_MXDIR_USEFRAMEDSC', '');
 define('_MI_MXDIR_USESHOTSDSC', '');
 define('_MI_MXDIR_SHOTWIDTHDSC', '');
-define('_MI_MXDIR_AUTOAPPROVEDSC','');
+define('_MI_MXDIR_AUTOAPPROVEDSC', '');
 define('_MI_MXDIR_PREMIUM1DSC', '');
 define('_MI_MXDIR_PREMIUM2DSC', '');
 define('_MI_MXDIR_PREMIUM3DSC', '');
@@ -180,8 +180,8 @@ define('_MI_MXDIR_USEALPHADSC', '');
 define('_MI_MXDIR_USESEARCHDSC', '');
 
 define('_MI_MXDIR_COLORDSC', '');
-define("_MI_MXDIR_COUPON_FOOTER", "Coupon footer text");
-define("_MI_MXDIR_COUPON_FOOTERDESC", "This text will go below the coupons in the printer friendly coupon page");
+define('_MI_MXDIR_COUPON_FOOTER', 'Coupon footer text');
+define('_MI_MXDIR_COUPON_FOOTERDESC', 'This text will go below the coupons in the printer friendly coupon page');
 
 // Text for notifications
 
