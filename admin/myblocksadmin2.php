@@ -123,7 +123,7 @@ function list_blockinstances()
     $criteria = new CriteriaCompo($crit);
     $criteria->setSort('visible DESC, side ASC, weight');
     $instance_handler =& xoops_getHandler('blockinstance');
-    $instances        =& $instance_handler->getObjects($criteria, true, true);
+    $instances        = $instance_handler->getObjects($criteria, true, true);
 
     //Get modules and pages for visible in
     $module_list[_AM_MXDIR_SYSTEMLEVEL]['0-2'] = _AM_MXDIR_ADMINBLOCK;
@@ -132,7 +132,7 @@ function list_blockinstances()
     $criteria                                  = new CriteriaCompo(new Criteria('hasmain', 1));
     $criteria->add(new Criteria('isactive', 1));
     $module_handler =& xoops_getHandler('module');
-    $module_main    =& $module_handler->getObjects($criteria, true, true);
+    $module_main    = $module_handler->getObjects($criteria, true, true);
     if (count($module_main) > 0) {
         foreach (array_keys($module_main) as $mid) {
             $module_list[$module_main[$mid]->getVar('name')][$mid . '-0'] = _AM_MXDIR_ALLMODULEPAGES;

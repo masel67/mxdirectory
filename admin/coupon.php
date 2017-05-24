@@ -114,7 +114,7 @@ switch ($op) {
         $criteria->add(new Criteria('publish', time(), '>'));
         break;
 }
-$coupons =& $coupon_handler->getObjects($criteria, false);
+$coupons = $coupon_handler->getObjects($criteria, false);
 $coupons = $coupon_handler->prepare2show($coupons);
 $output  = '<table>';
 foreach ($coupons as $catid => $category) {
