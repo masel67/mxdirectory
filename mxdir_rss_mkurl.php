@@ -105,7 +105,7 @@ if (!empty($_POST['submit'])) {
 
 // -- FORM DISPLAY --
 
-$rssform = new XoopsThemeForm(_MD_MXDIR_RSSFMTTL, 'rssform', $_SERVER['PHP_SELF'], 'POST');
+$rssform = new XoopsThemeForm(_MD_MXDIR_RSSFMTTL, 'rssform', $_SERVER['PHP_SELF'], 'post', true);
 
 // Get RSS Option Type
 $sel_op = (new XoopsFormSelect(_MD_MXDIR_SORTBY, 'rss_op', $rss_op, 1, false));

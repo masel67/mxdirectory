@@ -58,7 +58,7 @@ function xdir()
 {
     global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $mydirname;
 
-    $xdirform = new XoopsThemeForm(_MD_MXDIR_WEBLINKSCONF, 'xdirform', $_SERVER['PHP_SELF'], 'POST');
+    $xdirform = new XoopsThemeForm(_MD_MXDIR_WEBLINKSCONF, 'xdirform', $_SERVER['PHP_SELF'], 'post', true);
     // Temporarily 'homeless' links
     $result = $xoopsDB->query('SELECT count(*) FROM ' . $xoopsDB->prefix('xdir_broken') . '');
     list($totalbrokenlinks) = $xoopsDB->fetchRow($result);
@@ -1054,7 +1054,7 @@ function doModReq()
                 $owner = 'administration';
             }
 
-            $listmodreqorigform = new XoopsThemeForm(_MD_MXDIR_ORIGINAL, 'listmodreqform', $_SERVER['PHP_SELF'], 'POST');
+            $listmodreqorigform = new XoopsThemeForm(_MD_MXDIR_ORIGINAL, 'listmodreqform', $_SERVER['PHP_SELF'], 'post', true);
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_DESCRIPTIONC, "<span style='font-size:xx-small;'>" . $origdescription . '</span>'));
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_SITETITLE, "<span style='font-size:xx-small;'>" . $origtitle . '</span>'));
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_BUSADDRESS, "<span style='font-size:xx-small;'>" . $origaddress . '</span>'));

@@ -44,7 +44,7 @@ function ctob()
         $xsemail = $xoopsUser->getVar('email');
     }
 
-    $ctobform = new XoopsThemeForm(_MD_MXDIR_EMAILC . ' ' . _MD_MXDIR_SITETITLE . ' ' . $linktitle, 'ctobform', $_SERVER['PHP_SELF'] . '?op=sendit', 'POST');
+    $ctobform = new XoopsThemeForm(_MD_MXDIR_EMAILC . ' ' . _MD_MXDIR_SITETITLE . ' ' . $linktitle, 'ctobform', $_SERVER['PHP_SELF'] . '?op=sendit', 'post', true);
     $ctobform->addElement(new XoopsFormLabel(_MD_MXDIR_SUBJECT, $linktitle));
     $ctobform->addElement(new XoopsFormText(_MD_MXDIR_YOUR . ' ' . _MD_MXDIR_NAME, 'sname', 50, 100, $xsname), true);
     $ctobform->addElement(new XoopsFormText(_MD_MXDIR_YOUR . ' ' . _MD_MXDIR_EMAILC, 'semail', 50, 50, $xsemail), true);
@@ -125,7 +125,7 @@ function tell()
     //echo $xoopsUser->getVar("email");
     //echo "<=HERE";
     //exit;
-    $tfform = new XoopsThemeForm(_MD_MXDIR_TELLAFRIEND, 'tfform', $_SERVER['PHP_SELF'] . '?op=sendit', 'POST');
+    $tfform = new XoopsThemeForm(_MD_MXDIR_TELLAFRIEND, 'tfform', $_SERVER['PHP_SELF'] . '?op=sendit', 'post', true);
     $tfform->addElement(new XoopsFormText(_MD_MXDIR_YOUR . ' ' . _MD_MXDIR_NAME, 'sname', 50, 100, $xsname));
     $tfform->addElement(new XoopsFormText(_MD_MXDIR_FRIEND . ' ' . _MD_MXDIR_NAME, 'frname', 50, 50, ''));
     $tfform->addElement(new XoopsFormText(_MD_MXDIR_FRIEND . ' ' . _MD_MXDIR_EMAILC, 'fremail', 50, 50, ''));

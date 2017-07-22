@@ -29,7 +29,7 @@ include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 
 $uploadirectory = '/uploads/';
 
-$coupform      = new XoopsThemeForm(_MD_MXDIR_COUPONFORM, 'couponform', $_SERVER['PHP_SELF'], 'POST');
+$coupform      = new XoopsThemeForm(_MD_MXDIR_COUPONFORM, 'couponform', $_SERVER['PHP_SELF'], 'post', true);
 $linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/uploads/');
 $coupform->addElement(new XoopsFormHidden('lid', $lid));
 $coupform->addElement(new XoopsFormText(_MD_MXDIR_COUPONHEADER, 'heading', 25, 30, $heading), true);
