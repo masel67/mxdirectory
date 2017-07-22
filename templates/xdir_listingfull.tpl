@@ -3,7 +3,7 @@
   <tr>
     <td colspan="2" valign="top" class="lf_top_left_img"></td>
     <td colspan="3" class="lf_header_box"><{$link.adminlink}><{$link.title}><{if $link.coupons > "0" && $link.lvlopts.6 == "1" }>
-        <a href="savings.php?lid=<{$link.id}>"><img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="&lt;{$smarty.const._MD_MXDIR_SAVINGS}&gt;" /></a>
+        <a href="savings.php?lid=<{$link.id}>"><img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="&lt;{$smarty.const._MD_MXDIR_SAVINGS}&gt;"></a>
       <{/if}></td>
   <td colspan="2" valign="top" class="lf_top_right_image">&nbsp;</td>
   </tr>
@@ -11,24 +11,24 @@
     <td width="10" rowspan="5" valign="top" class="link_left_bar">&nbsp;</td>
     <td colspan="2" rowspan="5" valign="top" class="lf_left_panel">
       <{if $link.logourl != "" && $link.lvlopts.8 == "1"}>
-        <br />
-				<img src="<{$xoops_url}>/modules/<{$smartydir}>/images/shots/<{$link.logourl}>" alt="&lt;{$coupon.linkTitle}&gt; &lt;{$smarty.const._MD_MXDIR_LOGO}&gt;" />
-				<br />
+        <br>
+				<img src="<{$xoops_url}>/modules/<{$smartydir}>/images/shots/<{$link.logourl}>" alt="&lt;{$coupon.linkTitle}&gt; &lt;{$smarty.const._MD_MXDIR_LOGO}&gt;">
+				<br>
       <{/if}>
       <span style="font-weight: bold;"><{$link.titletrim}></span>
-      <br />
-      <{$link.address}><br />
+      <br>
+      <{$link.address}><br>
       <{if $link.address2 != ""}>	
-			  <{$link.address2}> <br />
+			  <{$link.address2}> <br>
       <{/if}>
-      <{$link.city}>,&nbsp;<{$link.state}>&nbsp;<{$link.zip}> <br />
+      <{$link.city}>,&nbsp;<{$link.state}>&nbsp;<{$link.zip}> <br>
       <{if $link.country != ""}>
         <span style="font-weight: bold;"><{$lang_country}></span><{$link.country}>
-        <br /><br /><{/if}>
+        <br><br><{/if}>
       <{if $link.url != "http://" && $link.url != "" && $link.lvlopts.4 == "1"}>
-				  <a href='visit.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>' target='_blank'><img src='images/link.gif' border='0' alt='&lt;{$lang_visit}&gt;' /><{$link.url}></a>
+				  <a href='visit.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>' target='_blank'><img src='images/link.gif' border='0' alt='&lt;{$lang_visit}&gt;'><{$link.url}></a>
 	    <{/if}>
-	    <{if ($admcont != '')}><br /><br /><{$smarty.const._MD_MXDIR_BUSADMINFO}><{$admcont}><br /><{/if}>
+	    <{if ($admcont != '')}><br><br><{$smarty.const._MD_MXDIR_BUSADMINFO}><{$admcont}><br><{/if}>
 	          </td>
     <td width="499" height="7" valign="top" class="lf_adm"><div align="left">&nbsp
 
@@ -49,23 +49,23 @@
           <{if $link.email != ""}>
           <td>
             <form action="<{$xoops_url}>/modules/<{$smartydir}>/contact.php" method="get" name="email" id="email">
-              <input type="hidden" name="lid" value="<{$link.id}>" />
-              <input type="hidden" name="op" value="ctob" />
-              <input type="submit" class="c_embtn" value="<{$smarty.const._MD_MXDIR_EMAILBTN}>" />
+              <input type="hidden" name="lid" value="<{$link.id}>">
+              <input type="hidden" name="op" value="ctob">
+              <input type="submit" class="c_embtn" value="<{$smarty.const._MD_MXDIR_EMAILBTN}>">
             </form></td>
           <{/if}>
           <td>
           <!-- REPLACE THE FOLLOWING CODE WITH CODES FOR YOUR COUNTRY FROM THE /MAPS DIRECTORY -->
               <form action="http://maps.google.com/maps?" method="get" name="mapForm2" target="_new" id="mapForm2">
-                              <input type="hidden" name="f" value="q" />
-                              <input type="hidden" name="hl" value="us" />
-                              <input type="hidden" name="q" value="<{$link.address}>, <{$link.zip}> <{$link.city}>, <{$link.country}> " />
+                              <input type="hidden" name="f" value="q">
+                              <input type="hidden" name="hl" value="us">
+                              <input type="hidden" name="q" value="<{$link.address}>, <{$link.zip}> <{$link.city}>, <{$link.country}> ">
                               <input type=submit name="getmap" value="Map">
                           </form>
           <!-- END OF CODE REPLACEMENT FOR COUNTRY MAPS -->          </td>
 
           <td><form action='<{$SCRIPT_NAME}>' method="get" name="prnt" id="prnt">
-              <input type="button" class="c_printbtn" onclick="openWithSelfMain('<{$xoops_url}>/modules/<{$smartydir}>/print.php?lid=<{$link.id}>', 'print', 500, 380);" value="<{$smarty.const._MD_MXDIR_PRINTBTN}>" />
+              <input type="button" class="c_printbtn" onclick="openWithSelfMain('<{$xoops_url}>/modules/<{$smartydir}>/print.php?lid=<{$link.id}>', 'print', 500, 380);" value="<{$smarty.const._MD_MXDIR_PRINTBTN}>">
             </form>          </td>
 		    </tr>
     </table>	</td>

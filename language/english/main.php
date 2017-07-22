@@ -33,13 +33,13 @@ define('_MD_MXDIR_TOPRATED', 'Top Rated');
 
 define('_MD_MXDIR_NEWTHISWEEK', 'New this week');
 define('_MD_MXDIR_UPTHISWEEK', 'Updated this week');
-define('_MD_MXDIR_ATTENTION', "<font style=\"font-weight: bold;\">Attention Business Owners!</font> Getting your business listed is easy and FREE! <br />Simply <a href=\"" .
-                              XOOPS_URL .
-                              "/register.php\"><span style=\"text-decoration: underline;\">register with {X_SITENAME}</span></a> Once registration is completed <br />just logon and <a href=\"" .
-                              XOOPS_URL .
-                              '/modules/' .
-                              $mydirname .
-                              "/submit.php\"><span style=\"text-decoration: underline;\">submit your business</span></a>.");
+define('_MD_MXDIR_ATTENTION', "<font style=\"font-weight: bold;\">Attention Business Owners!</font> Getting your business listed is easy and FREE! <br>Simply <a href=\""
+                              . XOOPS_URL
+                              . "/register.php\"><span style=\"text-decoration: underline;\">register with {X_SITENAME}</span></a> Once registration is completed <br>just logon and <a href=\""
+                              . XOOPS_URL
+                              . '/modules/'
+                              . $mydirname
+                              . "/submit.php\"><span style=\"text-decoration: underline;\">submit your business</span></a>.");
 define('_MD_MXDIR_SPONSLISTHEAD', 'Sponsored Listings');
 define('_MD_MXDIR_ALLLISTHEAD', 'All Listings');
 
@@ -113,7 +113,7 @@ define('_MD_MXDIR_BUSTF', '800: ');
 define('_MD_MXDIR_BUSEMAIL', 'E-Mail: ');
 define('_MD_MXDIR_SITEURL', 'Website: ');
 define('_MD_MXDIR_BUSADMINFO', 'Contact: ');
-define('_MD_MXDIR_BUSADMCONT', 'Contact Information:<br />(Not-Disclosed)');
+define('_MD_MXDIR_BUSADMCONT', 'Contact Information:<br>(Not-Disclosed)');
 define('_MD_MXDIR_BUSADMCONTNAME', 'Contact Name &nbsp;&nbsp;: ');
 define('_MD_MXDIR_BUSADMCONTNUMB', 'Contact Number: ');
 define('_MD_MXDIR_OPTIONS', 'Options: ');
@@ -129,8 +129,8 @@ define('_MD_MXDIR_PREMIUM3', 'Silver: ');
 define('_MD_MXDIR_PREMIUM4', 'Gold: ');
 define('_MD_MXDIR_PREMIUM5', 'Platinum: ');
 
-define('_MD_MXDIR_FAIL_SECURITY', "Submission FAILED:<br />Please complete the <font style=\"font-style: italic;\">secure code</font> entry.");
-define('_MD_MXDIR_FAIL_GD_LOAD', 'There is a problem with your server configuration.<br />FAIL: GD Load Test');
+define('_MD_MXDIR_FAIL_SECURITY', "Submission FAILED:<br>Please complete the <font style=\"font-style: italic;\">secure code</font> entry.");
+define('_MD_MXDIR_FAIL_GD_LOAD', 'There is a problem with your server configuration.<br>FAIL: GD Load Test');
 define('_MD_MXDIR_SECURITY_CODE', 'Security Code');
 define('_MD_MXDIR_SECURITY_TYPE', 'Enter Security Code');
 define('_MD_MXDIR_NO_SPAM', 'No SPAM! Security Check');
@@ -204,10 +204,10 @@ define('_MD_MXDIR_SUBMIT', 'Submit');
 define('_MD_MXDIR_CANCEL', 'Cancel');
 
 define('_MD_MXDIR_ALREADYREPORTED', 'You have already submitted a broken report for this resource.');
-define('_MD_MXDIR_MUSTREGFIRST', "Sorry, you don't have the permission to perform this action.<br />Please register or login first!");
+define('_MD_MXDIR_MUSTREGFIRST', "Sorry, you don't have the permission to perform this action.<br>Please register or login first!");
 define('_MD_MXDIR_NORATING', 'No rating selected.');
-define('_MD_MXDIR_CANTVOTEOWN', 'You cannot vote on the resource you submitted.<br />All votes are logged and reviewed.');
-define('_MD_MXDIR_VOTEONCE2', 'Vote for the selected resource only once.<br />All votes are logged and reviewed.');
+define('_MD_MXDIR_CANTVOTEOWN', 'You cannot vote on the resource you submitted.<br>All votes are logged and reviewed.');
+define('_MD_MXDIR_VOTEONCE2', 'Vote for the selected resource only once.<br>All votes are logged and reviewed.');
 define('_MD_MXDIR_ELOGOSIZE', 'ABORTED - File size above Admin Logo Prefs !');
 define('_MD_MXDIR_ELOGOWIDTH', 'ABORTED - File width above Admin Logo Prefs !');
 define('_MD_MXDIR_ELOGOHEIGHT', 'ABORTED - File height above Admin Logo Prefs !');

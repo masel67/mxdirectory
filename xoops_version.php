@@ -1,34 +1,23 @@
 <?php
-// $Id: xoops_version.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 //$mydirname = $xoopsModule->getVar('dirname')
@@ -37,12 +26,14 @@ $mydirname = basename(__DIR__);
 if (!preg_match('/^(\D+)(\d*)$/', $mydirname)) {
     echo('invalid dirname: ' . htmlspecialchars($mydirname));
 }
-
-$modversion['name']        = _MI_MXDIR_NAME;
-$modversion['version']     = 3.02;
-$modversion['description'] = _MI_MXDIR_DESC;
-$modversion['author']      = 'Tripmon, Zyspec & Mithy based on xDirectory by Adam Frick';
-$modversion['credits']     = 'Kazumi Ono';
+$modversion                  = [];
+$modversion['version']       = 3.02;
+$modversion['module_status'] = 'Beta 1';
+$modversion['release_date']  = '2013/08/02';
+$modversion['name']          = _MI_MXDIR_NAME;
+$modversion['description']   = _MI_MXDIR_DESC;
+$modversion['author']        = 'Tripmon, Zyspec & Mithy based on xDirectory by Adam Frick';
+$modversion['credits']       = 'Kazumi Ono';
 //$modversion['help'] = "xdir.html";
 $modversion['help']        = 'page=help';
 $modversion['license']     = 'GNU GPL 2.0 or later';
@@ -51,21 +42,19 @@ $modversion['official']    = 0;
 $modversion['image']       = 'images/xdir_slogo.png';
 $modversion['dirname']     = $mydirname;
 
-$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+//$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
+//$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
+//$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+$modversion['modicons16'] = 'assets/images/icons/16';
+$modversion['modicons32'] = 'assets/images/icons/32';
+
 //about
-$modversion['release_date']        = '2013/08/02';
 $modversion['module_website_url']  = 'www.xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'Beta 1';
 $modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.8';
-$modversion['min_admin']           = '1.1';
-$modversion['min_db']              = array(
-    'mysql'  => '5.0.7',
-    'mysqli' => '5.0.7'
-);
+$modversion['min_xoops']           = '2.5.9';
+$modversion['min_admin']           = '1.2';
+$modversion['min_db']              = array('mysql' => '5.5');
 
 // Sql file (must contain sql generated by phpMyAdmin or phpPgAdmin)
 // All tables should not have any prefix!
@@ -94,7 +83,7 @@ $modversion['blocks'][1]['description'] = _MI_MXDIR_BNAME1DSC;
 $modversion['blocks'][1]['show_func']   = 'b_xdir_top_show';
 $modversion['blocks'][1]['edit_func']   = 'b_xdir_top_edit';
 $modversion['blocks'][1]['options']     = "date|10|25|{$mydirname}|1|All";
-$modversion['blocks'][1]['template']    = 'xdir_block_new.html';
+$modversion['blocks'][1]['template']    = 'xdir_block_new.tpl';
 
 $modversion['blocks'][2]['file']        = 'xdir_top.php';
 $modversion['blocks'][2]['name']        = _MI_MXDIR_BNAME2;
@@ -102,7 +91,7 @@ $modversion['blocks'][2]['description'] = _MI_MXDIR_BNAME2DSC;
 $modversion['blocks'][2]['show_func']   = 'b_xdir_top_show';
 $modversion['blocks'][2]['edit_func']   = 'b_xdir_top_edit';
 $modversion['blocks'][2]['options']     = "hits|10|25|{$mydirname}|1|All";
-$modversion['blocks'][2]['template']    = 'xdir_block_top.html';
+$modversion['blocks'][2]['template']    = 'xdir_block_top.tpl';
 
 $modversion['blocks'][3]['file']        = 'xdir_coup.php';
 $modversion['blocks'][3]['name']        = _MI_MXDIR_BNAME3;
@@ -110,7 +99,7 @@ $modversion['blocks'][3]['description'] = _MI_MXDIR_BNAME3DSC;
 $modversion['blocks'][3]['show_func']   = 'b_xdir_coup_show';
 $modversion['blocks'][3]['edit_func']   = 'b_xdir_coup_edit';
 $modversion['blocks'][3]['options']     = "text|10|25|{$mydirname}|1|All";
-$modversion['blocks'][3]['template']    = 'xdir_block_exp.html';
+$modversion['blocks'][3]['template']    = 'xdir_block_exp.tpl';
 
 $modversion['blocks'][4]['file']        = 'xdir_coup.php';
 $modversion['blocks'][4]['name']        = _MI_MXDIR_BNAME4;
@@ -118,7 +107,7 @@ $modversion['blocks'][4]['description'] = _MI_MXDIR_BNAME4DSC;
 $modversion['blocks'][4]['show_func']   = 'b_xdir_coup_show';
 $modversion['blocks'][4]['edit_func']   = 'b_xdir_coup_edit';
 $modversion['blocks'][4]['options']     = "image|10|25|{$mydirname}|1|All";
-$modversion['blocks'][4]['template']    = 'xdir_block_pub.html';
+$modversion['blocks'][4]['template']    = 'xdir_block_pub.tpl';
 
 $modversion['blocks'][5]['file']        = 'xdir_top.php';
 $modversion['blocks'][5]['name']        = _MI_MXDIR_BNAME5;
@@ -126,7 +115,7 @@ $modversion['blocks'][5]['description'] = _MI_MXDIR_BNAME5DSC;
 $modversion['blocks'][5]['show_func']   = 'b_xdir_top_show';
 $modversion['blocks'][5]['edit_func']   = 'b_xdir_top_edit';
 $modversion['blocks'][5]['options']     = "rand|10|25|{$mydirname}|1|All";
-$modversion['blocks'][5]['template']    = 'xdir_block_rand.html';
+$modversion['blocks'][5]['template']    = 'xdir_block_rand.tpl';
 
 $modversion['blocks'][6]['file']        = 'xdir_cats.php';
 $modversion['blocks'][6]['name']        = _MI_MXDIR_BNAME6;
@@ -134,7 +123,7 @@ $modversion['blocks'][6]['description'] = _MI_MXDIR_BNAME6DSC;
 $modversion['blocks'][6]['show_func']   = 'b_xdir_categories';
 $modversion['blocks'][6]['edit_func']   = 'b_xdir_cat_edit';
 $modversion['blocks'][6]['options']     = '0|0';
-$modversion['blocks'][6]['template']    = 'xdir_block_cats.html';
+$modversion['blocks'][6]['template']    = 'xdir_block_cats.tpl';
 
 $modversion['blocks'][7]['file']        = 'xdir_top.php';
 $modversion['blocks'][7]['name']        = _MI_MXDIR_BNAME7;
@@ -142,7 +131,7 @@ $modversion['blocks'][7]['description'] = _MI_MXDIR_BNAME7DSC;
 $modversion['blocks'][7]['show_func']   = 'b_xdir_top_show';
 $modversion['blocks'][7]['edit_func']   = 'b_xdir_top_edit';
 $modversion['blocks'][7]['options']     = "rank|10|25|{$mydirname}|1|All";
-$modversion['blocks'][7]['template']    = 'xdir_block_rank.html';
+$modversion['blocks'][7]['template']    = 'xdir_block_rank.tpl';
 
 // Menu
 global $xoopsUser;
@@ -178,35 +167,35 @@ $modversion['comments']['callback']['approve'] = 'xdir_com_approve';
 $modversion['comments']['callback']['update']  = 'xdir_com_update';
 
 // Templates
-$modversion['templates'][1]['file']         = 'xdir_listingfull.html';
+$modversion['templates'][1]['file']         = 'xdir_listingfull.tpl';
 $modversion['templates'][1]['description']  = _MI_MXDIR_LISTINGFULLDSC;
-$modversion['templates'][2]['file']         = 'xdir_viewalpha.html';
+$modversion['templates'][2]['file']         = 'xdir_viewalpha.tpl';
 $modversion['templates'][2]['description']  = _MI_MXDIR_VIEWALPHADSC;
-$modversion['templates'][3]['file']         = 'xdir_brokenlink.html';
+$modversion['templates'][3]['file']         = 'xdir_brokenlink.tpl';
 $modversion['templates'][3]['description']  = _MI_MXDIR_BROKENLINKDSC;
-$modversion['templates'][4]['file']         = 'xdir_link.html';
+$modversion['templates'][4]['file']         = 'xdir_link.tpl';
 $modversion['templates'][4]['description']  = _MI_MXDIR_LINKDSC;
-$modversion['templates'][5]['file']         = 'xdir_index.html';
+$modversion['templates'][5]['file']         = 'xdir_index.tpl';
 $modversion['templates'][5]['description']  = _MI_MXDIR_INDEXDSC;
-$modversion['templates'][6]['file']         = 'xdir_ratelink.html';
+$modversion['templates'][6]['file']         = 'xdir_ratelink.tpl';
 $modversion['templates'][6]['description']  = _MI_MXDIR_RATELINKDSC;
-$modversion['templates'][7]['file']         = 'xdir_singlelink.html';
+$modversion['templates'][7]['file']         = 'xdir_singlelink.tpl';
 $modversion['templates'][7]['description']  = _MI_MXDIR_SINGLELINKDSC;
-$modversion['templates'][8]['file']         = 'xdir_topten.html';
+$modversion['templates'][8]['file']         = 'xdir_topten.tpl';
 $modversion['templates'][8]['description']  = _MI_MXDIR_TOPTENDSC;
-$modversion['templates'][9]['file']         = 'xdir_viewcat.html';
+$modversion['templates'][9]['file']         = 'xdir_viewcat.tpl';
 $modversion['templates'][9]['description']  = _MI_MXDIR_VIEWCATDSC;
-$modversion['templates'][10]['file']        = 'xdir_premiumlink.html';
+$modversion['templates'][10]['file']        = 'xdir_premiumlink.tpl';
 $modversion['templates'][10]['description'] = _MI_MXDIR_PREMIUMLINKDSC;
-$modversion['templates'][11]['file']        = 'xdir_print.html';
+$modversion['templates'][11]['file']        = 'xdir_print.tpl';
 $modversion['templates'][11]['description'] = _MI_MXDIR_PRINTDSC;
-$modversion['templates'][12]['file']        = 'xdir_savings.html';
+$modversion['templates'][12]['file']        = 'xdir_savings.tpl';
 $modversion['templates'][12]['description'] = _MI_MXDIR_SAVINGSDSC;
-$modversion['templates'][13]['file']        = 'xdir_print_savings.html';
+$modversion['templates'][13]['file']        = 'xdir_print_savings.tpl';
 $modversion['templates'][13]['description'] = _MI_MXDIR_PRINT_SAVINGSDSC;
-$modversion['templates'][14]['file']        = 'xdir_mylistings.html';
+$modversion['templates'][14]['file']        = 'xdir_mylistings.tpl';
 $modversion['templates'][14]['description'] = _MI_MXDIR_MYLISTINGS;
-$modversion['templates'][15]['file']        = 'xdir_rss.html';
+$modversion['templates'][15]['file']        = 'xdir_rss.tpl';
 $modversion['templates'][15]['description'] = '';
 
 // Config Settings (only for modules that need config settings generated automatically)
@@ -641,6 +630,6 @@ $modversion['notification']['event'][8]['mail_template'] = 'link_approve_notify'
 $modversion['notification']['event'][8]['mail_subject']  = _MI_MXDIR_LINK_APPROVE_NOTIFYSBJ;
 
 // On Update
-if (!empty($_POST['fct']) && !empty($_POST['op']) && $_POST['fct'] === 'modulesadmin' && $_POST['op'] === 'update_ok' && $_POST['dirname'] == $modversion['dirname']) {
+if (!empty($_POST['fct']) && !empty($_POST['op']) && $_POST['fct'] === 'modulesadmin' && $_POST['op'] === 'update_ok' && (isset($_POST['dirname']) && $_POST['dirname'] == $modversion['dirname'])) {
     include __DIR__ . '/include/onupdate.inc.php';
 }

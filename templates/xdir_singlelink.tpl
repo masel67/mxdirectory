@@ -5,15 +5,15 @@
 	<{if $usesearch != "0"}>
             <!--Search Table-->
 			<form name='search' id='search' action='<{$xoops_url}>/search.php' method='post' onsubmit='return xoopsFormValidate_search();'>
-              <input type='hidden' name='mids[]' value='<{$xmid}>' />
-                <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255' />
+              <input type='hidden' name='mids[]' value='<{$xmid}>'>
+                <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255'>
                     <select name='andor'  size='1' class="c_search_select" id='andor'>
                     <option value='AND' selected='selected'><{$smarty.const._MD_MXDIR_ALLWORDS}></option>
                     <option value='OR'><{$smarty.const._MD_MXDIR_ANYWORDS}></option>
                     <option value='exact'><{$smarty.const._MD_MXDIR_EXACTMATCH}></option>
                 </select>
-                    <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_MXDIR_SEARCH}>' />
-              <input type='hidden' name='action' id='action' value='results' />
+                    <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_MXDIR_SEARCH}>'>
+              <input type='hidden' name='action' id='action' value='results'>
             </form>
 
       <{/if}>
@@ -28,7 +28,7 @@
   </tr>
   <{/if }>
 </table>  
-<hr />
+<hr>
 <div>
   <table width="97%" cellspacing="2" cellpadding="2" border="0" >
     <tr>
@@ -37,11 +37,11 @@
   </table>
 </div>
 
-<br />
+<br>
 <table width="100%" cellspacing="0" cellpadding="10" border="0">
   <tr>
     <td style="text-align: center;">
-      <{include file="db:xdir_listingfull.html" link=$link}>
+      <{include file="db:xdir_listingfull.tpl" link=$link}>
     </td>
   </tr>
 </table>
@@ -49,18 +49,18 @@
   <div align="center"><{$commentsnav}>
     <{$lang_notice}></div>
 </div>
-<br /><br />
+<br><br>
 <div class="c_comments_footer">
   <!-- start comments loop -->
   <{if $comment_mode == "flat"}>
-    <{include file="db:system_comments_flat.html"}>
+    <{include file="db:system_comments_flat.tpl"}>
   <{elseif $comment_mode == "thread"}>
-    <{include file="db:system_comments_thread.html"}>
+    <{include file="db:system_comments_thread.tpl"}>
   <{elseif $comment_mode == "nest"}>
-    <{include file="db:system_comments_nest.html"}>
+    <{include file="db:system_comments_nest.tpl"}>
   <{/if}>
   <!-- end comments loop -->
 </div>
-<br /><br />
-<hr />
-<{include file="db:system_notification_select.html"}>
+<br><br>
+<hr>
+<{include file="db:system_notification_select.tpl"}>

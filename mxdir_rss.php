@@ -1,29 +1,22 @@
 <?php
-// $Id: mxdir_rss.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
+
 //
 //  To involk:  http://<site/module url>/xdir_rss.php
 //  Returns:    RSS 2.0 feed with 5 most recent entries
@@ -41,11 +34,11 @@
 //                              to the nearest multiple of 5 ($opsep)
 //
 //  ------------------------------------------------------------------------ //
-require '../../mainfile.php';
+require_once __DIR__ . '/../../mainfile.php';
 $mydirname = basename(__DIR__);
 
-include_once XOOPS_ROOT_PATH . '/class/template.php';
-//include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
+//require_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
 $mydirname = basename(__DIR__);
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 global $xoopsDB, $xoopsConfig;
@@ -133,12 +126,12 @@ header('Content-Type:text/xml; charset=utf-8');
 $rsstpl = new XoopsTpl();
 $rsstpl->xoops_setCaching(2);
 $rsstpl->xoops_setCacheTime($cache_time);
-if (!$rsstpl->is_cached('db:xdir_rss.html', $pgcacheid)) {
-    $sql = 'SELECT l.lid, l.cid, l.title, l.logourl, l.date, l.hits, t.description';
-    $sql .= ' FROM ' . $xoopsDB->prefix('xdir_links') . ' l, ' . $xoopsDB->prefix('xdir_text') . ' t';
-    $sql .= ' WHERE (status>0' . $hitchk . $dispcat . ') AND (l.lid=t.lid)';
-    $sql .= ' ORDER BY ' . $orderby;
-    $sql .= $limit;
+if (!$rsstpl->is_cached('db:xdir_rss.tpl', $pgcacheid)) {
+    $sql    = 'SELECT l.lid, l.cid, l.title, l.logourl, l.date, l.hits, t.description';
+    $sql    .= ' FROM ' . $xoopsDB->prefix('xdir_links') . ' l, ' . $xoopsDB->prefix('xdir_text') . ' t';
+    $sql    .= ' WHERE (status>0' . $hitchk . $dispcat . ') AND (l.lid=t.lid)';
+    $sql    .= ' ORDER BY ' . $orderby;
+    $sql    .= $limit;
     $result = $xoopsDB->query($sql);
     $rsstpl->assign('channel_title', xoops_utf8_encode(htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES)));
     $rsstpl->assign('channel_link', XOOPS_URL . '/modules/' . $mydirname . '/');
@@ -211,10 +204,10 @@ if (!$rsstpl->is_cached('db:xdir_rss.html', $pgcacheid)) {
     }
 }
 
-//$rsstpl->clear_cache('db:system_rss.html',$pgcacheid);
-//$rsstpl->clear_cache('db:xdir_rss.html',$pgcacheid);
-$rsstpl->display('db:xdir_rss.html', $pgcacheid);
-//$rsstpl->display('db:system_rss.html',$pgcacheid);
+//$rsstpl->clear_cache('db:system_rss.tpl',$pgcacheid);
+//$rsstpl->clear_cache('db:xdir_rss.tpl',$pgcacheid);
+$rsstpl->display('db:xdir_rss.tpl', $pgcacheid);
+//$rsstpl->display('db:system_rss.tpl',$pgcacheid);
 if (isset($enctype) && !($enctype === false)) {
     mb_internal_encoding($enctype);
 }

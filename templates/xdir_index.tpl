@@ -6,15 +6,15 @@
 	<{if $usesearch != "0"}>
             <!--Search Table-->
 			<form name='search' id='search' action='<{$xoops_url}>/search.php' method='post' onsubmit='return xoopsFormValidate_search();'>
-              <input type='hidden' name='mids[]' value='<{$xmid}>' />
-                <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255' />
+              <input type='hidden' name='mids[]' value='<{$xmid}>'>
+                <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255'>
                     <select name='andor'  size='1' class="c_search_select" id='andor'>
                         <option value='AND' selected='selected'><{$smarty.const._MD_MXDIR_ALLWORDS}></option>
                         <option value='OR'><{$smarty.const._MD_MXDIR_ANYWORDS}></option>
                         <option value='exact'><{$smarty.const._MD_MXDIR_EXACTMATCH}></option>
                 </select>
-                <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_MXDIR_SEARCH}>' />
-          <input type='hidden' name='action' id='action' value='results' />
+                <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_MXDIR_SEARCH}>'>
+          <input type='hidden' name='action' id='action' value='results'>
             </form>
 
       <{/if}>
@@ -29,7 +29,7 @@
   </tr>
   <{/if }>
 </table>
-<hr />
+<hr>
 
 <script type='text/javascript'>
 <!--
@@ -44,18 +44,18 @@
     <{/if}>
         <td valign="top">
         <{if $category.image != ""}>
-          <a href="<{$xoops_url}>/modules/<{$smartydir}>/viewcat.php?cid=<{$category.id}>"><img src="<{$category.image}>" alt="" height="50" border="0" class="c_img_display" /></a>
+          <a href="<{$xoops_url}>/modules/<{$smartydir}>/viewcat.php?cid=<{$category.id}>"><img src="<{$category.image}>" alt="" height="50" border="0" class="c_img_display"></a>
         <{/if}>        </td>
-        <td valign="top" width="33%"><span class="index_category_title"><a href="<{$xoops_url}>/modules/<{$smartydir}>/viewcat.php?cid=<{$category.id}>" class="c_title"><{$category.title}></a>&nbsp;</span>          <span class="index_subcats">(<{$category.totallink}>)<br />
+        <td valign="top" width="33%"><span class="index_category_title"><a href="<{$xoops_url}>/modules/<{$smartydir}>/viewcat.php?cid=<{$category.id}>" class="c_title"><{$category.title}></a>&nbsp;</span>          <span class="index_subcats">(<{$category.totallink}>)<br>
         <{$category.subcategories}></span> </td>
     <{if $category.count is div by 3}>      </tr><tr>
         <{/if}>
     <{if $smarty.foreach.tlcat.last}>
       </tr>
 </table>
-    <br /><br />
+    <br><br>
     <div class="c_desc"><{$lang_thereare}></div>
-    <hr /><br />
+    <hr><br>
     <{/if}>        
   <{/foreach}>
   <!-- End category loop -->
@@ -68,11 +68,11 @@
       <{section name=i loop=$category}>
         <{$link.category link=$category[i]}>
         <{section name=i loop=$links}>
-          <{include file="db:xdir_link.html" link=$links[i]}>
+          <{include file="db:xdir_link.tpl" link=$links[i]}>
         <{/section}>
       <{/section}>
       <!-- End new link loop -->
     </td></tr>
 </table>
 <{/if}>
-<{include file='db:system_notification_select.html'}>
+<{include file='db:system_notification_select.tpl'}>

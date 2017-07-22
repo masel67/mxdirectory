@@ -12,9 +12,9 @@ function adminmenu($currentoption = 0, $breadcrumb = '')
         $tblColors[$currentoption] = 'id=\'current\'';
     }
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-        include_once '../language/' . $xoopsConfig['language'] . '/modinfo.php';
+        require_once __DIR__ . '/../language/' . $xoopsConfig['language'] . '/modinfo.php';
     } else {
-        include_once '../language/english/modinfo.php';
+        require_once __DIR__ . '/../language/english/modinfo.php';
     }
 
     /* Nice buttons styles */
@@ -54,38 +54,32 @@ function adminmenu($currentoption = 0, $breadcrumb = '')
 
     $return .= "<div id='buttontop'>";
     $return .= "<table style=\"width: 100%; padding: 0; \" cellspacing=\"0\"><tr>";
-    $return .= "<td style='width: 60%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;'><a class='nobutton' href='" .
-               XOOPS_URL .
-               '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' .
-               $xoopsModule->getVar('mid') .
-               "'>" .
-               _MI_MXDIR_PREFERENCES .
-               "</a> | <a href='" .
-               XOOPS_URL .
-               '/modules/' .
-               $xoopsModule->getVar('dirname') .
-               "/index.php'>" .
-               _MI_MXDIR_GOMOD .
-               "</a> | <a href='" .
-               XOOPS_URL .
-               '/modules/' .
-               $xoopsModule->getVar('dirname') .
-               "/admin/about.php'>" .
-               _MI_MXDIR_ABOUT .
-               '</a></td>';
-    $return .= "<td style='width: 40%; font-size: 10px; text-align: right; color: #2F5376; padding: 0 6px; line-height: 18px;'><b>" .
-               $xoopsModule->name() .
-               ' ' .
-               _MI_MXDIR_MODADMIN .
-               '</b> ' .
-               $breadcrumb .
-               '</td>';
+    $return .= "<td style='width: 60%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;'><a class='nobutton' href='"
+               . XOOPS_URL
+               . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod='
+               . $xoopsModule->getVar('mid')
+               . "'>"
+               . _MI_MXDIR_PREFERENCES
+               . "</a> | <a href='"
+               . XOOPS_URL
+               . '/modules/'
+               . $xoopsModule->getVar('dirname')
+               . "/index.php'>"
+               . _MI_MXDIR_GOMOD
+               . "</a> | <a href='"
+               . XOOPS_URL
+               . '/modules/'
+               . $xoopsModule->getVar('dirname')
+               . "/admin/about.php'>"
+               . _MI_MXDIR_ABOUT
+               . '</a></td>';
+    $return .= "<td style='width: 40%; font-size: 10px; text-align: right; color: #2F5376; padding: 0 6px; line-height: 18px;'><b>" . $xoopsModule->name() . ' ' . _MI_MXDIR_MODADMIN . '</b> ' . $breadcrumb . '</td>';
     $return .= '</tr></table>';
     $return .= '</div>';
 
     $return .= "<div id='admintabs'>";
     $return .= '<ul>';
-    foreach ($adminmenu as $key => $menu) {
+    foreach ($adminObject as $key => $menu) {
         $return .= '<li ' . $tblColors[$key] . "><a href=\"" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/' . $menu['link'] . "\">" . $menu['title'] . '</a></li>';
     }
     $return .= "</ul></div><div style=\"clear:both;\"></div>";

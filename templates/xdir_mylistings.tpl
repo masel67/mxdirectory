@@ -6,15 +6,15 @@
     <td class="c_search_table">
       <!--Search Table-->
 			<form name='search' id='search' action='<{$xoops_url}>/search.php' method='post' onsubmit='return xoopsFormValidate_search();'>
-        <input type='hidden' name='mids[]' value='<{$xmid}>' />
-        <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255' />
+        <input type='hidden' name='mids[]' value='<{$xmid}>'>
+        <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255'>
           <select name='andor'  size='1' class="c_search_select" id='andor'>
             <option value='AND' selected='selected'><{$smarty.const._MD_MXDIR_ALLWORDS}></option>
             <option value='OR'><{$smarty.const._MD_MXDIR_ANYWORDS}></option>
             <option value='exact'><{$smarty.const._MD_MXDIR_EXACTMATCH}></option>
           </select>
-        <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_SEARCH}>' />
-        <input type='hidden' name='action' id='action' value='results' />
+        <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_SEARCH}>'>
+        <input type='hidden' name='action' id='action' value='results'>
       </form>
     </td>
     <td class="c_search_r">
@@ -29,7 +29,7 @@
   <tr align="center"><td colspan="3" class="c_select_letters"><{$smarty.const._MD_MXDIR_SEARCHFOR}>:&nbsp;<{$letters}></td></tr>
   <{/if }>
 </table>
-<hr />
+<hr>
 
 <script type='text/javascript'>
 <!--
@@ -58,9 +58,9 @@
       <tr><td colspan='3'>
         <table><tr>
           <{if $links[i].status > 0}>
-          <td colspan='2' class="link_title"><{$links[i].adminlink}><a href="<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$links[i].cid}>&amp;lid=<{$links[i].id}>"><{$links[i].title}></a> <{if $links[i].lvlopts.5 =="1" && $links[i].coupons > 0}> <a href="savings.php?lid=<{$links[i].id}>"><img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="<{$smarty.const._MD_MXDIR_SAVINGS}>" /></a> <{/if}></td>
+          <td colspan='2' class="link_title"><{$links[i].adminlink}><a href="<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$links[i].cid}>&amp;lid=<{$links[i].id}>"><{$links[i].title}></a> <{if $links[i].lvlopts.5 =="1" && $links[i].coupons > 0}> <a href="savings.php?lid=<{$links[i].id}>"><img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="<{$smarty.const._MD_MXDIR_SAVINGS}>"></a> <{/if}></td>
           <{else}>
-          <td colspan='2' class="link_title"><{$links[i].title}> <{if $links[i].lvlopts.5 =="1" && $links[i].coupons > 0}> <img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="<{$smarty.const._MD_MXDIR_SAVINGS}>" /><{/if}></td>
+          <td colspan='2' class="link_title"><{$links[i].title}> <{if $links[i].lvlopts.5 =="1" && $links[i].coupons > 0}> <img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="<{$smarty.const._MD_MXDIR_SAVINGS}>"><{/if}></td>
           <{/if}>
           <td class="link_rating"><{if $links[i].rating > 0}><{$lang_rating}><{$links[i].rating}> (<{$links[i].votes}>)<{/if}></td>
         </tr></table>
@@ -75,7 +75,7 @@
           <span class="link_address"><{$links[i].address}><{if $links[i].address2 != ""}>,<{$links[i].address2}><{/if}>
             , <{$links[i].city}>, <{$links[i].state}>, <{$links[i].zip}>
             <{if $links[i].country != ""}>[<font style="font-weight: bold;"><{$links[i].country}></font>]<{/if}>
-            <br />
+            <br>
           </span>
         </td>
         <td>
@@ -84,15 +84,15 @@
             &nbsp;&nbsp;<{html_options name=bizhrs options=$links[i].bizhrs}>
 	        </span>
         <{if $links[i].url != "http://" && $links[i].url != "" && $links[i].lvlopts.2 == "1"}>
-          <a href='visit.php?cid=<{$links[i].cid}>&amp;lid=<{$links[i].id}>' target='_blank'><img src='images/link.gif' alt='<{$lang_visit}>' /><span class="c_url"><{$links[i].url}></span></a>
+          <a href='visit.php?cid=<{$links[i].cid}>&amp;lid=<{$links[i].id}>' target='_blank'><img src='images/link.gif' alt='<{$lang_visit}>'><span class="c_url"><{$links[i].url}></span></a>
         <{/if}>
         <br>
         </td></tr>
       </table>
-      <hr />
+      <hr>
     <{/section}>
     <!-- End link loop -->
   </td></tr>
 </table>
   	  <div class="c_navbar"><{$category.navbar}></div>
-<{include file='db:system_notification_select.html'}>
+<{include file='db:system_notification_select.tpl'}>

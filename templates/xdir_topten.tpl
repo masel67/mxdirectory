@@ -1,6 +1,6 @@
 <style type="text/css" media="screen">@import url(<{$xoops_url}>/modules/<{$smartydir}>/images/mxdirectory.css);</style>
 <div class="c_header" style="margin-top: 2px;text-align: center;font-size: 20px;font-weight: bold;"><{$smarty.const._MD_MXDIR_DIRHEADER}></div>
-<br /><br /><br />
+<br><br><br>
 <!-- Start ranking loop -->
 <{foreach item=ranking from=$rankings}>
 <table class="outer">
@@ -32,6 +32,6 @@
   <!-- End links loop-->
 
 </table>
-<br />
+<br>
 <{/foreach}>
 <!-- End ranking loop -->

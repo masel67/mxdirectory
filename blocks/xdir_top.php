@@ -1,34 +1,23 @@
 <?php
-// $Id: xdir_top.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
 /******************************************************************************
  * Function: b_xdir_top_show
  * Input   : $options[0] = date for the most recent links
@@ -42,9 +31,9 @@
  */
 function b_xdir_top_show($options)
 {
-    //include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
+    //require_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
     $mydirname = basename(dirname(__DIR__));
-    include_once XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
     global $xoopsDB;
     $mytree = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
@@ -100,15 +89,7 @@ function b_xdir_top_show($options)
     }
 
     //	$result = $xoopsDB->query("SELECT lid, cid, cidalt1, cidalt2, cidalt3, cidalt4, title, date, hits FROM ".$xoopsDB->prefix("xdir_links")." WHERE (status>0".$hitchk.$dispcat.") ORDER BY ".$orderby." DESC",$limit);
-    $result   = $xoopsDB->query('SELECT lid, cid, title, date, hits, rating, votes FROM ' .
-                                $xoopsDB->prefix('xdir_links') .
-                                ' WHERE (status>0' .
-                                $hitchk .
-                                $dispcat .
-                                ') ORDER BY ' .
-                                $orderby .
-                                ' DESC' .
-                                $limit);
+    $result   = $xoopsDB->query('SELECT lid, cid, title, date, hits, rating, votes FROM ' . $xoopsDB->prefix('xdir_links') . ' WHERE (status>0' . $hitchk . $dispcat . ') ORDER BY ' . $orderby . ' DESC' . $limit);
     $lstcount = 0;
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $link  = array();
@@ -170,9 +151,9 @@ function b_xdir_top_show($options)
  */
 function b_xdir_top_edit($options)
 {
-    //include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
+    //require_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
     $mydirname = basename(dirname(__DIR__));
-    include_once XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
     global $xoopsDB, $xoopModuleConfig;
     $mytree = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
@@ -196,9 +177,9 @@ function b_xdir_top_edit($options)
             break;
     }
 
-    $form .= ' />';
-    $form .= "<input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_MXDIR_LINKS . '';
-    $form .= '&nbsp;<br>' . _MB_MXDIR_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "' />&nbsp;" . _MB_MXDIR_LENGTH . '';
+    $form .= '>';
+    $form .= "<input type='text' name='options[]' value='" . $options[1] . "'>&nbsp;" . _MB_MXDIR_LINKS . '';
+    $form .= '&nbsp;<br>' . _MB_MXDIR_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "'>&nbsp;" . _MB_MXDIR_LENGTH . '';
     $form .= "<input type='hidden' name='options[]' value='" . $options[3] . "'";
     if ($options[4] == 1) {
         $ychk = 'checked';
@@ -207,20 +188,20 @@ function b_xdir_top_edit($options)
         $ychk = '';
         $nchk = 'checked';
     }
-    $form .= '<br /><br />' . _MB_MXDIR_BLANK . '&nbsp;';
-    $form .= "<input type='radio' $ychk name='options[]' value='1' />" . _YES;
-    $form .= "<input type='radio' $nchk name='options[]' value='0' />" . _NO;
+    $form .= '<br><br>' . _MB_MXDIR_BLANK . '&nbsp;';
+    $form .= "<input type='radio' $ychk name='options[]' value='1'>" . _YES;
+    $form .= "<input type='radio' $nchk name='options[]' value='0'>" . _NO;
 
-    $form .= '<br /><br />' . _MB_MXDIR_SELECT_CAT . '&nbsp;';
+    $form .= '<br><br>' . _MB_MXDIR_SELECT_CAT . '&nbsp;';
     $tree = $mytree->getChildTreeArray(0, 'title ASC');
     $form .= "<select name='options[5]'>";
     $form .= "<option value='All'>" . _MB_MXDIR_ALLCATS;
     foreach ($tree as $branch) {
         $branch['prefix'] = substr($branch['prefix'], 0, -1);
         $branch['prefix'] = str_replace('.', '--', $branch['prefix']);
-        $form .= "<option value='" . $branch['cid'] . "'";
-        $selopt = ($options[5] == $branch['cid']) ? " selected='selected' " : '';
-        $form .= $selopt . '>' . $branch['prefix'] . $branch['title'];
+        $form             .= "<option value='" . $branch['cid'] . "'";
+        $selopt           = ($options[5] == $branch['cid']) ? " selected='selected' " : '';
+        $form             .= $selopt . '>' . $branch['prefix'] . $branch['title'];
     }
     $form .= '</select>';
 

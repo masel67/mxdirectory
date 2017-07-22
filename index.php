@@ -1,43 +1,32 @@
 <?php
-// $Id: index.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
-include_once 'header.php';
-include_once 'class/coupon.php';
-//include_once XOOPS_ROOT_PATH."/class/xoopstree.php";
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
+require_once __DIR__ . '/header.php';
+require_once __DIR__ . '/class/coupon.php';
+//require_once XOOPS_ROOT_PATH."/class/xoopstree.php";
 $mydirname = basename(__DIR__);
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
-//include 'include/functions.php';
+//include __DIR__ . '/include/functions.php';
 
 global $xoopModuleConfig, $xoopsModule;
-$pathIcon16 = $xoopsModule->getInfo('icons16');
+$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 /* // EVU CODE FIX - To make it work using PHP5
 
 function add_header($tpl_source, &$xoopsTpl)
@@ -45,7 +34,7 @@ function add_header($tpl_source, &$xoopsTpl)
     return "<?php echo $xoops_module_header; ?>\n".$tpl_source;
 }
 */
-$xoopsOption['template_main'] = 'xdir_index.html';
+$GLOBALS['xoopsOption']['template_main'] = 'xdir_index.tpl';
 
 $xoopsOption['xoops_module_header'] = $xoops_module_header;
 //cache start
@@ -148,17 +137,15 @@ $xoopsTpl->assign('xmid', $xoopsModule->getVar('mid'));
 $smartydir = $xoopsModule->getVar('dirname');
 $xoopsTpl->assign('smartydir', $smartydir);
 
-$result =
-    $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.logourl, l.submitter, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description FROM ' .
-                    $xoopsDB->prefix('xdir_links') .
-                    ' l, ' .
-                    $xoopsDB->prefix('xdir_text') .
-                    ' t WHERE l.status>0 AND l.lid=t.lid ORDER BY date DESC', $xoopsModuleConfig['newlinks'], 0);
-while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $submitter, $status,
-    $time, $hits, $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result)) {
+$result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.logourl, l.submitter, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description FROM '
+                          . $xoopsDB->prefix('xdir_links')
+                          . ' l, '
+                          . $xoopsDB->prefix('xdir_text')
+                          . ' t WHERE l.status>0 AND l.lid=t.lid ORDER BY date DESC', $xoopsModuleConfig['newlinks'], 0);
+while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $submitter, $status, $time, $hits, $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result)) {
 
     //Nice arrays for smarty selects
-    //include_once "include/functions.php";
+    //require_once "include/functions.php";
     $mfhrs  = displayTime($mfhrs);
     $sathrs = displayTime($sathrs);
     $sunhrs = displayTime($sunhrs);
@@ -172,18 +159,7 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
     $lvlopts = getPremiumOptions($premium);
 
     if ($isadmin) {
-        $adminlink = '<a href="' .
-                     XOOPS_URL .
-                     '/modules/' .
-                     $xoopsModule->getVar('dirname') .
-                     '/admin/main.php?op=modLink&amp;lid=' .
-                     $lid .
-                     '"><img src="' .
-                     $pathIcon16 .
-                     '/edit.png"' .
-                     ' border="0" alt="' .
-                     _MD_MXDIR_EDITTHISLINK .
-                     '" /></a>';
+        $adminlink = '<a href="' . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/main.php?op=modLink&amp;lid=' . $lid . '"><img src="' . $pathIcon16 . '/edit.png"' . ' border="0" alt="' . _MD_MXDIR_EDITTHISLINK . '"></a>';
     } else {
         $adminlink = '';
     }
@@ -197,9 +173,9 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
     $path = str_replace('/', ' - ', $path);
     $new  = newlinkgraphic($time, $status);
     $pop  = popgraphic($hits);
-    //	$coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
-    $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
-    $coupons        = $coupon_handler->getCountByLink($lid);
+    //	$couponHandler = xoops_getModuleHandler('coupon', $mydirname);
+    $couponHandler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
+    $coupons       = $couponHandler->getCountByLink($lid);
 
     $ratingfl = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
     $ratingfl = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
@@ -233,15 +209,7 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
         'comments'     => $comments,
         'premium'      => $premium,
         'mail_subject' => rawurlencode(sprintf(_MD_MXDIR_INTRESTLINK, $xoopsConfig['sitename'])),
-        'mail_body'    => rawurlencode(sprintf(_MD_MXDIR_INTLINKFOUND, $xoopsConfig['sitename']) .
-                                       ':  ' .
-                                       XOOPS_URL .
-                                       '/modules/' .
-                                       $xoopsModule->getVar('dirname') .
-                                       '/singlelink.php?cid=' .
-                                       $cid .
-                                       '&lid=' .
-                                       $lid)
+        'mail_body'    => rawurlencode(sprintf(_MD_MXDIR_INTLINKFOUND, $xoopsConfig['sitename']) . ':  ' . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/singlelink.php?cid=' . $cid . '&lid=' . $lid)
     ));
 }
 

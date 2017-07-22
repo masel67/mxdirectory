@@ -1,14 +1,23 @@
 # Alter Table structure for table `xdir_links`
 #
 
-ALTER TABLE `xdir_links` ADD `mfhrs` varchar(20) NOT NULL default '' AFTER 'country',  
-ADD `sathrs` varchar(20) NOT NULL default '' AFTER 'mfhrs',
-ADD `sunhrs` varchar(20) NOT NULL default '' AFTER 'sathrs',
-ADD `mobile` varchar(35) NOT NULL default '' AFTER 'fax', 
-ADD `home` varchar(35) NOT NULL default '' AFTER 'mobile',
-ADD `tollfree` varchar(35) NOT NULL default '' AFTER 'home',
-ADD `admcontname` varchar(35) NOT NULL default '' AFTER 'url',
-ADD `admcontnumb` varchar(35) NOT NULL default '' AFTER 'admcontname';
+ALTER TABLE `xdir_links`
+  ADD `mfhrs` VARCHAR(20) NOT NULL DEFAULT ''
+  AFTER 'country',
+  ADD `sathrs` VARCHAR(20) NOT NULL DEFAULT ''
+  AFTER 'mfhrs',
+  ADD `sunhrs` VARCHAR(20) NOT NULL DEFAULT ''
+  AFTER 'sathrs',
+  ADD `mobile` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'fax',
+  ADD `home` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'mobile',
+  ADD `tollfree` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'home',
+  ADD `admcontname` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'url',
+  ADD `admcontnumb` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'admcontname';
 
 # --------------------------------------------------------
 
@@ -16,11 +25,20 @@ ADD `admcontnumb` varchar(35) NOT NULL default '' AFTER 'admcontname';
 # Alter Table structure for table `xdir_mod`
 #
 
-ALTER TABLE `xdir_mod` ADD `mfhrs` varchar(20) NOT NULL default '' AFTER 'country',  
-ADD `sathrs` varchar(20) NOT NULL default '' AFTER 'mfhrs',
-ADD `sunhrs` varchar(20) NOT NULL default '' AFTER 'sathrs',
-ADD `mobile` varchar(35) NOT NULL default '' AFTER 'fax', 
-ADD `home` varchar(35) NOT NULL default '' AFTER 'mobile',
-ADD `tollfree` varchar(35) NOT NULL default '' AFTER 'home',
-ADD `admcontname` varchar(35) NOT NULL default '' AFTER 'url',
-ADD `admcontnumb` varchar(35) NOT NULL default '' AFTER 'admcontname';
+ALTER TABLE `xdir_mod`
+  ADD `mfhrs` VARCHAR(20) NOT NULL DEFAULT ''
+  AFTER 'country',
+  ADD `sathrs` VARCHAR(20) NOT NULL DEFAULT ''
+  AFTER 'mfhrs',
+  ADD `sunhrs` VARCHAR(20) NOT NULL DEFAULT ''
+  AFTER 'sathrs',
+  ADD `mobile` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'fax',
+  ADD `home` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'mobile',
+  ADD `tollfree` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'home',
+  ADD `admcontname` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'url',
+  ADD `admcontnumb` VARCHAR(35) NOT NULL DEFAULT ''
+  AFTER 'admcontname';

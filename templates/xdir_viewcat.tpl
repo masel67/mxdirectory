@@ -6,15 +6,15 @@
 	<{if $usesearch != "0"}>
             <!--Search Table-->
 			<form name='search' id='search' action='<{$xoops_url}>/search.php' method='post' onsubmit='return xoopsFormValidate_search();'>
-              <input type='hidden' name='mids[]' value='<{$xmid}>' />
-                <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255' />
+              <input type='hidden' name='mids[]' value='<{$xmid}>'>
+                <input name='query' type='text' class="c_search_input" id='query' value='' size='20' maxlength='255'>
                     <select name='andor'  size='1' class="c_search_select" id='andor'>
                     <option value='AND' selected='selected'><{$smarty.const._MD_MXDIR_ALLWORDS}></option>
                     <option value='OR'><{$smarty.const._MD_MXDIR_ANYWORDS}></option>
                     <option value='exact'><{$smarty.const._MD_MXDIR_EXACTMATCH}></option>
                 </select>
-                    <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_MXDIR_SEARCH}>' />
-              <input type='hidden' name='action' id='action' value='results' />
+                    <input type='submit' class='c_searchbutton' name='submit'  id='submit' value='<{$smarty.const._MD_MXDIR_SEARCH}>'>
+              <input type='hidden' name='action' id='action' value='results'>
             </form>
 
       <{/if}>
@@ -29,7 +29,7 @@
   </tr>
   <{/if }>
 </table>
-      <hr style="width: 97%;" />
+      <hr style="width: 97%;">
 
 <table width="97%" cellspacing="0" cellpadding="0" border="0" align="center">
   <tr>
@@ -46,7 +46,7 @@
       <table width="90%">
         <tr>
           <{foreach item=subcat from=$subcategories}>
-          <td align="left"><b><a href="viewcat.php?cid=<{$subcat.id}>" class="c_desc"><{$subcat.title}></a></b> (<{$subcat.totallinks}>)<br /></td>
+          <td align="left"><b><a href="viewcat.php?cid=<{$subcat.id}>" class="c_desc"><{$subcat.title}></a></b> (<{$subcat.totallinks}>)<br></td>
             <{if $subcat.count is div by 4}>
         </tr><tr>
             <{/if}>
@@ -71,14 +71,14 @@
   <tr class="c_premlnk_bkgd">   
 	<td width="100%">
           <!-- Start link loop -->
-<{section name=i loop=$links}><{include file="db:xdir_premiumlink.html" link=$links[i]}><{/section}>
+<{section name=i loop=$links}><{include file="db:xdir_premiumlink.tpl" link=$links[i]}><{/section}>
     <!-- End link loop -->	</td>
   </tr> 
 </table>
 <{/if}>
   
   <div class="c_navbar" style="text-align: center;"><{$category.navbarcat}></div>
-  <br />
+  <br>
   <table width="97%" cellspacing="0" cellpadding="6" border="0" align="center">
     <tr>
     <td width="100%" height="1" bgcolor="#666666"></td>
@@ -93,7 +93,7 @@
       <td style="width: 100%; text-align: center; vertical-align: top;">
         <!-- Start link loop -->
         <{section name=i loop=$links}>
-          <{include file="db:xdir_link.html" link=$links[i]}>
+          <{include file="db:xdir_link.tpl" link=$links[i]}>
         <{/section}>
         <!-- End link loop -->
       </td>
@@ -101,13 +101,13 @@
   </table>
   <{if $show_nav == true}>
     <div class="c_sort">
-      <{$lang_sortby}>&nbsp;&nbsp;<{$lang_title}>&nbsp;(<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=titleA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_titleatoz}>" /></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=titleD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_titleztoa}>" /></a>)<{$lang_date}> (<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=dateA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_dateold}>" /></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=dateD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_datenew}>" /></a>)<{$lang_rating}> (<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=ratingA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_ratinglow}>" /></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=ratingD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_ratinghigh}>" /></a>)<{$lang_popularity}> (<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=hitsA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_popularityleast}>" /></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=hitsD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_popularitymost}>" /></a>)
-      <br />
+      <{$lang_sortby}>&nbsp;&nbsp;<{$lang_title}>&nbsp;(<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=titleA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_titleatoz}>"></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=titleD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_titleztoa}>"></a>)<{$lang_date}> (<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=dateA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_dateold}>"></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=dateD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_datenew}>"></a>)<{$lang_rating}> (<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=ratingA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_ratinglow}>"></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=ratingD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_ratinghigh}>"></a>)<{$lang_popularity}> (<a href="viewcat.php?cid=<{$category_id}>&amp;orderby=hitsA"><img src="images/up.gif" border="0" align="middle" alt="<{$lang_popularityleast}>"></a><a href="viewcat.php?cid=<{$category_id}>&amp;orderby=hitsD"><img src="images/down.gif" border="0" align="middle" alt="<{$lang_popularitymost}>"></a>)
+      <br>
       <span class="c_desc"><{$lang_cursortedby}>      </span>
-      <hr style="width: 97%;" />
+      <hr style="width: 97%;">
 </div>
   <{/if}>
 
-  <br /><div class="c_navbar"><{$category.navbarcat}></div>
+  <br><div class="c_navbar"><{$category.navbarcat}></div>
 <{/if}>
-<{include file='db:system_notification_select.html'}>
+<{include file='db:system_notification_select.tpl'}>

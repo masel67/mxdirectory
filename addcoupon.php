@@ -1,41 +1,30 @@
 <?php
-// $Id: addcoupon.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
 global $xoopsDB;
-include 'header.php';
-include './class/coupon.php';
-//include_once XOOPS_ROOT_PATH."/class/xoopstree.php";
-include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
-include_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+include __DIR__ . '/header.php';
+include __DIR__ . '/class/coupon.php';
+//require_once XOOPS_ROOT_PATH."/class/xoopstree.php";
+require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
+require_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $mydirname = basename(__DIR__);
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
@@ -45,11 +34,11 @@ $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $couponid = isset($_GET['couponid']) ? (int)$_GET['couponid'] : 0;
 
 if ($couponid > 0) {
-    $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
-    $coupon         =& $coupon_handler->get($couponid);
+    $couponHandler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
+    $coupon        = $couponHandler->get($couponid);
 
-    //    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
-    //    $coupon =& $coupon_handler->get($couponid);
+    //    $couponHandler = xoops_getModuleHandler('coupon', $mydirname);
+    //    $coupon =& $couponHandler->get($couponid);
     $lid = $coupon->getVar('lid');
     //    $myts = MyTextSanitizer::getInstance();
     $lbr = $coupon->getVar('lbr');
@@ -89,13 +78,13 @@ if (empty($xoopsUser) || !$xoopsUser->isAdmin($xoopsModule->mid()) || ($lid == 0
 }
 
 if (!empty($_POST['submit'])) {
-    $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
-    //    $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
+    $couponHandler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
+    //    $couponHandler = xoops_getModuleHandler('coupon', $mydirname);
     if (isset($_POST['couponid'])) {
-        $thiscoupon =& $coupon_handler->get($_POST['couponid']);
+        $thiscoupon = $couponHandler->get($_POST['couponid']);
         $message    = _MD_MXDIR_COUPONEDITED;
     } else {
-        $thiscoupon =& $coupon_handler->create();
+        $thiscoupon = $couponHandler->create();
         $message    = _MD_MXDIR_COUPONADDED;
     }
     $thiscoupon->setVar('description', $_POST['descr']);
@@ -110,7 +99,7 @@ if (!empty($_POST['submit'])) {
         $thiscoupon->setVar('expire', 0);
     }
     $thiscoupon->setVar('heading', $_POST['heading']);
-    if ($coupon_handler->insert($thiscoupon)) {
+    if ($couponHandler->insert($thiscoupon)) {
         redirect_header('singlelink.php?lid=' . $thiscoupon->getVar('lid'), 3, $message);
         exit();
     }
@@ -120,21 +109,21 @@ if (!empty($_POST['submit'])) {
             redirect_header('index.php', 2, 'error');
             exit();
         }
-        $coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
-        //        $coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
-        $coupon =& $coupon_handler->get($_POST['couponid']);
+        $couponHandler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
+        //        $couponHandler = xoops_getModuleHandler('coupon', $mydirname);
+        $coupon = $couponHandler->get($_POST['couponid']);
         $lid    = $coupon->getVar('lid');
-        if ($coupon_handler->delete($coupon)) {
+        if ($couponHandler->delete($coupon)) {
             redirect_header('singlelink.php?lid=' . $lid, 3, _MD_MXDIR_COUPONDELETED);
             exit();
         }
     } else {
         include XOOPS_ROOT_PATH . '/header.php';
         xoops_confirm(array('delete' => 'yes', 'couponid' => (int)$_POST['couponid'], 'ok' => 1), 'addcoupon.php', _MD_MXDIR_COUPONRUSURE);
-        include_once XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
         exit();
     }
 }
 include XOOPS_ROOT_PATH . '/header.php';
-include 'include/couponform.php';
-include_once XOOPS_ROOT_PATH . '/footer.php';
+include __DIR__ . '/include/couponform.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

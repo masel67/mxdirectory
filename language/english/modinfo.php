@@ -123,7 +123,7 @@ define('_MI_MXDIR_CAPTCHANONDSC', 'Forms will display security graphic to anonym
 define('_MI_MXDIR_NUMLTRS', 'Add Numbers to Sort Menu?');
 define('_MI_MXDIR_NUMLTRSDSC', 'Will also allow searching for Listings that start with numbers');
 define('_MI_MXDIR_CHOOSETIME', 'Use 12 hour (am/pm) clock?');
-define('_MI_MXDIR_CHOOSETIMEDESC', 'For Business Hour Select Box <br />No to use 24 hr. clock');
+define('_MI_MXDIR_CHOOSETIMEDESC', 'For Business Hour Select Box <br>No to use 24 hr. clock');
 
 //Description of each template
 define('_MI_MXDIR_LISTINGFULLDSC', '');

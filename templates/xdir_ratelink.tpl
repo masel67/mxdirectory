@@ -1,6 +1,6 @@
 <style type="text/css" media="screen">@import url(<{$xoops_url}>/modules/<{$smartydir}>/images/mxdirectory.css);</style>
 <p align="center">
-<!--    <a href="<{$xoops_url}>/modules/directory/index.php"><img src="<{$xoops_url}>/modules/directory/images/logo.gif" border="0" alt="" /></a> -->
+<!--    <a href="<{$xoops_url}>/modules/directory/index.php"><img src="<{$xoops_url}>/modules/directory/images/logo.gif" border="0" alt=""></a> -->
 
 <span class="c_header"><strong><{$smarty.const._MD_MXDIR_DIRHEADER}></strong></span></p>
 
@@ -25,6 +25,7 @@
   <tr>
     <td align="center">
       <form method="post" action="ratelink.php">
+          <{securityToken}><{*//mb*}>
         <input type="hidden" name="lid" value="<{$link.id}>">
         <input type="hidden" name="cid" value="<{$link.cid}>">
         <select name="rating" class="c_select">
@@ -34,8 +35,8 @@
           <{/section}>
         </select>
         <span class="ratelink_buttons">
-        <input name="submit" type="submit" class="c_formbuttons" value="<{$lang_rateit}>" />
-        <input type=button class="c_formbuttons" onclick="location='<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$link.cid}>&lid=<{$link.id}>'" value="<{$lang_cancel}>" />
+        <input name="submit" type="submit" class="c_formbuttons" value="<{$lang_rateit}>">
+        <input type=button class="c_formbuttons" onclick="location='<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$link.cid}>&lid=<{$link.id}>'" value="<{$lang_cancel}>">
         </span>
       </form>
     </td>

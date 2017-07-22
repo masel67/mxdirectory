@@ -1,34 +1,23 @@
 <?php
-// $Id: brokenlink.php,v 1.8 2003/03/27 12:11:06 w4z004 Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
 if (!class_exists('Coupon')) {
     $mydirname = basename(dirname(__DIR__));
 
@@ -54,14 +43,14 @@ if (!class_exists('Coupon')) {
             $this->initVar('heading', XOBJ_DTYPE_TXTBOX);
             $this->initVar('counter', XOBJ_DTYPE_INT, 0, false);
             $this->initVar('lbr', XOBJ_DTYPE_INT, 0, false);
-            if ($coupid != false) {
+            if ($coupid !== false) {
                 global $mydirname;
                 if (is_array($coupid)) {
                     $this->assignVars($coupid);
                 } else {
                     global $mydirname;
-                    $coupon_handler = xoops_getModuleHandler('coupon', $mydirname);
-                    $coupon         =& $coupon_handler->get($coupid);
+                    $couponHandler = xoops_getModuleHandler('coupon', $mydirname);
+                    $coupon        = $couponHandler->get($coupid);
                     foreach ($coupon->vars as $k => $v) {
                         $this->assignVar($k, $v['value']);
                     }
@@ -86,6 +75,7 @@ if (!class_exists('Coupon')) {
 }
 
 // Change the class name below to enable custom directory (Capitolize first letter YourdirectoryCouponHandler)
+
 /**
  * Class XdirectoryCouponHandler
  */
@@ -116,7 +106,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
      */
     public function &get($coupid = false)
     {
-        if ($coupid == false) {
+        if ($coupid === false) {
             return false;
         }
         $coupid = (int)$coupid;
@@ -136,11 +126,12 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
 
     /**
      * Save coupon in database
-     * @param  object $coupon reference to the {@link Coupon} object
+     * @param object|XoopsObject $coupon reference to the {@link Coupon}
+     *                                   object
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      * @internal param bool $force
      */
-    public function insert(&$coupon)
+    public function insert(XoopsObject $coupon)
     {
         if (get_class($coupon) !== 'Coupon') { // EVU CODE FIX - To make it work using PHP5
             return false;
@@ -182,11 +173,12 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     /**
      * delete a coupon from the database
      *
-     * @param  object $coupon reference to the {@link Coupon} to delete
+     * @param object|XoopsObject $coupon reference to the {@link Coupon}
+     *                                   to delete
      * @return bool FALSE if failed.
      * @internal param bool $force
      */
-    public function delete(&$coupon)
+    public function delete(XoopsObject $coupon)
     {
         $couponid = (int)$coupon->getVar('couponid');
         $sql      = 'DELETE FROM ' . $this->db->prefix('xdir_coupon') . ' WHERE couponid = ' . $couponid;
@@ -260,12 +252,12 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
         $now   = time();
         $sql   = 'SELECT cat.title AS catTitle, l.title AS linkTitle, coup.couponid, coup.heading, coup.counter, l.lid, l.cid, l.address, l.address2, l.city, l.zip, l.state, l.country, l.phone, l.fax, l.email, l.url, l.logourl, coup.description, coup.image, coup.lbr, coup.publish, coup.expire
                 FROM ' . $this->db->prefix('xdir_coupon') . ' coup, ' . $this->db->prefix('xdir_cat') . ' cat, ' . $this->db->prefix('xdir_links') . ' l';
-        $sql .= ' WHERE coup.lid = l.lid AND l.cid = cat.cid AND coup.publish < ' . $now . ' AND (coup.expire = 0 OR coup.expire > ' . $now . ')';
+        $sql   .= ' WHERE coup.lid = l.lid AND l.cid = cat.cid AND coup.publish < ' . $now . ' AND (coup.expire = 0 OR coup.expire > ' . $now . ')';
         $catid = (int)$catid;
         if ($catid > 0) {
             $sql .= " AND cat.cid = $catid";
         }
-        $sql .= ' ORDER BY cat.title ASC, l.title ASC';
+        $sql    .= ' ORDER BY cat.title ASC, l.title ASC';
         $result = $this->db->query($sql, $limit, $start);
         if (!$result) {
             return $ret;
@@ -286,9 +278,9 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     //        $sql .= ' WHERE coup.lid = l.lid AND l.cid = cat.cid AND coup.publish < '.$now.' AND (coup.expire = 0 OR coup.expire > '.$now.')';
     //        $cat_term = "";
     //        if ( is_array($catid) ) {
-    ////          echo "CATID ARRAY:<br />";
+    ////          echo "CATID ARRAY:<br>";
     ////          print_r($catid);
-    ////          echo "<br />";
+    ////          echo "<br>";
     //          if ( !empty($catid) ) {
     //            $lp_count = 0;
     //            foreach ($catid as $multicat) {
@@ -303,7 +295,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     //            $cat_term .= ")";
     //          }
     //        } else {
-    ////            echo "<br />CATID [".$catid."]<br />";
+    ////            echo "<br>CATID [".$catid."]<br>";
     //          if ($catid > 0) {
     //            $icid = (int)($catid);
     //            $cat_term .= ' AND (l.cid = '.$icid.' OR l.catalt1 = '.$icid.' OR l.catalt2 = '.$icid.' OR l.catalt3 = '.$icid.' OR l.catalt4 = '.$icid.')';
@@ -317,7 +309,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     //        while ($myrow = $this->db->fetchArray($result)) {
     //          $ret[] = $myrow;
     //        }
-    ////        echo "<br />RETURNS:<br />";
+    ////        echo "<br>RETURNS:<br>";
     ////        print_r($ret);
     //        return $ret;
     //    }
@@ -335,14 +327,14 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
     {
         $ret = array();
         //        $limit = $start = 0;
-        $now = time();
-        $lid = (int)$lid;
-        $sql = 'SELECT cat.title AS catTitle, l.title AS linkTitle, coup.couponid, coup.heading, coup.counter, l.lid, l.cid, l.cidalt1, l.cidalt2, l.cidalt3, l.cidalt4, l.address, l.address2, l.city, l.zip, l.state, l.country, l.phone, l.fax, l.email, l.url, l.logourl, l.premium, coup.description, coup.image, coup.lbr, coup.publish, coup.expire
+        $now    = time();
+        $lid    = (int)$lid;
+        $sql    = 'SELECT cat.title AS catTitle, l.title AS linkTitle, coup.couponid, coup.heading, coup.counter, l.lid, l.cid, l.cidalt1, l.cidalt2, l.cidalt3, l.cidalt4, l.address, l.address2, l.city, l.zip, l.state, l.country, l.phone, l.fax, l.email, l.url, l.logourl, l.premium, coup.description, coup.image, coup.lbr, coup.publish, coup.expire
                 FROM ' . $this->db->prefix('xdir_coupon') . ' coup, ' . $this->db->prefix('xdir_cat') . ' cat, ' . $this->db->prefix('xdir_links') . ' l';
-        $sql .= ' WHERE coup.lid = l.lid AND coup.lid=' . $lid;
-        $sql .= ' AND (l.cid = cat.cid OR l.cidalt1 = cat.cid OR l.cidalt2 = cat.cid OR l.cidalt3 = cat.cid OR l.cidalt4 = cat.cid)';
-        $sql .= ' AND coup.publish < ' . $now . ' AND (coup.expire = 0 OR coup.expire > ' . $now . ')';
-        $sql .= ' ORDER BY cat.title ASC, l.title ASC';
+        $sql    .= ' WHERE coup.lid = l.lid AND coup.lid=' . $lid;
+        $sql    .= ' AND (l.cid = cat.cid OR l.cidalt1 = cat.cid OR l.cidalt2 = cat.cid OR l.cidalt3 = cat.cid OR l.cidalt4 = cat.cid)';
+        $sql    .= ' AND coup.publish < ' . $now . ' AND (coup.expire = 0 OR coup.expire > ' . $now . ')';
+        $sql    .= ' ORDER BY cat.title ASC, l.title ASC';
         $result = $this->db->query($sql, $limit, $start);
         if (!$result) {
             return $ret;
@@ -395,7 +387,7 @@ class XdirectoryCouponHandler extends XoopsObjectHandler
         $coupid = (int)$coupid;
         $sql    = 'SELECT cat.title AS catTitle, l.title AS linkTitle, coup.couponid, coup.heading, coup.counter, l.lid, l.cid, l.address, l.address2, l.city, l.zip, l.state, l.country, l.phone, l.fax, l.email, l.url, l.logourl, coup.description,  coup.image, coup.lbr, coup.publish, coup.expire
                 FROM ' . $this->db->prefix('xdir_coupon') . ' coup, ' . $this->db->prefix('xdir_cat') . ' cat, ' . $this->db->prefix('xdir_links') . ' l';
-        $sql .= ' WHERE coup.lid = l.lid AND coup.couponid=' . $coupid;
+        $sql    .= ' WHERE coup.lid = l.lid AND coup.couponid=' . $coupid;
         $result = $this->db->query($sql, $limit, $start);
         if (!$result) {
             return $ret;

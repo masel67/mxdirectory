@@ -1,30 +1,23 @@
 <?php
-// $Id: print.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-include '../../mainfile.php';
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
+
+include __DIR__ . '/../../mainfile.php';
 $mydirname = basename(__DIR__);
 $lid       = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
 if (!($lid > 0)) {
@@ -41,14 +34,12 @@ function PrintPage($lid)
     include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/include/functions.php';
     require_once XOOPS_ROOT_PATH . '/class/template.php';
     $xoopsTpl = new XoopsTpl();
-    $result   =
-        $xoopsDB->query('select l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description from ' .
-                        $xoopsDB->prefix('xdir_links') .
-                        ' l, ' .
-                        $xoopsDB->prefix('xdir_text') .
-                        " t where l.lid=$lid and l.lid=t.lid and status>0");
-    list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $status, $time, $hits,
-        $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result);
+    $result   = $xoopsDB->query('select l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description from '
+                                . $xoopsDB->prefix('xdir_links')
+                                . ' l, '
+                                . $xoopsDB->prefix('xdir_text')
+                                . " t where l.lid=$lid and l.lid=t.lid and status>0");
+    list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $status, $time, $hits, $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result);
 
     if ($votes == 1) {
         $votestring = _MD_MXDIR_ONEVOTE;
@@ -111,7 +102,7 @@ function PrintPage($lid)
     //Smarty directory autodetect
 
     $xoopsTpl->assign('smartydir', $mydirname);
-    $xoopsTpl->display('db:xdir_print.html');
+    $xoopsTpl->display('db:xdir_print.tpl');
 }
 
 PrintPage($lid);

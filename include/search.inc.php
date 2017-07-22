@@ -1,35 +1,22 @@
 <?php
-// $Id: search.inc.php,v 1.6 2003/03/25 11:08:22 buennagel Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//  Author(Hacker): Adam Frick 				                                 //
-//  Purpose: Phonebook-like business directory		                         //
-//  email: africk69@yahoo.com                           		             //
-//  All files of xDirectory are based on the MyLinks module, customized      //
-//  to accomodate additional business listing information		             //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
 
 /**
  * @param $queryarray
@@ -42,13 +29,7 @@
 function xdir_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
-    $sql = 'SELECT c.title, l.lid,l.cid,l.date,l.title,l.submitter,l.zip,l.city,l.country,t.description FROM ' .
-           $xoopsDB->prefix('xdir_links') .
-           ' l LEFT JOIN ' .
-           $xoopsDB->prefix('xdir_cat') .
-           ' c ON c.cid=l.cid LEFT JOIN ' .
-           $xoopsDB->prefix('xdir_text') .
-           ' t ON t.lid=l.lid WHERE status>0';
+    $sql = 'SELECT c.title, l.lid,l.cid,l.date,l.title,l.submitter,l.zip,l.city,l.country,t.description FROM ' . $xoopsDB->prefix('xdir_links') . ' l LEFT JOIN ' . $xoopsDB->prefix('xdir_cat') . ' c ON c.cid=l.cid LEFT JOIN ' . $xoopsDB->prefix('xdir_text') . ' t ON t.lid=l.lid WHERE status>0';
     if ($userid != 0) {
         $sql .= ' AND l.submitter=' . $userid . ' ';
     }
@@ -62,7 +43,7 @@ function xdir_search($queryarray, $andor, $limit, $offset, $userid)
         }
         $sql .= ') ';
     }
-    $sql .= 'ORDER BY l.date DESC';
+    $sql    .= 'ORDER BY l.date DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret    = array();
     $i      = 0;

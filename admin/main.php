@@ -1,55 +1,45 @@
 <?php
-// ------------------------------------------------------------------------- //
-//                XOOPS - PHP Content Management System                      //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-// Based on:                                                                 //
-// myPHPNUKE Web Portal System - http://myphpnuke.com/                       //
-// PHP-NUKE Web Portal System - http://phpnuke.org/	  		                 //
-// Thatware - http://thatware.org/					                         //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-// ------------------------------------------------------------------------- //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com                                               //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.                                    //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-include '../../../include/cp_header.php';
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
+include __DIR__ . '/../../../include/cp_header.php';
 if (file_exists('../language/' . $xoopsConfig['language'] . '/main.php')) {
-    include '../language/' . $xoopsConfig['language'] . '/main.php';
+    include __DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.php';
 } else {
-    include '../language/english/main.php';
+    include __DIR__ . '/../language/english/main.php';
 }
-include '../include/functions.php';
-//include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
+include __DIR__ . '/../include/functions.php';
+//require_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
 $mydirname = basename(dirname(__DIR__));
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
-include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-include_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
-include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-include '../class/formtime.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
+require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+include __DIR__ . '/../class/formtime.php';
 $myts      = MyTextSanitizer::getInstance();
 $eh        = new ErrorHandler;
 $mytree    = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
 $mydirname = basename(dirname(__DIR__));
-include 'functions.php';
+include __DIR__ . '/functions.php';
 
 xoops_cp_header();
 //	adminmenu(-1);
@@ -58,7 +48,7 @@ function xdir()
 {
     global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $mydirname;
 
-    $xdirform = new XoopsThemeForm(_MD_MXDIR_WEBLINKSCONF, 'xdirform', $_SERVER['PHP_SELF'], 'post', true);
+    $xdirform = new XoopsThemeForm(_MD_MXDIR_WEBLINKSCONF, 'xdirform', $_SERVER['PHP_SELF'], 'POST', true);
     // Temporarily 'homeless' links
     $result = $xoopsDB->query('SELECT count(*) FROM ' . $xoopsDB->prefix('xdir_broken') . '');
     list($totalbrokenlinks) = $xoopsDB->fetchRow($result);
@@ -85,41 +75,43 @@ function xdir()
     $xdirform->display();
     echo "<div style=\"text-align: center;\">";
     printf(_MD_MXDIR_THEREARE, $numrows);
-    echo '</div><br />';
+    echo '</div><br>';
     //Level Option Table
     $actvlvls = getlvlselects();
     //	$als = count ($actvlvls);
-    if ($actvlvls != false) {
-        echo "<span style='font-size:xx-small;'><table class=\"outer\" cellpadding=\"0\" cellspacing=\"1\" width=\"100%\"><tr class=\"head\"><td width=\"12%\" >" .
-             _MI_MXDIR_PREMIUM_ACTV .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_ON .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_SLLI .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_SLSLI .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_SLLF .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_CALI .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_CALF .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_LOLI .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_LOLF .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_LLSLI .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_LLCSLI .
-             "</td><td width=\"8%\">" .
-             _MI_MXDIR_PREMIUM_UON .
-             '</td></tr></table></span>';
+    if ($actvlvls !== false) {
+        echo "<span style='font-size:xx-small;'><table class=\"outer\" cellpadding=\"0\" cellspacing=\"1\" width=\"100%\"><tr class=\"head\"><td width=\"12%\" >"
+             . _MI_MXDIR_PREMIUM_ACTV
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_ON
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_SLLI
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_SLSLI
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_SLLF
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_CALI
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_CALF
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_LOLI
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_LOLF
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_LLSLI
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_LLCSLI
+             . "</td><td width=\"8%\">"
+             . _MI_MXDIR_PREMIUM_UON
+             . '</td></tr></table></span>';
         reset($actvlvls);
-        while (list($key, $val) = each($actvlvls)) {
+        //        while (list($key, $val) = each($actvlvls)) {
+        foreach ($actvlvls as $key => $val) {
             $actvopts = getPremiumOptions($key);
             echo "<span style='font-size:xx-small;'><table class=\"outer\" width=\"100%\"><tr class=\"even\"><td width=\"12%\" >$val</td>";
-            while (list($okey, $oval) = each($actvopts)) {
+            //            while (list($okey, $oval) = each($actvopts)) {
+            foreach ($actvopts as $okey => $oval) {
                 echo "<td width=\"8%\" ><div style=\"text-align: center;\">$oval</div></td>";
             }
             echo '</tr></table></span>';
@@ -134,17 +126,15 @@ function listNewLinks()
     global $xoopsDB, $xoopsConfig, $myts, $eh, $mytree, $mydirname, $xoopsModuleConfig;
     $uploadirectory = '/modules/' . $mydirname . '/images/shots/';
     $linkimg_array  = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/images/shots/');
-    $result         =
-        $xoopsDB->query('SELECT lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, submitter, premium FROM ' .
-                        $xoopsDB->prefix('xdir_links') .
-                        ' WHERE status=0 ORDER BY date DESC');
+    $result         = $xoopsDB->query('SELECT lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, submitter, premium FROM '
+                                      . $xoopsDB->prefix('xdir_links')
+                                      . ' WHERE status=0 ORDER BY date DESC');
     $numrows        = $xoopsDB->getRowsNum($result);
 
     echo '<h4>' . _MD_MXDIR_WEBLINKSCONF . '</h4>';
-    echo '<h4>' . _MD_MXDIR_LINKSWAITING . " ($numrows)</h4><br />";
+    echo '<h4>' . _MD_MXDIR_LINKSWAITING . " ($numrows)</h4><br>";
     if ($numrows > 0) {
-        while (list($lid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb,
-            $logourl, $submitterid, $premium) = $xoopsDB->fetchRow($result)) {
+        while (list($lid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $submitterid, $premium) = $xoopsDB->fetchRow($result)) {
             $result2 = $xoopsDB->query('select description from ' . $xoopsDB->prefix('xdir_text') . " where lid=$lid");
             list($description) = $xoopsDB->fetchRow($result2);
             $btitle      = $myts->htmlSpecialChars($title);
@@ -191,7 +181,7 @@ function listNewLinks()
             $addwaitingform->addElement(new XoopsFormText(_MD_MXDIR_SITEURL, 'url', 50, 250, $url));
             $addwaitingform->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNAME, 'admcontname', 50, 35, $admcontname));
             $addwaitingform->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNUMB, 'amcontnumb', 50, 35, $admcontnumb));
-            $sel_cat = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', $cid, 1, false));
+            $sel_cat = new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', $cid, 1, false);
             $tree    = $mytree->getChildTreeArray(0, 'title ASC');
             foreach ($tree as $branch) {
                 $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -207,7 +197,7 @@ function listNewLinks()
             $imgtray = new XoopsFormElementTray(_MD_MXDIR_SHOTIMAGE, '');
             $image_option->setExtra("onchange='showImgSelected(\"logourlex\", \"logourl\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
             $imgtray->addElement($image_option, false);
-            $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='logourlex' id='logourlex' alt='' />"));
+            $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='logourlex' id='logourlex' alt=''>"));
             $addwaitingform->addElement($imgtray);
 
             $addwaitingform->addElement(new XoopsFormFile(_MD_MXDIR_LOGOUP, 'logoup', $xoopsModuleConfig['logo_maxfilesize']));
@@ -277,7 +267,7 @@ function linksConfigMenu()
         $result3 = $xoopsDB->query($sql);
 
         $modlinkform = new XoopsThemeForm(_MD_MXDIR_MODLINK, 'modlinkform', $_SERVER['PHP_SELF'], 'POST', true);
-        $select_link = (new XoopsFormSelect(_MD_MXDIR_LINKID, 'lid', $lid, 1, false));
+        $select_link = new XoopsFormSelect(_MD_MXDIR_LINKID, 'lid', $lid, 1, false);
         while (list($lid, $title) = $xoopsDB->fetchRow($result3)) {
             $select_link->addOption($lid, $title);
         }
@@ -335,7 +325,7 @@ function linksConfigMenu()
         $addrecordform->addElement(new XoopsFormText(_MD_MXDIR_SITEURL, 'url', 50, 250, 'http://'));
         $addrecordform->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNAME, 'admcontname', 50, 35));
         $addrecordform->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNUMB, 'admcontnumb', 50, 35));
-        $sel_cat = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', null, 1, false));
+        $sel_cat = new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', null, 1, false);
         $tree    = $mytree->getChildTreeArray(0, 'title ASC');
         foreach ($tree as $branch) {
             $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -350,7 +340,7 @@ function linksConfigMenu()
         $imgtray = new XoopsFormElementTray(_MD_MXDIR_SHOTIMAGE, '');
         $image_option->setExtra("onchange='showImgSelected(\"logourlex\", \"logourl\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
         $imgtray->addElement($image_option, false);
-        $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='logourlex' id='logourlex' alt='' />"));
+        $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='logourlex' id='logourlex' alt=''>"));
         $addrecordform->addElement($imgtray);
         //Img Upload
         $addrecordform->addElement(new XoopsFormFile(_MD_MXDIR_LOGOUP, 'logoup', $xoopsModuleConfig['logo_maxfilesize']));
@@ -374,7 +364,7 @@ function linksConfigMenu()
     } else {
         echo "<table width='100%' border='0' cellspacing='1' class='outer'>";
         echo "<tr class=\"head\"><td>";
-        echo '<h4>' . _MD_MXDIR_LISTINGS . '</h4><br />';
+        echo '<h4>' . _MD_MXDIR_LISTINGS . '</h4><br>';
         echo _MD_MXDIR_CATSNOEXIST;
         echo '</td></tr></table>';
     }
@@ -415,7 +405,7 @@ function multicat()
             $addsubcatform->addElement(new XoopsFormText(_MD_MXDIR_TITLEC, 'title', 100, 50));
 
             $addsubtray     = new XoopsFormElementTray('');
-            $select_subcats = (new XoopsFormSelect('<br />', 'cid', null, 1, false));
+            $select_subcats = new XoopsFormSelect('<br>', 'cid', null, 1, false);
             $tree           = $mytree->getChildTreeArray(0, 'title ASC');
             foreach ($tree as $branch) {
                 $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -435,7 +425,7 @@ function multicat()
         // Modify Category
 
         $modcatform     = new XoopsThemeForm(_MD_MXDIR_MODCAT, 'addsubcatform', $_SERVER['PHP_SELF'], 'POST', true);
-        $select_modcats = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', null, 1, false));
+        $select_modcats = new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', null, 1, false);
         $tree           = $mytree->getChildTreeArray(0, 'title ASC');
         foreach ($tree as $branch) {
             $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -476,7 +466,7 @@ function multicat()
             $sql          = 'SELECT lid, title FROM ' . $xoopsDB->prefix('xdir_links') . ' ORDER BY title ASC';
             $result3      = $xoopsDB->query($sql);
             $multicatform = new XoopsThemeForm(_MD_MXDIR_MULTICATMGR, 'addsubcatform', $_SERVER['PHP_SELF'], 'GET', true);
-            $select_link  = (new XoopsFormSelect(_MD_MXDIR_LINKID, 'lid', $lid, 1, false));
+            $select_link  = new XoopsFormSelect(_MD_MXDIR_LINKID, 'lid', $lid, 1, false);
             while (list($lid, $title) = $xoopsDB->fetchRow($result3)) {
                 $select_link->addOption($lid, $title);
             }
@@ -496,11 +486,11 @@ function multicat()
         $multicatform = new XoopsThemeForm(_MD_MXDIR_MULTICATMGR, 'multicatform', $_SERVER['PHP_SELF'], 'POST', true);
         $multicatform->addElement(new XoopsFormLabel(_MD_MXDIR_LINKID, $lid));
         $multicatform->addElement(new XoopsFormLabel(_MD_MXDIR_SITETITLE, $title));
-        $select_cat1 = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'valcid', $cid, 1, false));
-        $select_cat2 = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC1, 'valcidalt1', $cidalt1, 1, false));
-        $select_cat3 = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC2, 'valcidalt2', $cidalt2, 1, false));
-        $select_cat4 = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC3, 'valcidalt3', $cidalt3, 1, false));
-        $select_cat5 = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC4, 'valcidalt4', $cidalt4, 1, false));
+        $select_cat1 = new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'valcid', $cid, 1, false);
+        $select_cat2 = new XoopsFormSelect(_MD_MXDIR_CATEGORYC1, 'valcidalt1', $cidalt1, 1, false);
+        $select_cat3 = new XoopsFormSelect(_MD_MXDIR_CATEGORYC2, 'valcidalt2', $cidalt2, 1, false);
+        $select_cat4 = new XoopsFormSelect(_MD_MXDIR_CATEGORYC3, 'valcidalt3', $cidalt3, 1, false);
+        $select_cat5 = new XoopsFormSelect(_MD_MXDIR_CATEGORYC4, 'valcidalt4', $cidalt4, 1, false);
 
         $select_cat1->addOption('', _MD_MXDIR_NONE);
         $select_cat2->addOption('', _MD_MXDIR_NONE);
@@ -538,7 +528,7 @@ function multicatS()
     global $xoopsDB, $_POST, $myts, $eh;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -549,8 +539,7 @@ function multicatS()
     $cidalt2 = $_POST['valcidalt2'];
     $cidalt3 = $_POST['valcidalt3'];
     $cidalt4 = $_POST['valcidalt4'];
-    $xoopsDB->query('update ' . $xoopsDB->prefix('xdir_links') . " set cid='$cid', cidalt1='$cidalt1', cidalt2='$cidalt2',  cidalt3='$cidalt3', cidalt4='$cidalt4' where lid=" . $_POST['lid'] . '') or
-    $eh->show('0013');
+    $xoopsDB->query('update ' . $xoopsDB->prefix('xdir_links') . " set cid='$cid', cidalt1='$cidalt1', cidalt2='$cidalt2',  cidalt3='$cidalt3', cidalt4='$cidalt4' where lid=" . $_POST['lid'] . '') or $eh->show('0013');
     redirect_header('main.php?op=multicat', 1, _MD_MXDIR_DBUPDATED);
     exit();
 }
@@ -564,12 +553,8 @@ function modLink()
 
     $linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/images/shots/');
     // 	$lid = $_POST['lid'];
-    $result =
-        $xoopsDB->query('select cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium from ' .
-                        $xoopsDB->prefix('xdir_links') .
-                        " where lid=$lid") or $eh->show('0013');
-    list($cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl,
-        $premium) = $xoopsDB->fetchRow($result);
+    $result = $xoopsDB->query('select cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium from ' . $xoopsDB->prefix('xdir_links') . " where lid=$lid") or $eh->show('0013');
+    list($cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $premium) = $xoopsDB->fetchRow($result);
 
     $title    = $myts->htmlSpecialChars($title);
     $address  = $myts->htmlSpecialChars($address);
@@ -623,7 +608,7 @@ function modLink()
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_SITEURL, 'url', 50, 250, $url));
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNAME, 'admcontname', 50, 35, $admcontname));
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNUMB, 'admcontnumb', 50, 35, $admcontnumb));
-    $sel_cat = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', $cid, 1, false));
+    $sel_cat = new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', $cid, 1, false);
     $tree    = $mytree->getChildTreeArray(0, 'title ASC');
     foreach ($tree as $branch) {
         $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -639,7 +624,7 @@ function modLink()
     $imgtray = new XoopsFormElementTray(_MD_MXDIR_SHOTIMAGE, '');
     $image_option->setExtra("onchange='showImgSelected(\"logourlex\", \"logourl\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
     $imgtray->addElement($image_option, false);
-    $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='logourlex' id='logourlex' alt='' />"));
+    $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='logourlex' id='logourlex' alt=''>"));
     $modlinkform->addElement($imgtray);
     //Img Upload
     $modlinkform->addElement(new XoopsFormFile(_MD_MXDIR_LOGOUP, 'logoup', $xoopsModuleConfig['logo_maxfilesize']));
@@ -687,32 +672,30 @@ function modLink()
     echo "<table width=\"100%\">\n";
     echo "<tr><td colspan=\"7\"><font style=\"font-weight: bold;\">";
     printf(_MD_MXDIR_TOTALVOTES, $totalvotes);
-    echo "</font><br /></td></tr>\n";
+    echo "</font><br></td></tr>\n";
     // Show Registered Users Votes
-    $result5 = $xoopsDB->query('SELECT ratingid, ratinguser, rating, ratinghostname, ratingtimestamp FROM ' .
-                               $xoopsDB->prefix('xdir_votedata') .
-                               " WHERE lid = $lid AND ratinguser >0 ORDER BY ratingtimestamp DESC");
+    $result5 = $xoopsDB->query('SELECT ratingid, ratinguser, rating, ratinghostname, ratingtimestamp FROM ' . $xoopsDB->prefix('xdir_votedata') . " WHERE lid = $lid AND ratinguser >0 ORDER BY ratingtimestamp DESC");
     $votes   = $xoopsDB->getRowsNum($result5);
-    echo "<tr><td colspan=\"7\"><br /><font style=\"font-weight: bold;\">";
+    echo "<tr><td colspan=\"7\"><br><font style=\"font-weight: bold;\">";
     printf(_MD_MXDIR_USERTOTALVOTES, $votes);
-    echo "</font><br /><br /></td></tr>\n";
-    echo "<tr><td><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_USER .
-         "  </font></td><td><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_IP .
-         "  </font></td><td><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_RATING .
-         "  </font></td><td><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_USERAVG .
-         "  </font></td><td><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_TOTALRATE .
-         "  </font></td><td><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_DATE .
-         "  </font></td><td align=\"center\"><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_DELETE .
-         "</font></td></tr>\n";
+    echo "</font><br><br></td></tr>\n";
+    echo "<tr><td><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_USER
+         . "  </font></td><td><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_IP
+         . "  </font></td><td><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_RATING
+         . "  </font></td><td><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_USERAVG
+         . "  </font></td><td><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_TOTALRATE
+         . "  </font></td><td><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_DATE
+         . "  </font></td><td align=\"center\"><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_DELETE
+         . "</font></td></tr>\n";
     if ($votes == 0) {
-        echo "<tr><td align=\"center\" colspan=\"7\">" . _MD_MXDIR_NOREGVOTES . "<br /></td></tr>\n";
+        echo "<tr><td align=\"center\" colspan=\"7\">" . _MD_MXDIR_NOREGVOTES . "<br></td></tr>\n";
     }
     $x = 0;
     while (list($ratingid, $ratinguser, $rating, $ratinghostname, $ratingtimestamp) = $xoopsDB->fetchRow($result5)) {
@@ -727,46 +710,45 @@ function modLink()
         $useravgrating  = $useravgrating / $uservotes;
         $useravgrating  = number_format($useravgrating, 1);
         $ratingusername = XoopsUser::getUnameFromId($ratinguser);
-        echo '<tr><td>' .
-             $ratingusername .
-             '</td><td>' .
-             $ratinghostname .
-             "</td><td>$rating</td><td>" .
-             $useravgrating .
-             '</td><td>' .
-             $uservotes .
-             '</td><td>' .
-             $ratingtimestamp .
-             "</td><td align=\"center\"><font style=\"font-weight: bold;\">" .
-             myTextForm("main.php?op=delVote&amp;lid=$lid&amp;rid=$ratingid&amp;t=" . $GLOBALS['xoopsSecurity']->createToken() . '', 'X') .
-             "</font></td></tr>\n";
+        echo '<tr><td>'
+             . $ratingusername
+             . '</td><td>'
+             . $ratinghostname
+             . "</td><td>$rating</td><td>"
+             . $useravgrating
+             . '</td><td>'
+             . $uservotes
+             . '</td><td>'
+             . $ratingtimestamp
+             . "</td><td align=\"center\"><font style=\"font-weight: bold;\">"
+             . myTextForm("main.php?op=delVote&amp;lid=$lid&amp;rid=$ratingid&amp;t=" . $GLOBALS['xoopsSecurity']->createToken() . '', 'X')
+             . "</font></td></tr>\n";
         $x++;
     }
     // Show Unregistered Users Votes
-    $result5 =
-        $xoopsDB->query('SELECT ratingid, rating, ratinghostname, ratingtimestamp FROM ' . $xoopsDB->prefix('xdir_votedata') . " WHERE lid = $lid AND ratinguser = 0 ORDER BY ratingtimestamp DESC");
+    $result5 = $xoopsDB->query('SELECT ratingid, rating, ratinghostname, ratingtimestamp FROM ' . $xoopsDB->prefix('xdir_votedata') . " WHERE lid = $lid AND ratinguser = 0 ORDER BY ratingtimestamp DESC");
     $votes   = $xoopsDB->getRowsNum($result5);
-    echo "<tr><td colspan=\"7\"><font style=\"font-weight: bold;\"><br />";
+    echo "<tr><td colspan=\"7\"><font style=\"font-weight: bold;\"><br>";
     printf(_MD_MXDIR_ANONTOTALVOTES, $votes);
-    echo "</font><br /></td></tr>\n";
-    echo "<tr><td colspan=2><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_IP .
-         "  </font></td><td colspan=3><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_RATING .
-         "  </font></td><td><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_DATE .
-         "  </font></td><td align=\"center\"><font style=\"font-weight: bold;\">" .
-         _MD_MXDIR_DELETE .
-         '</font></td><br /></tr>';
+    echo "</font><br></td></tr>\n";
+    echo "<tr><td colspan=2><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_IP
+         . "  </font></td><td colspan=3><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_RATING
+         . "  </font></td><td><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_DATE
+         . "  </font></td><td align=\"center\"><font style=\"font-weight: bold;\">"
+         . _MD_MXDIR_DELETE
+         . '</font></td><br></tr>';
     if ($votes == 0) {
-        echo "<tr><td colspan=\"7\" align=\"center\">" . _MD_MXDIR_NOUNREGVOTES . '<br /></td></tr>';
+        echo "<tr><td colspan=\"7\" align=\"center\">" . _MD_MXDIR_NOUNREGVOTES . '<br></td></tr>';
     }
     $x = 0;
     while (list($ratingid, $rating, $ratinghostname, $ratingtimestamp) = $xoopsDB->fetchRow($result5)) {
         $formatted_date = formatTimestamp($ratingtimestamp);
-        echo "<td colspan=\"2\" >$ratinghostname</td><td colspan=\"3\" >$rating</td><td>$formatted_date</td><td align=\"center\"><font style=\"font-weight: bold;\">" .
-             myTextForm("main.php?op=delVote&amp;lid=$lid&amp;rid=$ratingid&amp;t=" . $GLOBALS['xoopsSecurity']->createToken() . '', 'X') .
-             '</font></td></tr>';
+        echo "<td colspan=\"2\" >$ratinghostname</td><td colspan=\"3\" >$rating</td><td>$formatted_date</td><td align=\"center\"><font style=\"font-weight: bold;\">"
+             . myTextForm("main.php?op=delVote&amp;lid=$lid&amp;rid=$ratingid&amp;t=" . $GLOBALS['xoopsSecurity']->createToken() . '', 'X')
+             . '</font></td></tr>';
     }
 
     /* 	include XOOPS_ROOT_PATH."/class/xoopsmailer.php";
@@ -792,7 +774,7 @@ function modLink()
         $xoopsMailer->assign("TITLE", _MD_MXDIR_MESSAGETITLE);
          */
 
-    echo "<tr><td colspan=\"6\"> <br /></td></tr>\n";
+    echo "<tr><td colspan=\"6\"> <br></td></tr>\n";
     echo "</table>\n";
     echo '</td></tr></table>';
     xoops_cp_footer();
@@ -803,7 +785,7 @@ function delVote()
     global $xoopsDB, $_GET, $eh;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -829,7 +811,7 @@ function listBrokenLinks()
         echo _MD_MXDIR_NOBROKEN;
     } else {
         echo '<center>
-		' . _MD_MXDIR_IGNOREDESC . '<br />
+		' . _MD_MXDIR_IGNOREDESC . '<br>
 		' . _MD_MXDIR_DELETEDESC . '</center>';
         echo "<table align=\"center\" width=\"90%\">";
         echo "
@@ -884,7 +866,7 @@ function delBrokenLinks()
     global $xoopsDB, $_GET, $eh;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -903,7 +885,7 @@ function ignoreBrokenLinks()
     global $xoopsDB, $_GET, $eh;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -921,13 +903,13 @@ function listModReq()
     $totalmodrequests = $xoopsDB->getRowsNum($result);
     //	xoops_cp_header();
     echo "<table width='100%' border='0' cellspacing='1' class='outer'>" . "<tr class=\"head\"><td>";
-    echo '<h4>' . _MD_MXDIR_USERMODREQ . " ($totalmodrequests)</h4><br />";
+    echo '<h4>' . _MD_MXDIR_USERMODREQ . " ($totalmodrequests)</h4><br>";
 
     if ($totalmodrequests == 0) {
         echo _MD_MXDIR_NOSUBMITTED;
     } else {
         echo "<center><span style='font-size:xx-small;'>
-		<span align='left';>" . _MD_MXDIR_IGNOREDESC . '<br />
+		<span align='left';>" . _MD_MXDIR_IGNOREDESC . '<br>
 		' . _MD_MXDIR_DISPDESC . '</span>
 		</span></center>';
         echo "<table align=\"center\" width=\"90%\">";
@@ -987,7 +969,7 @@ function doModReq()
     global $xoopsDB, $myts, $eh, $mytree, $xoopsModuleConfig, $mydirname, $_GET;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1000,16 +982,13 @@ function doModReq()
 
     if ($totalmodrequests > 0) {
         $lookup_lid = array();
-        while (list($requestid, $lid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname,
-            $admcontnumb, $logourl, $premium, $description, $modifysubmitter) = $xoopsDB->fetchRow($result)) {
+        while (list($requestid, $lid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $premium, $description, $modifysubmitter) = $xoopsDB->fetchRow($result)) {
             echo "<tr><td valign='top'><table><tr><td valign='top' width=45%>";
             $lookup_lid[$requestid] = $lid;
-            $result2                =
-                $xoopsDB->query('select cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium, submitter from ' .
-                                $xoopsDB->prefix('xdir_links') .
-                                " where lid=$lid");
-            list($origcid, $origtitle, $origaddress, $origaddress2, $origcity, $origstate, $origzip, $origcountry, $origmfhrs, $origsathrs, $origsunhrs, $origphone, $origfax, $origmobile, $orighome,
-                $origtollfree, $origemail, $origurl, $origadmcontname, $origadmcontnumb, $origlogourl, $origpremium, $ownerid) = $xoopsDB->fetchRow($result2);
+            $result2                = $xoopsDB->query('select cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium, submitter from '
+                                                      . $xoopsDB->prefix('xdir_links')
+                                                      . " where lid=$lid");
+            list($origcid, $origtitle, $origaddress, $origaddress2, $origcity, $origstate, $origzip, $origcountry, $origmfhrs, $origsathrs, $origsunhrs, $origphone, $origfax, $origmobile, $orighome, $origtollfree, $origemail, $origurl, $origadmcontname, $origadmcontnumb, $origlogourl, $origpremium, $ownerid) = $xoopsDB->fetchRow($result2);
             $result2 = $xoopsDB->query('select description from ' . $xoopsDB->prefix('xdir_text') . " where lid=$lid");
             list($origdescription) = $xoopsDB->fetchRow($result2);
             $result3 = $xoopsDB->query('select description from ' . $xoopsDB->prefix('xdir_mod') . " where lid=$lid");
@@ -1047,14 +1026,14 @@ function doModReq()
             $premopts        = getlvlselects();
             $premdsp         = $premopts[$premium];
             $origpremdsp     = $premopts[$origpremium];
-            $origdescription =& $myts->makeTareaData4Show($origdescription);
-            $description     =& $myts->makeTareaData4Show($description);
-            //			$origdescription = $myts->makeTareaData4Show($description);
+            $origdescription =& $myts->displayTarea($origdescription);
+            $description     =& $myts->displayTarea($description);
+            //			$origdescription = $myts->displayTarea($description);
             if ($owner == '') {
                 $owner = 'administration';
             }
 
-            $listmodreqorigform = new XoopsThemeForm(_MD_MXDIR_ORIGINAL, 'listmodreqform', $_SERVER['PHP_SELF'], 'post', true);
+            $listmodreqorigform = new XoopsThemeForm(_MD_MXDIR_ORIGINAL, 'listmodreqform', $_SERVER['PHP_SELF'], 'POST', true);
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_DESCRIPTIONC, "<span style='font-size:xx-small;'>" . $origdescription . '</span>'));
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_SITETITLE, "<span style='font-size:xx-small;'>" . $origtitle . '</span>'));
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_BUSADDRESS, "<span style='font-size:xx-small;'>" . $origaddress . '</span>'));
@@ -1077,7 +1056,7 @@ function doModReq()
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_CATEGORYC, "<span style='font-size:xx-small;'>" . $origcidtitle . '</span>'));
             $listmodreqorigform->addElement(new XoopsFormLabel(_MD_MXDIR_PREMIUM, "<span style='font-size:xx-small;'>" . $origpremdsp . '&nbsp;(' . $origpremium . ')</span>'));
             $imgtray = new XoopsFormElementTray(_MD_MXDIR_SHOTIMAGE, '');
-            $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $origlogourl . "' name='imagex' id='imagex' alt='' />"));
+            $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $origlogourl . "' name='imagex' id='imagex' alt=''>"));
             $listmodreqorigform->addElement($imgtray);
 
             $listmodreqorigform->display();
@@ -1114,7 +1093,7 @@ function doModReq()
             $listmodreqform->addElement(new XoopsFormLabel(_MD_MXDIR_CATEGORYC, "<span style='font-size:xx-small;'>" . $cidtitle . '</span>'));
             $listmodreqform->addElement(new XoopsFormLabel(_MD_MXDIR_PREMIUM, "<span style='font-size:xx-small;'>" . $premdsp . '&nbsp;(' . $premium . ')</span>'));
             $imgtray = new XoopsFormElementTray(_MD_MXDIR_SHOTIMAGE, '');
-            $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='imagex' id='imagex' alt='' />"));
+            $imgtray->addElement(new XoopsFormLabel('', "<img src='../images/shots/" . $logourl . "' name='imagex' id='imagex' alt=''>"));
             $listmodreqform->addElement($imgtray);
 
             $listmodreqform->display();
@@ -1145,7 +1124,7 @@ function doModReq()
             echo "</small></td></tr>\n";
             echo "<tr><td>\n";
             echo myTextForm("main.php?op=changeModReq&amp;requestid=$requestid&amp;change_owner=1&amp;t=" . $GLOBALS['xoopsSecurity']->createToken() . '', _MD_MXDIR_APPROVECHANGE . ' ' . $submitter);
-            echo '</tr></td></table><br /><br /></td></tr>';
+            echo '</tr></td></table><br><br></td></tr>';
         }
     } else {
         echo '<tr><td>' . _MD_MXDIR_NOMODREQ . '</td></tr>';
@@ -1159,22 +1138,20 @@ function changeModReq()
     global $xoopsDB, $_GET, $_POST, $eh, $myts;
     //XoopsSecurity Check (true, $_REQUEST['t']) for button pass
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
 
     $requestid   = $_GET['requestid'];
     $changeowner = $_GET['change_owner'];
-    $query       =
-        'SELECT requestid, lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium, description, modifysubmitter FROM ' .
-        $xoopsDB->prefix('xdir_mod') .
-        ' WHERE requestid=' .
-        $requestid .
-        '';
+    $query       = 'SELECT requestid, lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium, description, modifysubmitter FROM '
+                   . $xoopsDB->prefix('xdir_mod')
+                   . ' WHERE requestid='
+                   . $requestid
+                   . '';
     $result      = $xoopsDB->query($query);
-    while (list($requestid, $lid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname,
-        $admcontnumb, $logourl, $premium, $description, $modifysubmitter) = $xoopsDB->fetchRow($result)) {
+    while (list($requestid, $lid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $premium, $description, $modifysubmitter) = $xoopsDB->fetchRow($result)) {
         if (get_magic_quotes_runtime()) {
             $title           = stripslashes($title);
             $address         = stripslashes($address);
@@ -1224,20 +1201,16 @@ function changeModReq()
         $description     = addslashes($description);
         $modifysubmitter = addslashes($modifysubmitter);
         if ($changeowner == 1) {
-            $sql =
-                sprintf("UPDATE %s SET cid = %u, title = '%s', address = '%s', address2 = '%s', city = '%s', state = '%s', zip = '%s', country = '%s', mfhrs = '%s', sathrs = '%s', sunhrs = '%s', phone = '%s', fax = '%s', mobile = '%s', home = '%s', tollfree = '%s', email = '%s', url = '%s', admcontname = '%s', admcontnumb = '%s', logourl = '%s', premium = '%u', submitter = '%u', STATUS = %u, DATE = %u WHERE lid = %u",
-                        $xoopsDB->prefix('xdir_links'), $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email,
-                        $url, $admcontname, $admcontnumb, $logourl, $premium, $modifysubmitter, 2, time(), $lid);
+            $sql = sprintf("UPDATE %s SET cid = %u, title = '%s', address = '%s', address2 = '%s', city = '%s', state = '%s', zip = '%s', country = '%s', mfhrs = '%s', sathrs = '%s', sunhrs = '%s', phone = '%s', fax = '%s', mobile = '%s', home = '%s', tollfree = '%s', email = '%s', url = '%s', admcontname = '%s', admcontnumb = '%s', logourl = '%s', premium = '%u', submitter = '%u', STATUS = %u, DATE = %u WHERE lid = %u",
+                           $xoopsDB->prefix('xdir_links'), $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $premium, $modifysubmitter, 2, time(), $lid);
             $xoopsDB->query($sql) or $eh->show('0013');
             $sql = sprintf("UPDATE %s SET description = '%s' WHERE lid = %u", $xoopsDB->prefix('xdir_text'), $description, $lid);
             $xoopsDB->query($sql) or $eh->show('0013');
             $sql = sprintf('DELETE FROM %s WHERE requestid = %u', $xoopsDB->prefix('xdir_mod'), $requestid);
             $xoopsDB->query($sql) or $eh->show('0013');
         } else {
-            $sql =
-                sprintf("UPDATE %s SET cid = %u, title = '%s', address = '%s', address2 = '%s', city = '%s', state = '%s', zip = '%s', country = '%s', mfhrs = '%s', sathrs = '%s', sunhrs = '%s', phone = '%s', fax = '%s', mobile = '%s', home = '%s', tollfree = '%s', email = '%s', url = '%s', admcontname = '%s', admcontnumb = '%s', logourl = '%s', premium = '%u', STATUS = %u, DATE = %u WHERE lid = %u",
-                        $xoopsDB->prefix('xdir_links'), $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email,
-                        $url, $admcontname, $admcontnumb, $logourl, $premium, 2, time(), $lid);
+            $sql = sprintf("UPDATE %s SET cid = %u, title = '%s', address = '%s', address2 = '%s', city = '%s', state = '%s', zip = '%s', country = '%s', mfhrs = '%s', sathrs = '%s', sunhrs = '%s', phone = '%s', fax = '%s', mobile = '%s', home = '%s', tollfree = '%s', email = '%s', url = '%s', admcontname = '%s', admcontnumb = '%s', logourl = '%s', premium = '%u', STATUS = %u, DATE = %u WHERE lid = %u",
+                           $xoopsDB->prefix('xdir_links'), $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $premium, 2, time(), $lid);
             $xoopsDB->query($sql) or $eh->show('0013');
             $sql = sprintf("UPDATE %s SET description = '%s' WHERE lid = %u", $xoopsDB->prefix('xdir_text'), $description, $lid);
             $xoopsDB->query($sql) or $eh->show('0013');
@@ -1254,7 +1227,7 @@ function ignoreModReq()
     global $xoopsDB, $_GET, $eh;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1271,7 +1244,7 @@ function modLinkS()
     //exit();
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1305,13 +1278,13 @@ function modLinkS()
     $admcontnumb = $myts->addSlashes($_POST['admcontnumb']);
     $premium     = $myts->addSlashes($_POST['premium']);
     $description = $myts->addSlashes($_POST['moddesc']);
-    $xoopsDB->query('update ' .
-                    $xoopsDB->prefix('xdir_links') .
-                    " set cid='$cid', title='$title', address='$address', address2='$address2', city='$city', state='$state', zip='$zip', country='$country', mfhrs='$mfhrs', sathrs='$sathrs', sunhrs='$sunhrs', phone='$phone', fax='$fax', mobile='$mobile', home='$home', tollfree='$tollfree', email='$email', url='$url', admcontname='$admcontname', admcontnumb='$admcontnumb', logourl='$logourl', status=2, date=" .
-                    time() .
-                    ", premium='$premium' where lid=" .
-                    $_POST['lid'] .
-                    '') or $eh->show('0013');
+    $xoopsDB->query('update '
+                    . $xoopsDB->prefix('xdir_links')
+                    . " set cid='$cid', title='$title', address='$address', address2='$address2', city='$city', state='$state', zip='$zip', country='$country', mfhrs='$mfhrs', sathrs='$sathrs', sunhrs='$sunhrs', phone='$phone', fax='$fax', mobile='$mobile', home='$home', tollfree='$tollfree', email='$email', url='$url', admcontname='$admcontname', admcontnumb='$admcontnumb', logourl='$logourl', status=2, date="
+                    . time()
+                    . ", premium='$premium' where lid="
+                    . $_POST['lid']
+                    . '') or $eh->show('0013');
     $xoopsDB->query('update ' . $xoopsDB->prefix('xdir_text') . " set description='$description' where lid=" . $_POST['lid'] . '') or $eh->show('0013');
     //Uploader
     $domain            = XOOPS_URL;
@@ -1324,28 +1297,28 @@ function modLinkS()
     }
     if (is_uploaded_file($_FILES['logoup']['tmp_name'])) {
         if ($_FILES['logoup']['size'] > $max_size) {
-            echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOSIZE . "</font><br />\n";
+            echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOSIZE . "</font><br>\n";
             exit;
         }
         if (($_FILES['logoup']['type'] === 'image/gif') || ($_FILES['logoup']['type'] === 'image/png') || ($_FILES['logoup']['type'] === 'image/jpeg')) {
             if (file_exists($path . $_FILES['logoup']['name'])) {
-                echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOSAMENAME . "</font><br />\n";
+                echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOSAMENAME . "</font><br>\n";
                 exit;
             }
             $res = copy($_FILES['logoup']['tmp_name'], $path . $_FILES['logoup']['name']);
             if (!$res) {
-                echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOTEMP . "</font><br />\n";
+                echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOTEMP . "</font><br>\n";
                 exit;
             } else {
             }
-            echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\"><hr />";
-            echo 'Name: ' . $_FILES['logoup']['name'] . "<br />\n";
-            echo 'Size: ' . $_FILES['logoup']['size'] . " bytes<br />\n";
-            echo 'Type: ' . $_FILES['logoup']['type'] . "<br />\n";
+            echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\"><hr>";
+            echo 'Name: ' . $_FILES['logoup']['name'] . "<br>\n";
+            echo 'Size: ' . $_FILES['logoup']['size'] . " bytes<br>\n";
+            echo 'Type: ' . $_FILES['logoup']['type'] . "<br>\n";
             echo '</font>';
-            echo "<br /><br /><img src=\"http://" . $domain . '/' . $path . $_FILES['logoup']['name'] . "\" alt=\"\" />";
+            echo "<br><br><img src=\"http://" . $domain . '/' . $path . $_FILES['logoup']['name'] . "\" alt=\"\">";
         } else {
-            echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOTYPE . "</font><br />\n";
+            echo "<font style=\"font-color: #333333; font-family: Geneva, Arial, Helvetica, sans-serif;\">" . _MD_MXDIR_ELOGOTYPE . "</font><br>\n";
             exit;
         }
     }
@@ -1359,7 +1332,7 @@ function delLink()
     global $xoopsDB, $_POST, $eh, $xoopsModule;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1396,7 +1369,7 @@ function modCat()
     $modcatform->addElement(new XoopsFormText(_MD_MXDIR_TITLEC, 'title', 50, 100, $title));
     $modcatform->addElement(new XoopsFormText(_MD_MXDIR_IMGURLMAIN, 'imgurl', 50, 100, $imgurl));
 
-    $select_modcats = (new XoopsFormSelect(_MD_MXDIR_PARENT, 'pid', $pid, 1, false));
+    $select_modcats = new XoopsFormSelect(_MD_MXDIR_PARENT, 'pid', $pid, 1, false);
     $tree           = $mytree->getChildTreeArray(0, 'title ASC');
     foreach ($tree as $branch) {
         $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -1436,7 +1409,7 @@ function modCatS()
     global $xoopsDB, $_POST, $myts, $eh;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1458,7 +1431,7 @@ function delCat()
     global $xoopsDB, $_GET, $_POST, $eh, $mytree, $xoopsModule;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1523,7 +1496,7 @@ function delNewLink()
     global $xoopsDB, $_POST, $eh, $xoopsModule;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1543,7 +1516,7 @@ function addCat()
     global $xoopsDB, $_POST, $myts, $eh, $mydirname;
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1568,8 +1541,8 @@ function addCat()
     $tags                  = array();
     $tags['CATEGORY_NAME'] = $title;
     $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $mydirname . '/viewcat.php?cid=' . $newid;
-    $notification_handler  =& xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'new_category', $tags);
+    $notificationHandler   = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'new_category', $tags);
     redirect_header('main.php?op=linksConfigMenu', 1, _MD_MXDIR_NEWCATADDED);
 }
 
@@ -1580,7 +1553,7 @@ function addLink()
     //exit();
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1620,13 +1593,13 @@ function addLink()
     if ($numrows > 0) {
         $errormsg .= "<h4 style='color: #ff0000'>";
         $errormsg .= _MD_MXDIR_ERROREXIST . '</h4>';
-        $error = 1;
+        $error    = 1;
     }
     // Check if Title exist
     if ($title == '') {
         $errormsg .= "<h4 style='color: #ff0000'>";
         $errormsg .= _MD_MXDIR_ERRORTITLE . '</h4>';
-        $error = 1;
+        $error    = 1;
     }
 
     if ($error == 1) {
@@ -1640,10 +1613,8 @@ function addLink()
         $cid = 0;
     }
     $newid = $xoopsDB->genId($xoopsDB->prefix('xdir_links') . '_lid_seq');
-    $sql   =
-        sprintf("INSERT INTO %s (lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, submitter, STATUS, DATE, hits, rating, votes, comments, premium) VALUES (%u, %u, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', %u, %u, %u, %u, %u, %u, %u, %u)",
-                $xoopsDB->prefix('xdir_links'), $newid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email,
-                $url, $admcontname, $admcontnumb, $logourl, $submitter, 1, time(), 0, 0, 0, 0, $premium);
+    $sql   = sprintf("INSERT INTO %s (lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, submitter, STATUS, DATE, hits, rating, votes, comments, premium) VALUES (%u, %u, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', %u, %u, %u, %u, %u, %u, %u, %u)",
+                     $xoopsDB->prefix('xdir_links'), $newid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $submitter, 1, time(), 0, 0, 0, 0, $premium);
     $xoopsDB->query($sql) or $eh->show('0013');
     if ($newid == 0) {
         $newid = $xoopsDB->getInsertId();
@@ -1658,9 +1629,9 @@ function addLink()
     $row                   = $xoopsDB->fetchArray($result);
     $tags['CATEGORY_NAME'] = $row['title'];
     $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $mydirname . '/viewcat.php?cid=' . $cid;
-    $notification_handler  =& xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
-    $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
+    $notificationHandler   = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'new_link', $tags);
+    $notificationHandler->triggerEvent('category', $cid, 'new_link', $tags);
 
     //Uploader
     $domain            = XOOPS_URL;
@@ -1673,28 +1644,28 @@ function addLink()
     }
     if (is_uploaded_file($_FILES['logoup']['tmp_name'])) {
         if ($_FILES['logoup']['size'] > $max_size) {
-            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSIZE . "</font><br />\n";
+            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSIZE . "</font><br>\n";
             exit;
         }
         if (($_FILES['logoup']['type'] === 'image/gif') || ($_FILES['logoup']['type'] === 'image/png') || ($_FILES['logoup']['type'] === 'image/jpeg')) {
             if (file_exists($path . $_FILES['logoup']['name'])) {
-                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSAMENAME . "</font><br />\n";
+                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSAMENAME . "</font><br>\n";
                 exit;
             }
             $res = copy($_FILES['logoup']['tmp_name'], $path . $_FILES['logoup']['name']);
             if (!$res) {
-                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTEMP . "</font><br />\n";
+                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTEMP . "</font><br>\n";
                 exit;
             } else {
             }
-            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\"><hr />";
-            echo 'Name: ' . $_FILES['logoup']['name'] . "<br />\n";
-            echo 'Size: ' . $_FILES['logoup']['size'] . " bytes<br />\n";
-            echo 'Type: ' . $_FILES['logoup']['type'] . "<br />\n";
+            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\"><hr>";
+            echo 'Name: ' . $_FILES['logoup']['name'] . "<br>\n";
+            echo 'Size: ' . $_FILES['logoup']['size'] . " bytes<br>\n";
+            echo 'Type: ' . $_FILES['logoup']['type'] . "<br>\n";
             echo '</font>';
-            echo "<br /><br /><img src=\"http://" . $domain . '/' . $path . $_FILES['logoup']['name'] . "\" alt=\"\" />";
+            echo "<br><br><img src=\"http://" . $domain . '/' . $path . $_FILES['logoup']['name'] . "\" alt=\"\">";
         } else {
-            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTYPE . "</font><br />\n";
+            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTYPE . "</font><br>\n";
             exit;
         }
     }
@@ -1708,7 +1679,7 @@ function approve()
 
     //XoopsSecurity Check
     if ((!$GLOBALS['xoopsSecurity']->check()) && (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['t']))) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -1745,13 +1716,13 @@ function approve()
     $premium     = $myts->addSlashes($_POST['premium']);
     $description = $myts->addSlashes($_POST['description']);
 
-    $query = 'update ' .
-             $xoopsDB->prefix('xdir_links') .
-             " set cid='$cid', title='$title', address='$address', address2='$address2', city='$city', state='$state', zip='$zip', country='$country', mfhrs='$mfhrs', sathrs='$sathrs', sunhrs='$sunhrs', phone='$phone', fax='$fax', mobile='$mobile', home='$home', tollfree='$tollfree', email='$email', url='$url', admcontname='$admcontname', admcontnumb='$admcontnumb', logourl='$logourl', premium='$premium', status=1, date=" .
-             time() .
-             ' where lid=' .
-             $lid .
-             '';
+    $query = 'update '
+             . $xoopsDB->prefix('xdir_links')
+             . " set cid='$cid', title='$title', address='$address', address2='$address2', city='$city', state='$state', zip='$zip', country='$country', mfhrs='$mfhrs', sathrs='$sathrs', sunhrs='$sunhrs', phone='$phone', fax='$fax', mobile='$mobile', home='$home', tollfree='$tollfree', email='$email', url='$url', admcontname='$admcontname', admcontnumb='$admcontnumb', logourl='$logourl', premium='$premium', status=1, date="
+             . time()
+             . ' where lid='
+             . $lid
+             . '';
     $xoopsDB->query($query) or $eh->show('0013');
     $query = 'update ' . $xoopsDB->prefix('xdir_text') . " set description='$description' where lid=" . $lid . '';
     $xoopsDB->query($query) or $eh->show('0013');
@@ -1764,38 +1735,38 @@ function approve()
     $row                   = $xoopsDB->fetchArray($result);
     $tags['CATEGORY_NAME'] = $row['title'];
     $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $mydirname . '/viewcat.php?cid=' . $cid;
-    $notification_handler  =& xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
-    $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
-    $notification_handler->triggerEvent('link', $lid, 'approve', $tags);
+    $notificationHandler   = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'new_link', $tags);
+    $notificationHandler->triggerEvent('category', $cid, 'new_link', $tags);
+    $notificationHandler->triggerEvent('link', $lid, 'approve', $tags);
 
     if (!isset($_FILES['logoup'])) {
         exit;
     }
     if (is_uploaded_file($_FILES['logoup']['tmp_name'])) {
         if ($_FILES['logoup']['size'] > $max_size) {
-            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSIZE . "</font><br />\n";
+            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSIZE . "</font><br>\n";
             exit;
         }
         if (($_FILES['logoup']['type'] === 'image/gif') || ($_FILES['logoup']['type'] === 'image/png') || ($_FILES['logoup']['type'] === 'image/jpeg')) {
             if (file_exists($path . $_FILES['logoup']['name'])) {
-                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSAMENAME . "</font><br />\n";
+                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOSAMENAME . "</font><br>\n";
                 exit;
             }
             $res = copy($_FILES['logoup']['tmp_name'], $path . $_FILES['logoup']['name']);
             if (!$res) {
-                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTEMP . "</font><br />\n";
+                echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTEMP . "</font><br>\n";
                 exit;
             } else {
             }
-            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\"><hr />";
-            echo 'Name: ' . $_FILES['logoup']['name'] . "<br />\n";
-            echo 'Size: ' . $_FILES['logoup']['size'] . " bytes<br />\n";
-            echo 'Type: ' . $_FILES['logoup']['type'] . "<br />\n";
+            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\"><hr>";
+            echo 'Name: ' . $_FILES['logoup']['name'] . "<br>\n";
+            echo 'Size: ' . $_FILES['logoup']['size'] . " bytes<br>\n";
+            echo 'Type: ' . $_FILES['logoup']['type'] . "<br>\n";
             echo '</font>';
-            echo "<br /><br /><img src=\"http://" . $domain . '/' . $path . $_FILES['logoup']['name'] . "\" alt=\"\" />";
+            echo "<br><br><img src=\"http://" . $domain . '/' . $path . $_FILES['logoup']['name'] . "\" alt=\"\">";
         } else {
-            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTYPE . "</font><br />\n";
+            echo "<font color=\"#333333\" face=\"Geneva, Arial, Helvetica, sans-serif\">" . _MD_MXDIR_ELOGOTYPE . "</font><br>\n";
             exit;
         }
     }

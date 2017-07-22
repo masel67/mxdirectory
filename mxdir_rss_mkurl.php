@@ -1,14 +1,14 @@
 <?php
-include_once('header.php');
-include_once(XOOPS_ROOT_PATH . '/header.php');
+require_once __DIR__ . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 global $xoopsUser, $xoopsDB, $mydirname, $xoopsModuleConfig;
-//include_once XOOPS_ROOT_PATH."/class/xoopstree.php";
+//require_once XOOPS_ROOT_PATH."/class/xoopstree.php";
 $mydirname = basename(__DIR__);
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-include 'include/securitycheck.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+include __DIR__ . '/include/securitycheck.php';
 $myts   = MyTextSanitizer::getInstance();
 $mytree = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
 
@@ -87,7 +87,7 @@ if (!empty($_POST['submit'])) {
     } else {
         $qtyck = in_array((int)$_POST['rss_qty'], $q_array);
         reset($rss_qkey);
-        $rss_qty = ($qtyck != false) ? (int)$_POST['rss_qty'] : current($rss_qkey);
+        $rss_qty = ($qtyck !== false) ? (int)$_POST['rss_qty'] : current($rss_qkey);
     }
 } else {
 
@@ -105,10 +105,10 @@ if (!empty($_POST['submit'])) {
 
 // -- FORM DISPLAY --
 
-$rssform = new XoopsThemeForm(_MD_MXDIR_RSSFMTTL, 'rssform', $_SERVER['PHP_SELF'], 'post', true);
+$rssform = new XoopsThemeForm(_MD_MXDIR_RSSFMTTL, 'rssform', $_SERVER['PHP_SELF'], 'POST', true);
 
 // Get RSS Option Type
-$sel_op = (new XoopsFormSelect(_MD_MXDIR_SORTBY, 'rss_op', $rss_op, 1, false));
+$sel_op = new XoopsFormSelect(_MD_MXDIR_SORTBY, 'rss_op', $rss_op, 1, false);
 foreach ($op_array as $key => $value) {
     $sel_op->addOption($key, $value);
 }
@@ -116,7 +116,7 @@ $rssform->addElement($sel_op);
 
 // display RSS Category
 $tree    = $mytree->getChildTreeArray(0, 'title ASC');
-$sel_cat = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'rss_catid', $rss_catid, 1, false));
+$sel_cat = new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'rss_catid', $rss_catid, 1, false);
 $sel_cat->addOption(0, _MD_MXDIR_ALLCATS);
 foreach ($tree as $branch) {
     $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -126,7 +126,7 @@ foreach ($tree as $branch) {
 $rssform->addElement($sel_cat);
 
 // Get RSS Quantity
-$sel_qty = (new XoopsFormSelect(_MD_MXDIR_RSSQTYLBL, 'rss_qty', $rss_qty, 1, false));
+$sel_qty = new XoopsFormSelect(_MD_MXDIR_RSSQTYLBL, 'rss_qty', $rss_qty, 1, false);
 for ($i = 0; $i < count($q_array); $i++) {
     $sel_qty->addOption((int)$rss_qkey[$i], (int)$rss_qkey[$i]);
 }
@@ -140,17 +140,8 @@ if (empty($xoopsUser) && $xoopsModuleConfig['captcha_anon']) {
     if ($gd) {
         mt_srand((double)microtime() * 10000);
         $random_num  = mt_rand(0, 100000);
-        $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" .
-                       _MD_MXDIR_SECURITY_CODE .
-                       "' title='" .
-                       _MD_MXDIR_SECURITY_CODE .
-                       "' />&nbsp;&nbsp;" .
-                       "<img src='images/no-spam.jpg' alt='" .
-                       _MD_MXDIR_NO_SPAM .
-                       "' title='" .
-                       _MD_MXDIR_NO_SPAM .
-                       "' />";
-        $captchatray = new XoopsFormElementTray('', '<br />');
+        $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" . _MD_MXDIR_SECURITY_CODE . "' title='" . _MD_MXDIR_SECURITY_CODE . "'>&nbsp;&nbsp;" . "<img src='images/no-spam.jpg' alt='" . _MD_MXDIR_NO_SPAM . "' title='" . _MD_MXDIR_NO_SPAM . "'>";
+        $captchatray = new XoopsFormElementTray('', '<br>');
         $captchatray->addElement(new XoopsFormLabel('', $security));
         $captchatray->addElement(new XoopsFormHidden('sec_hidden', $random_num));
         $captchatray->addElement(new XoopsFormText('', 'security', 15, 10, ''));
@@ -164,10 +155,10 @@ $rssform->addElement(new XoopsFormHidden('captcha_stat', $captcha_stat));
 // now create URL
 $myurl  = XOOPS_URL . '/modules/' . $mydirname . '/mxdir_rss.php?op=' . $rss_op . '&amp;catid=' . $rss_catid . '&amp;qty=' . $rss_qty;
 $myurl  = htmlspecialchars($myurl);
-$tstlnk = " <a href='" . $myurl . "' target='_blank'><img src='./images/rss/rss-" . $rss_op . ".jpg' alt='" . _MD_MXDIR_TSTLNK . "' width='80' height='15'  /></a>";
+$tstlnk = " <a href='" . $myurl . "' target='_blank'><img src='./images/rss/rss-" . $rss_op . ".jpg' alt='" . _MD_MXDIR_TSTLNK . "' width='80' height='15' ></a>";
 //$myurl = urlencode($myurl);
 
-$rssform->addElement(new XoopsFormTextArea(_MD_MXDIR_RSSURL . '<br /><br />' . $tstlnk, 'myurl', $myurl, 5, 50));
+$rssform->addElement(new XoopsFormTextArea(_MD_MXDIR_RSSURL . '<br><br>' . $tstlnk, 'myurl', $myurl, 5, 50));
 
 $regtray = new XoopsFormElementTray('');
 $sbtn    = new XoopsFormButton('', '', _MD_MXDIR_SUBMIT, 'submit');
@@ -178,4 +169,4 @@ $regtray->addElement($sbtn);
 $rssform->addElement($regtray);
 $rssform->display();
 
-include_once(XOOPS_ROOT_PATH . '/footer.php');
+require_once XOOPS_ROOT_PATH . '/footer.php';

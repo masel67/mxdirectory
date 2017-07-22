@@ -1,44 +1,36 @@
 <?php
-// $Id: submit.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-include 'header.php';
-include_once XOOPS_ROOT_PATH . '/header.php';
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
+
+include __DIR__ . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 global $xoopsDB, $eh, $xoopsConfig, $xoopsModuleConfig, $xoopsUser;
 include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-//include_once XOOPS_ROOT_PATH."/class/xoopstree.php";
+//require_once XOOPS_ROOT_PATH."/class/xoopstree.php";
 $mydirname = basename(__DIR__);
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
-include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-include_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
-include 'include/securitycheck.php';
-include 'class/formtime.php';
+require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
+include __DIR__ . '/include/securitycheck.php';
+include __DIR__ . '/class/formtime.php';
 $myts           = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $mytree         = new MxdirectoryTree($xoopsDB->prefix('xdir_cat'), 'cid', 'pid');
 $mydirname      = basename(__DIR__);
@@ -56,7 +48,7 @@ if (!empty($_POST['submit'])) {
     // Form posted - evaluate the results & put into the dB for approval
     //xoops security class before captcha eval.
     if (!$GLOBALS['xoopsSecurity']->check()) {
-        print _MD_MXDIR_SUBMITTER . '<br />' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
+        print _MD_MXDIR_SUBMITTER . '<br>' . _MD_MXDIR_SECURITY_CODE . ' ' . _MD_MXDIR_UPGRADEFAILED;
 
         return;
     }
@@ -171,10 +163,8 @@ if (!empty($_POST['submit'])) {
     //
     $newid = $xoopsDB->genId($xoopsDB->prefix('xdir_links') . '_requestid_seq');
 
-    $sql =
-        sprintf("INSERT INTO %s (lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, submitter, STATUS, DATE, hits, rating, votes, comments, premium) VALUES (%u, %u, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u, %u)",
-                $xoopsDB->prefix('xdir_links'), $newid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email,
-                $url, $admcontname, $admcontnumb, $logourl, $submitter, $status, $date, 0, 0, 0, 0, $premium);
+    $sql = sprintf("INSERT INTO %s (lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, submitter, STATUS, DATE, hits, rating, votes, comments, premium) VALUES (%u, %u, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u, %u)",
+                   $xoopsDB->prefix('xdir_links'), $newid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $submitter, $status, $date, 0, 0, 0, 0, $premium);
     $xoopsDB->query($sql) or $eh->show('0013');
     $newid = ($newid == 0) ? $newid = $xoopsDB->getInsertId() : $newid;
     $sql   = sprintf("INSERT INTO %s (lid, description) VALUES (%u, '%s')", $xoopsDB->prefix('xdir_text'), $newid, $moddesc);
@@ -182,7 +172,7 @@ if (!empty($_POST['submit'])) {
     //
     // and finally set the notification
     //
-    $notification_handler  =& xoops_getHandler('notification');
+    $notificationHandler   = xoops_getHandler('notification');
     $tags                  = array();
     $tags['LINK_NAME']     = $title;
     $tags['LINK_URL']      = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/singlelink.php?cid=' . $cid . '&lid=' . $newid;
@@ -192,16 +182,16 @@ if (!empty($_POST['submit'])) {
     $tags['CATEGORY_NAME'] = $row['title'];
     $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/viewcat.php?cid=' . $cid;
     if ($xoopsModuleConfig['autoapprove'] == 1) {
-        $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
-        $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
-        redirect_header('index.php', 2, _MD_MXDIR_RECEIVED . '<br />' . _MD_MXDIR_ISAPPROVED . '');
+        $notificationHandler->triggerEvent('global', 0, 'new_link', $tags);
+        $notificationHandler->triggerEvent('category', $cid, 'new_link', $tags);
+        redirect_header('index.php', 2, _MD_MXDIR_RECEIVED . '<br>' . _MD_MXDIR_ISAPPROVED . '');
     } else {
         $tags['WAITINGLINKS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/main.php?op=listNewLinks';
-        $notification_handler->triggerEvent('global', 0, 'link_submit', $tags);
-        $notification_handler->triggerEvent('category', $cid, 'link_submit', $tags);
+        $notificationHandler->triggerEvent('global', 0, 'link_submit', $tags);
+        $notificationHandler->triggerEvent('category', $cid, 'link_submit', $tags);
         if ($notify) {
-            include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
-            $notification_handler->subscribe('link', $newid, 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
+            require_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
+            $notificationHandler->subscribe('link', $newid, 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
         }
         redirect_header('index.php', 10, _MD_MXDIR_RECEIVED);
     }
@@ -220,7 +210,7 @@ if (!empty($_POST['submit'])) {
     $modlinkform = new XoopsThemeForm(_MD_MXDIR_ADDNEWLINK, 'submitform', $_SERVER['PHP_SELF'], 'POST', true);
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_SITETITLE, 'title', 50, 100, ''), true);
 
-    $addrtray = new XoopsFormElementTray(_MD_MXDIR_BUSADDRESS, '<br />');
+    $addrtray = new XoopsFormElementTray(_MD_MXDIR_BUSADDRESS, '<br>');
     $addrtray->addElement(new XoopsFormText(_MD_MXDIR_BUSADDRESS1, 'address', 38, 200, ''));
     $addrtray->addElement(new XoopsFormText(_MD_MXDIR_BUSADDRESS2, 'address2', 38, 100, ''));
     $modlinkform->addElement($addrtray);
@@ -228,7 +218,7 @@ if (!empty($_POST['submit'])) {
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_BUSSTATE, 'state', 50, 80, ''));// EVU CODE changed size and max size
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_BUSZIP, 'zip', 15, 15, ''));
     $modlinkform->addElement(new XoopsFormSelectCountry(_MD_MXDIR_BUSCOUNTRY, 'country', ''));
-    $hrtray = new XoopsFormElementTray(_MD_MXDIR_BUSHRS, '<br />');
+    $hrtray = new XoopsFormElementTray(_MD_MXDIR_BUSHRS, '<br>');
     $hrtray->addElement(new XoopsFormTime(_MD_MXDIR_BUSMFHRS, 'mfhrs', 15, ''));
     $hrtray->addElement(new XoopsFormTime(_MD_MXDIR_BUSSATHRS, 'sathrs', 15, ''));
     $hrtray->addElement(new XoopsFormTime(_MD_MXDIR_BUSSUNHRS, 'sunhrs', 15, ''));
@@ -240,11 +230,11 @@ if (!empty($_POST['submit'])) {
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_BUSTOLLFREE, 'tollfree', 15, 35, ''));
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_BUSEMAIL, 'email', 50, 100, ''));
     $modlinkform->addElement(new XoopsFormText(_MD_MXDIR_SITEURL, 'url', 50, 250, ''));
-    $contray = new XoopsFormElementTray(_MD_MXDIR_BUSADMCONT, '<br />');
+    $contray = new XoopsFormElementTray(_MD_MXDIR_BUSADMCONT, '<br>');
     $contray->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNAME, 'admcontname', 28, 35, ''), true);
     $contray->addElement(new XoopsFormText(_MD_MXDIR_BUSADMCONTNUMB, 'admcontnumb', 28, 35, ''), true);
     $modlinkform->addElement($contray);
-    $sel_cat = (new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', '', 1, false));
+    $sel_cat = new XoopsFormSelect(_MD_MXDIR_CATEGORYC, 'cid', '', 1, false);
     $tree    = $mytree->getChildTreeArray(0, 'title ASC');
     foreach ($tree as $branch) {
         $branch['prefix'] = substr($branch['prefix'], 0, -1);
@@ -284,17 +274,8 @@ if (!empty($_POST['submit'])) {
         if ($gd) {
             mt_srand((double)microtime() * 10000);
             $random_num  = mt_rand(0, 100000);
-            $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" .
-                           _MD_MXDIR_SECURITY_CODE .
-                           "' title='" .
-                           _MD_MXDIR_SECURITY_CODE .
-                           "' />&nbsp;&nbsp;" .
-                           "<img src='images/no-spam.jpg' alt='" .
-                           _MD_MXDIR_NO_SPAM .
-                           "' title='" .
-                           _MD_MXDIR_NO_SPAM .
-                           "' />";
-            $captchatray = new XoopsFormElementTray('', '<br />');
+            $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" . _MD_MXDIR_SECURITY_CODE . "' title='" . _MD_MXDIR_SECURITY_CODE . "'>&nbsp;&nbsp;" . "<img src='images/no-spam.jpg' alt='" . _MD_MXDIR_NO_SPAM . "' title='" . _MD_MXDIR_NO_SPAM . "'>";
+            $captchatray = new XoopsFormElementTray('', '<br>');
             $captchatray->addElement(new XoopsFormLabel('', $security));
             $captchatray->addElement(new XoopsFormHidden('sec_hidden', $random_num));
             $captchatray->addElement(new XoopsFormText('', 'security', 15, 10, ''));

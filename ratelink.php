@@ -1,36 +1,25 @@
 <?php
-// $Id: ratelink.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
-include 'header.php';
-include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
+include __DIR__ . '/header.php';
+require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
 $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
 if (!empty($HTTP_POST_VARS['submit'])) {
@@ -90,18 +79,16 @@ if (!empty($HTTP_POST_VARS['submit'])) {
     //All is well.  Add to Line Item Rate to DB.
     $newid    = $xoopsDB->genId($xoopsDB->prefix('xdir_votedata') . '_ratingid_seq');
     $datetime = time();
-    $sql      =
-        sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix('xdir_votedata'), $newid, $lid, $ratinguser,
-                $rating, $ip, $datetime);
+    $sql      = sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix('xdir_votedata'), $newid, $lid, $ratinguser, $rating, $ip, $datetime);
     $xoopsDB->query($sql) or $eh->show('0013');
 
     //All is well.  Calculate Score & Add to Summary (for quick retrieval & sorting) to DB.
     updaterating($lid);
-    $ratemessage = _MD_MXDIR_VOTEAPPRE . '<br />' . sprintf(_MD_MXDIR_THANKURATE, $xoopsConfig[sitename]);
+    $ratemessage = _MD_MXDIR_VOTEAPPRE . '<br>' . sprintf(_MD_MXDIR_THANKURATE, $xoopsConfig[sitename]);
     redirect_header('index.php', 2, $ratemessage);
     exit();
 } else {
-    $xoopsOption['template_main'] = 'xdir_ratelink.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'xdir_ratelink.tpl';
     include XOOPS_ROOT_PATH . '/header.php';
     $lid    = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
     $cid    = isset($_GET['cid']) ? (int)$_GET['cid'] : 0;

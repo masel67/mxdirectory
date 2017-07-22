@@ -23,9 +23,9 @@
 	  <{/if}>
 	  </a>
 <!--      <{if $link.coupons > 0}>
-      <a href="savings.php?lid=<{$link.id}>"><img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="<{$smarty.const._MD_MXDIR_SAVINGS}>" class="premium_logo" /></a>
+      <a href="savings.php?lid=<{$link.id}>"><img src="<{$xoops_url}>/modules/<{$smartydir}>/images/coupons.jpg" alt="<{$smarty.const._MD_MXDIR_SAVINGS}>" class="premium_logo"></a>
       <{/if}> -->
-      <br />
+      <br>
     </td>
     <td class="premium_rating"><a href="<{$xoops_url}>/modules/<{$smartydir}>/ratelink.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>">
       <{$lang_rating}>
@@ -43,11 +43,11 @@
       </span>
 	</td>
     <td colspan="2" class="premium_hours"><{if $link.lvlopts.3 == "1" && $link.url != "http://" && $link.url != ""}>
-      <a href='visit.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>' target='_blank'><img src='images/link.gif' border='0' alt='<{$lang_visit}>' /><span class="premium_url">
+      <a href='visit.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>' target='_blank'><img src='images/link.gif' border='0' alt='<{$lang_visit}>'><span class="premium_url">
       <{$link.url}>
-      </span></a><br />
+      </span></a><br>
     <{/if}></td>
   </tr>
 </table>
-<hr />
+<hr>
 <{/if}>

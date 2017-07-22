@@ -1,44 +1,33 @@
 <?php
-// $Id: singlelink.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
-include 'header.php';
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-include_once XOOPS_ROOT_PATH . "/modules/$mydirname/class/coupon.php";
-//include_once "include/functions.php";
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
+include __DIR__ . '/header.php';
+
+require_once XOOPS_ROOT_PATH . "/modules/$mydirname/class/coupon.php";
+//require_once "include/functions.php";
 
 global $xoopsModule;
-$pathIcon16 = $xoopsModule->getInfo('icons16');
+$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 
 $myts = MyTextSanitizer::getInstance();// MyTextSanitizer object
-//include_once XOOPS_ROOT_PATH."/class/xoopstree.php";
+//require_once XOOPS_ROOT_PATH."/class/xoopstree.php";
 $mydirname = basename(__DIR__);
 include XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/class/mxdirectorytree.php';
 
@@ -49,17 +38,15 @@ if (!($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid()))) {
     $sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND STATUS > 0', $xoopsDB->prefix('xdir_links'), $lid);
     $xoopsDB->queryF($sql);
 }
-$xoopsOption['template_main'] = 'xdir_singlelink.html';
+$GLOBALS['xoopsOption']['template_main'] = 'xdir_singlelink.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
 
-$result =
-    $xoopsDB->query('select l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.admcontname, l.admcontnumb, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description from ' .
-                    $xoopsDB->prefix('xdir_links') .
-                    ' l, ' .
-                    $xoopsDB->prefix('xdir_text') .
-                    " t where l.lid=$lid and l.lid=t.lid and status>0");
-list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admname, $admnumb, $logourl, $status,
-    $time, $hits, $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result);
+$result = $xoopsDB->query('select l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.admcontname, l.admcontnumb, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description from '
+                          . $xoopsDB->prefix('xdir_links')
+                          . ' l, '
+                          . $xoopsDB->prefix('xdir_text')
+                          . " t where l.lid=$lid and l.lid=t.lid and status>0");
+list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admname, $admnumb, $logourl, $status, $time, $hits, $rating, $votes, $comments, $premium, $description) = $xoopsDB->fetchRow($result);
 
 //Pretty Page Titles
 $title = '';
@@ -89,18 +76,7 @@ $adminlink = '';
 $admcont   = '';
 if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
     $xoopsTpl->assign('admin', 1);
-    $adminlink = '<a href="' .
-                 XOOPS_URL .
-                 '/modules/' .
-                 $xoopsModule->getVar('dirname') .
-                 '/admin/main.php?op=modLink&amp;lid=' .
-                 $lid .
-                 '"><img src="' .
-                 $pathIcon16 .
-                 '/edit.png"' .
-                 ' border="0" alt="' .
-                 _MD_MXDIR_EDITTHISLINK .
-                 '" /></a>';
+    $adminlink = '<a href="' . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/main.php?op=modLink&amp;lid=' . $lid . '"><img src="' . $pathIcon16 . '/edit.png"' . ' border="0" alt="' . _MD_MXDIR_EDITTHISLINK . '"></a>';
     if (trim($admname) != '') {
         $admcont = trim($admname) . ' - ';
         $admcont .= trim($admnumb) == '' ? _MD_MXDIR_UNKNOWN : trim($admnumb);
@@ -118,7 +94,7 @@ if ($xoopsModuleConfig['useshots'] == 1) {
     $xoopsTpl->assign('lang_noscreenshot', _MD_MXDIR_NOSHOTS);
 }
 
-//include_once "include/functions.php";
+//require_once "include/functions.php";
 $mfhrs  = displayTime($mfhrs);
 $sathrs = displayTime($sathrs);
 $sunhrs = displayTime($sunhrs);
@@ -135,17 +111,17 @@ $xoopsTpl->assign('p5color', $xoopsModuleConfig['premium_listing5col']);
 
 $path     = $mytree->getPathFromId($cid, 'title');
 $path     = substr($path, 1);
-$path     = str_replace('/', " <img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images/arrow.gif' board='0' alt='' /> ", $path);
+$path     = str_replace('/', " <img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images/arrow.gif' board='0' alt=''> ", $path);
 $new      = newlinkgraphic($time, $status);
 $pop      = popgraphic($hits);
 $ratingfl = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
 $ratingfl = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
-$rating   = "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "' /> ";
-//$coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
-$coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
+$rating   = "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "'> ";
+//$couponHandler = xoops_getModuleHandler('coupon', $mydirname);
+$couponHandler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
 //Adding record related template items
 $xoopsTpl->assign('link', array(
-    'coupons'      => $coupon_handler->getCountByLink($lid),
+    'coupons'      => $couponHandler->getCountByLink($lid),
     'id'           => $lid,
     'cid'          => $cid,
     'rating'       => $rating,

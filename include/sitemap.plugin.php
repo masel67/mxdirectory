@@ -8,7 +8,7 @@ eval('
 
 function b_sitemap_' . $mydirname . '(){
 
-	$db =& XoopsDatabaseFactory::getDatabaseConnection();
+	$db = XoopsDatabaseFactory::getDatabaseConnection();
   $smtree = new MxdirectoryTree($db->prefix("xdir_cat"),"cid","pid");
 	$myts = MyTextSanitizer::getInstance();
 

@@ -1,29 +1,21 @@
 <?php
-// $Id: myblockform.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
@@ -40,11 +32,11 @@ $side_select->addOptionArray(array(0 => _AM_SBLEFT, 1 => _AM_SBRIGHT, 3 => _AM_C
 $form->addElement($side_select);
 $form->addElement(new XoopsFormText(_AM_WEIGHT, 'bweight', 2, 5, $block['weight']));
 $form->addElement(new XoopsFormRadioYN(_AM_VISIBLE, 'bvisible', $block['visible']));
-$mod_select     = new XoopsFormSelect(_AM_VISIBLEIN, 'bmodule', $block['modules'], 5, true);
-$module_handler =& xoops_getHandler('module');
-$criteria       = new CriteriaCompo(new Criteria('hasmain', 1));
+$mod_select    = new XoopsFormSelect(_AM_VISIBLEIN, 'bmodule', $block['modules'], 5, true);
+$moduleHandler = xoops_getHandler('module');
+$criteria      = new CriteriaCompo(new Criteria('hasmain', 1));
 $criteria->add(new Criteria('isactive', 1));
-$module_list     =& $module_handler->getList($criteria);
+$module_list     = $moduleHandler->getList($criteria);
 $module_list[-1] = _AM_TOPPAGE;
 $module_list[0]  = _AM_MXDIR_ALLPAGES;
 ksort($module_list);
@@ -55,11 +47,7 @@ $form->addElement(new XoopsFormText(_AM_TITLE, 'btitle', 50, 255, $block['title'
 if ($block['is_custom']) {
 
     // Custom Block's textarea
-    $notice_for_tags = '<span style="font-size:x-small;font-weight:bold;">' .
-                       _AM_USEFULTAGS .
-                       '</span><br /><span style="font-size:x-small;font-weight:normal;">' .
-                       sprintf(_AM_BLOCKTAG1, '{X_SITEURL}', XOOPS_URL . '/') .
-                       '</span>';
+    $notice_for_tags = '<span style="font-size:x-small;font-weight:bold;">' . _AM_USEFULTAGS . '</span><br><span style="font-size:x-small;font-weight:normal;">' . sprintf(_AM_BLOCKTAG1, '{X_SITEURL}', XOOPS_URL . '/') . '</span>';
     $current_op      = @$_GET['op'] === 'clone' ? 'clone' : 'edit';
     $uri_to_myself   = XOOPS_URL . "/modules/blocksadmin/admin/admin.php?fct=blocksadmin&amp;op=$current_op&amp;bid={$block['bid']}";
     // $can_use_spaw = check_browser_can_use_spaw() ;
@@ -71,13 +59,13 @@ if ($block['is_custom']) {
         $sw = new SPAW_Wysiwyg('bcontent', $block['content']);
         $sw->show();
         $textarea = new XoopsFormLabel(_AM_CONTENT, ob_get_contents());
-        $textarea->setDescription($notice_for_tags . "<br /><br /><a href='$uri_to_myself&amp;usespaw=0'>NORMAL</a>");
+        $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=0'>NORMAL</a>");
         ob_end_clean();
     } else {
         $myts     = MyTextSanitizer::getInstance();
         $textarea = new XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', $myts->htmlSpecialChars($block['content']), 15, 70);
         if ($can_use_spaw) {
-            $textarea->setDescription($notice_for_tags . "<br /><br /><a href='$uri_to_myself&amp;usespaw=1'>SPAW</a>");
+            $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=1'>SPAW</a>");
         } else {
             $textarea->setDescription($notice_for_tags);
         }
@@ -89,25 +77,18 @@ if ($block['is_custom']) {
     $form->addElement($ctype_select);
 } else {
     if ($block['template'] != '' && !defined('XOOPS_ORETEKI')) {
-        $tplfile_handler =& xoops_getHandler('tplfile');
-        $btemplate       =& $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
+        $tplfileHandler = xoops_getHandler('tplfile');
+        $btemplate      = $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
         if (count($btemplate) > 0) {
-            $form->addElement(new XoopsFormLabel(_AM_CONTENT,
-                                                 '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate[0]->getVar('tpl_id') . '">' . _AM_EDITTPL . '</a>'));
+            $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate[0]->getVar('tpl_id') . '">' . _AM_EDITTPL . '</a>'));
         } else {
-            $btemplate2 =& $tplfile_handler->find('default', 'block', $block['bid']);
+            $btemplate2 = $tplfileHandler->find('default', 'block', $block['bid']);
             if (count($btemplate2) > 0) {
-                $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' .
-                                                                  XOOPS_URL .
-                                                                  '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' .
-                                                                  $btemplate2[0]->getVar('tpl_id') .
-                                                                  '" target="_blank">' .
-                                                                  _AM_EDITTPL .
-                                                                  '</a>'));
+                $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate2[0]->getVar('tpl_id') . '" target="_blank">' . _AM_EDITTPL . '</a>'));
             }
         }
     }
-    if ($block['edit_form'] != false) {
+    if ($block['edit_form'] !== false) {
         $form->addElement(new XoopsFormLabel(_AM_OPTIONS, $block['edit_form']));
     }
 }

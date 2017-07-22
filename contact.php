@@ -1,17 +1,17 @@
 <?php
 //returned vars
-include_once('header.php');
-include_once(XOOPS_ROOT_PATH . '/header.php');
+require_once __DIR__ . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 if (file_exists('language/' . $xoopsConfig['language'] . '/main.php')) {
-    include_once 'language/' . $xoopsConfig['language'] . '/main.php';
+    require_once __DIR__ . '/language/' . $xoopsConfig['language'] . '/main.php';
 } else {
-    include_once 'language/english/main.php';
+    require_once __DIR__ . '/language/english/main.php';
 }
 
-include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
-include 'include/securitycheck.php';
+require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
+include __DIR__ . '/include/securitycheck.php';
 //include "include/functions.php";
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $myts = MyTextSanitizer::getInstance();
 //Consumer to Business
@@ -44,7 +44,7 @@ function ctob()
         $xsemail = $xoopsUser->getVar('email');
     }
 
-    $ctobform = new XoopsThemeForm(_MD_MXDIR_EMAILC . ' ' . _MD_MXDIR_SITETITLE . ' ' . $linktitle, 'ctobform', $_SERVER['PHP_SELF'] . '?op=sendit', 'post', true);
+    $ctobform = new XoopsThemeForm(_MD_MXDIR_EMAILC . ' ' . _MD_MXDIR_SITETITLE . ' ' . $linktitle, 'ctobform', $_SERVER['PHP_SELF'] . '?op=sendit', 'POST', true);
     $ctobform->addElement(new XoopsFormLabel(_MD_MXDIR_SUBJECT, $linktitle));
     $ctobform->addElement(new XoopsFormText(_MD_MXDIR_YOUR . ' ' . _MD_MXDIR_NAME, 'sname', 50, 100, $xsname), true);
     $ctobform->addElement(new XoopsFormText(_MD_MXDIR_YOUR . ' ' . _MD_MXDIR_EMAILC, 'semail', 50, 50, $xsemail), true);
@@ -58,16 +58,7 @@ function ctob()
         if ($gd) {
             mt_srand((double)microtime() * 10000);
             $random_num  = mt_rand(0, 100000);
-            $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" .
-                           _MD_MXDIR_SECURITY_CODE .
-                           "' title='" .
-                           _MD_MXDIR_SECURITY_CODE .
-                           "' />&nbsp;&nbsp;" .
-                           "<img src='images/no-spam.jpg' alt='" .
-                           _MD_MXDIR_NO_SPAM .
-                           "' title='" .
-                           _MD_MXDIR_NO_SPAM .
-                           "' />";
+            $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" . _MD_MXDIR_SECURITY_CODE . "' title='" . _MD_MXDIR_SECURITY_CODE . "'>&nbsp;&nbsp;" . "<img src='images/no-spam.jpg' alt='" . _MD_MXDIR_NO_SPAM . "' title='" . _MD_MXDIR_NO_SPAM . "'>";
             $captchatray = new XoopsFormElementTray('', '&nbsp', 'cappie');
             $captchatray->addElement(new XoopsFormLabel('', $security));
             $captchatray->addElement(new XoopsFormHidden('sec_hidden', $random_num));
@@ -125,7 +116,7 @@ function tell()
     //echo $xoopsUser->getVar("email");
     //echo "<=HERE";
     //exit;
-    $tfform = new XoopsThemeForm(_MD_MXDIR_TELLAFRIEND, 'tfform', $_SERVER['PHP_SELF'] . '?op=sendit', 'post', true);
+    $tfform = new XoopsThemeForm(_MD_MXDIR_TELLAFRIEND, 'tfform', $_SERVER['PHP_SELF'] . '?op=sendit', 'POST', true);
     $tfform->addElement(new XoopsFormText(_MD_MXDIR_YOUR . ' ' . _MD_MXDIR_NAME, 'sname', 50, 100, $xsname));
     $tfform->addElement(new XoopsFormText(_MD_MXDIR_FRIEND . ' ' . _MD_MXDIR_NAME, 'frname', 50, 50, ''));
     $tfform->addElement(new XoopsFormText(_MD_MXDIR_FRIEND . ' ' . _MD_MXDIR_EMAILC, 'fremail', 50, 50, ''));
@@ -140,16 +131,7 @@ function tell()
         if ($gd) {
             mt_srand((double)microtime() * 10000);
             $random_num  = mt_rand(0, 100000);
-            $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" .
-                           _MD_MXDIR_SECURITY_CODE .
-                           "' title='" .
-                           _MD_MXDIR_SECURITY_CODE .
-                           "' />&nbsp;&nbsp;" .
-                           "<img src='images/no-spam.jpg' alt='" .
-                           _MD_MXDIR_NO_SPAM .
-                           "' title='" .
-                           _MD_MXDIR_NO_SPAM .
-                           "' />";
+            $security    = "<img src='getgfx.php?random_num=$random_num&amp;gd=$gd' border='1' alt='" . _MD_MXDIR_SECURITY_CODE . "' title='" . _MD_MXDIR_SECURITY_CODE . "'>&nbsp;&nbsp;" . "<img src='images/no-spam.jpg' alt='" . _MD_MXDIR_NO_SPAM . "' title='" . _MD_MXDIR_NO_SPAM . "'>";
             $captchatray = new XoopsFormElementTray('', '&nbsp', 'cappie');
             $captchatray->addElement(new XoopsFormLabel('', $security));
             $captchatray->addElement(new XoopsFormHidden('sec_hidden', $random_num));
@@ -270,7 +252,7 @@ function sendit()
         //			exit;
         redirect_header('index.php', 1, _MD_MXDIR_ELOGOUNK);
     }
-    include(XOOPS_ROOT_PATH . '/footer.php');
+    include XOOPS_ROOT_PATH . '/footer.php';
 }
 
 //op switcher
@@ -294,4 +276,4 @@ switch ($op) {
         redirect_header('contact.php?op=tell', 1, '' . _RETURNGLO . '');
         break;
 }
-include_once(XOOPS_ROOT_PATH . '/footer.php');
+require_once XOOPS_ROOT_PATH . '/footer.php';

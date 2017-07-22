@@ -1,35 +1,24 @@
 <?php
-// $Id: brokenlink.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
-include 'header.php';
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
+include __DIR__ . '/header.php';
 $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
 if (!empty($HTTP_POST_VARS['submit'])) {
@@ -62,12 +51,12 @@ if (!empty($HTTP_POST_VARS['submit'])) {
     $xoopsDB->query($sql) or exit();
     $tags                      = array();
     $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/main.php?op=listBrokenLinks';
-    $notification_handler      =& xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'link_broken', $tags);
+    $notificationHandler       = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'link_broken', $tags);
     redirect_header('index.php', 2, _MD_MXDIR_THANKSFORINFO);
     exit();
 } else {
-    $xoopsOption['template_main'] = 'xdir_brokenlink.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'xdir_brokenlink.tpl';
     include XOOPS_ROOT_PATH . '/header.php';
     $xoopsTpl->assign('lang_reportbroken', _MD_MXDIR_REPORTBROKEN);
     $xoopsTpl->assign('link_id', (int)$_GET['lid']);
@@ -77,5 +66,5 @@ if (!empty($HTTP_POST_VARS['submit'])) {
     //Smarty directory autodetect
     $smartydir = $xoopsModule->getVar('dirname');
     $xoopsTpl->assign('smartydir', $smartydir);
-    include_once XOOPS_ROOT_PATH . '/footer.php';
+    require_once XOOPS_ROOT_PATH . '/footer.php';
 }

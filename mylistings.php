@@ -1,41 +1,33 @@
 <?php
-// $Id: mylistings.php,v 1.00 2006/05/07 12:11:07
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-include 'header.php';
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
 
-//include_once "include/functions.php";
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-include_once 'class/coupon.php';
+include __DIR__ . '/header.php';
+
+//require_once "include/functions.php";
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once __DIR__ . '/class/coupon.php';
 
 global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $xoopsModule;
-$pathIcon16 = $xoopsModule->getInfo('icons16');
+$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 
-$myts           = MyTextSanitizer::getInstance();// MyTextSanitizer object
-$coupon_handler = new XdirectoryCouponHandler($xoopsDB);
+$myts          = MyTextSanitizer::getInstance();// MyTextSanitizer object
+$couponHandler = new XdirectoryCouponHandler($xoopsDB);
 
 $list  = isset($_GET['list']) ? $_GET['list'] : 0;
 $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
@@ -50,7 +42,7 @@ if (!$xoopsUser) {
     $user   = XoopsUser::getUnameFromId($userid);
 }
 
-$xoopsOption['template_main'] = 'xdir_mylistings.html';
+$GLOBALS['xoopsOption']['template_main'] = 'xdir_mylistings.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
 
 // set the page title
@@ -63,18 +55,7 @@ $xoopsTpl->assign('showmod', $showmod);
 
 if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
     $isadmin   = true;
-    $adminlink = '<a href="' .
-                 XOOPS_URL .
-                 '/modules/' .
-                 $xoopsModule->getVar('dirname') .
-                 '/admin/main.php?op=modLink&amp;lid=' .
-                 $lid .
-                 '"><img src="' .
-                 $pathIcon16 .
-                 '/edit.png"' .
-                 ' border="0" alt="' .
-                 _MD_MXDIR_EDITTHISLINK .
-                 '" /></a>';
+    $adminlink = '<a href="' . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/main.php?op=modLink&amp;lid=' . $lid . '"><img src="' . $pathIcon16 . '/edit.png"' . ' border="0" alt="' . _MD_MXDIR_EDITTHISLINK . '"></a>';
 } else {
     $adminlink = '';
     $isadmin   = false;
@@ -105,17 +86,15 @@ while (list($modrow) = $xoopsDB->fetchRow($result)) {
 
 $newlink = array();
 
-$myresult =
-    'select l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.logourl, l.submitter, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description from ' .
-    $xoopsDB->prefix('xdir_links') .
-    ' l, ' .
-    $xoopsDB->prefix('xdir_text') .
-    " t WHERE l.submitter=$userid AND l.lid=t.lid ORDER BY l.title ASC";
+$myresult = 'select l.lid, l.cid, l.title, l.address, l.address2, l.city, l.state, l.zip, l.country, l.mfhrs, l.sathrs, l.sunhrs, l.phone, l.fax, l.mobile, l.home, l.tollfree, l.email, l.url, l.logourl, l.submitter, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.premium, t.description from '
+            . $xoopsDB->prefix('xdir_links')
+            . ' l, '
+            . $xoopsDB->prefix('xdir_text')
+            . " t WHERE l.submitter=$userid AND l.lid=t.lid ORDER BY l.title ASC";
 
 $result = $xoopsDB->query($myresult, $show, $start);
 
-while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $submitter, $status,
-    $time, $hits, $rating, $votes, $comments, $premium, $descr) = $xoopsDB->fetchRow($result)) {
+while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $submitter, $status, $time, $hits, $rating, $votes, $comments, $premium, $descr) = $xoopsDB->fetchRow($result)) {
     $is_owner = ($userid == $submitter) ? '1' : null;
 
     //Adding record related template items
@@ -145,8 +124,7 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
         }
         $ratingfl   = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
         $ratingfl   = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
-        $rating     =
-            "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "' /> ";
+        $rating     = "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "'> ";
         $votestring = ($votes == 1) ? _MD_MXDIR_ONEVOTE : sprintf(_MD_MXDIR_NUMVOTES, $votes);
     }
 
@@ -174,7 +152,7 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
         'isadmin'      => $isadmin,
         'updated'      => formatTimestamp($time, 'm'),
         'descr'        => $myts->displayTarea($descr, 0),
-        'coupons'      => $coupon_handler->getCountByLink($lid),
+        'coupons'      => $couponHandler->getCountByLink($lid),
         'adminlink'    => $adminlink,
         'hits'         => $hits,
         'votes'        => $votestring,
@@ -238,7 +216,7 @@ $xoopsTpl->assign('smartydir', $smartydir);
 // clear the template cache for this page.  The page isn't
 // viewed often - relative to other pages and we don't want
 // users to get cached version of other users pages
-$xoopsTpl->clear_cache('xdir_mylistings.html');
+$xoopsTpl->clear_cache('xdir_mylistings.tpl');
 
 include XOOPS_ROOT_PATH . '/include/comment_view.php';
 include XOOPS_ROOT_PATH . '/footer.php';

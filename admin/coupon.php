@@ -1,43 +1,33 @@
 <?php
-// ------------------------------------------------------------------------- //
-//                XOOPS - PHP Content Management System                      //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-// Based on:								                                 //
-// myPHPNUKE Web Portal System - http://myphpnuke.com/	  	          	     //
-// PHP-NUKE Web Portal System - http://phpnuke.org/	  	             	     //
-// Thatware - http://thatware.org/					                         //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-// ------------------------------------------------------------------------- //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-include '../../../include/cp_header.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
+include __DIR__ . '/../../../include/cp_header.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 //global $xoopsDB, $xoopsModule;
 //Inserted as $xoopsModule->getVar('dirname') replacement in functions and for module directory name in handlers
 //In html templates $mydirname = Smarty variable <{$smartydir}>
 //$mydirname = $xoopsModule->getVar('dirname');
 
-include_once 'admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-include 'functions.php';
+include __DIR__ . '/functions.php';
 //adminmenu(-1);
 
 //if ( file_exists("../language/".$xoopsConfig['language']."/main.php") ) {
@@ -48,10 +38,10 @@ include 'functions.php';
 
 $mydirname = $xoopsModule->getVar('dirname');
 //	redirect_header(XOOPS_URL,10,"Made it to here - directory name (".$mydirname.")");
-include '../class/coupon.php';
-$coupon_handler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
+include __DIR__ . '/../class/coupon.php';
+$couponHandler = new XdirectoryCouponHandler($GLOBALS['xoopsDB']);
 
-//$coupon_handler =& xoops_getmodulehandler('coupon', $mydirname);
+//$couponHandler = xoops_getModuleHandler('coupon', $mydirname);
 if (!isset($_GET['op'])) {
     header('location', 'index.php');
 }
@@ -67,7 +57,7 @@ switch ($op) {
     case 'menu':
 
         $cadmform    = new XoopsThemeForm(_MI_MXDIR_ADMENU6, 'cadmform', '../savings.php', 'GET');
-        $select_link = (new XoopsFormSelect(_MD_MXDIR_LINKID, 'lid', $lid, 1, false));
+        $select_link = new XoopsFormSelect(_MD_MXDIR_LINKID, 'lid', $lid, 1, false);
 
         while (list($lid, $title) = $xoopsDB->fetchRow($result3)) {
             $select_link->addOption($lid, $title);
@@ -114,8 +104,8 @@ switch ($op) {
         $criteria->add(new Criteria('publish', time(), '>'));
         break;
 }
-$coupons = $coupon_handler->getObjects($criteria, false);
-$coupons = $coupon_handler->prepare2show($coupons);
+$coupons = $couponHandler->getObjects($criteria, false);
+$coupons = $couponHandler->prepare2show($coupons);
 $output  = '<table>';
 foreach ($coupons as $catid => $category) {
     $output .= '<tr>
@@ -131,39 +121,17 @@ foreach ($coupons as $catid => $category) {
         }
         $output .= "<tr class='" . $class . "'>
                 <td>";
-        $output .= '<a href="' .
-                   XOOPS_URL .
-                   '/modules/' .
-                   $mydirname .
-                   '/addcoupon.php?couponid=' .
-                   $coupon['couponid'] .
-                   '"><img src="' .
-                   $pathIcon16 .
-                   '/edit.png"' .
-                   ' alt="' .
-                   _MD_MXDIR_EDITCOUPON .
-                   '" /></a>
-                        <a href="' .
-                   XOOPS_URL .
-                   '/modules/' .
-                   $mydirname .
-                   '/singlelink.php?lid=' .
-                   $coupon['lid'] .
-                   '">' .
-                   $coupon['linkTitle'] .
-                   '</a><br />
-                        <br />
-                        ' .
-                   _MD_MXDIR_PUBLISHEDON .
-                   ' ' .
-                   $coupon['publish'];
+        $output .= '<a href="' . XOOPS_URL . '/modules/' . $mydirname . '/addcoupon.php?couponid=' . $coupon['couponid'] . '"><img src="' . $pathIcon16 . '/edit.png"' . ' alt="' . _MD_MXDIR_EDITCOUPON . '"></a>
+                        <a href="' . XOOPS_URL . '/modules/' . $mydirname . '/singlelink.php?lid=' . $coupon['lid'] . '">' . $coupon['linkTitle'] . '</a><br>
+                        <br>
+                        ' . _MD_MXDIR_PUBLISHEDON . ' ' . $coupon['publish'];
         if ($coupon['expire'] > 0) {
-            $output .= '<br />' . _MD_MXDIR_EXPIRESON . $coupon['expire'];
+            $output .= '<br>' . _MD_MXDIR_EXPIRESON . $coupon['expire'];
         }
-        $output .= '<br />' . _MD_MXDIR_COUPONHITS . ' : ' . $coupon['counter'];
+        $output .= '<br>' . _MD_MXDIR_COUPONHITS . ' : ' . $coupon['counter'];
         $output .= '</div>
                 </td>
-                <td valign="top">' . $coupon['heading'] . '<br />' . $coupon['description'] . '</td>
+                <td valign="top">' . $coupon['heading'] . '<br>' . $coupon['description'] . '</td>
             </tr>
             <tr>
                 <td colspan="2" class="foot">
@@ -173,7 +141,7 @@ foreach ($coupons as $catid => $category) {
 }
 $output .= '</table>';
 if (count($coupons) < 1) {
-    $output = '<br /><br />' . _MD_MXDIR_NOSAVINGS;
+    $output = '<br><br>' . _MD_MXDIR_NOSAVINGS;
 }
 
 echo "<div><table style=\"width: 100%; text-align: center; vertical-align: middle;\"><tr><td style=\"padding: 10;\">" . $output . '</td></tr></table></div>';

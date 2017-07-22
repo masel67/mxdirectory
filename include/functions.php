@@ -1,34 +1,23 @@
 <?php
-// $Id: functions.php 11970 2013-08-24 14:20:57Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-//	Hacks provided by: Adam Frick											 //
-// 	e-mail: africk69@yahoo.com												 //
-//	Purpose: Create a yellow-page like business directory for xoops using 	 //
-//	the mylinks module as the foundation.									 //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ * @author       Adam Frick, africk69@yahoo.com (based on mylinks module)
+ */
+
 //Inserted as Global replacement of $xoopsModule->getVar('dirname') and for module directory name in handlers
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
@@ -47,9 +36,9 @@ function newlinkgraphic($time, $status)
     $startdate = (time() - (86400 * $count));
     if ($startdate < $time) {
         if ($status == 1) {
-            $new = "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/newred.gif\" alt=\"" . _MD_MXDIR_NEWTHISWEEK . "\" />";
+            $new = "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/newred.gif\" alt=\"" . _MD_MXDIR_NEWTHISWEEK . "\">";
         } elseif ($status == 2) {
-            $new = "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/update.gif\" alt=\"" . _MD_MXDIR_UPTHISWEEK . "\" />";
+            $new = "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/update.gif\" alt=\"" . _MD_MXDIR_UPTHISWEEK . "\">";
         }
     }
 
@@ -64,7 +53,7 @@ function popgraphic($hits)
 {
     global $xoopsModuleConfig, $mydirname;
     if ($hits >= $xoopsModuleConfig['popular']) {
-        return "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/pop.gi_MD_MXDIR_alt=\"" . _MD_POPULAR . "\" />";
+        return "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/pop.gi_MD_MXDIR_alt=\"" . _MD_POPULAR . "\">";
     }
 
     return '';
@@ -239,19 +228,7 @@ function getTotalItems($sel_id, $status = '')
     global $xoopsDB, $mytree;
     $count = 0;
     $arr   = array();
-    $query = 'SELECT count(*) FROM ' .
-             $xoopsDB->prefix('xdir_links') .
-             ' WHERE (cid=' .
-             $sel_id .
-             ' OR cidalt1=' .
-             $sel_id .
-             ' OR cidalt2=' .
-             $sel_id .
-             ' OR cidalt3=' .
-             $sel_id .
-             ' OR cidalt4=' .
-             $sel_id .
-             ')';
+    $query = 'SELECT count(*) FROM ' . $xoopsDB->prefix('xdir_links') . ' WHERE (cid=' . $sel_id . ' OR cidalt1=' . $sel_id . ' OR cidalt2=' . $sel_id . ' OR cidalt3=' . $sel_id . ' OR cidalt4=' . $sel_id . ')';
     if ($status != '') {
         $query .= " and status>=$status";
     }
@@ -261,19 +238,7 @@ function getTotalItems($sel_id, $status = '')
     $arr   = $mytree->getAllChildId($sel_id);
     $size  = count($arr);
     for ($i = 0; $i < $size; $i++) {
-        $query2 = 'SELECT count(*) FROM ' .
-                  $xoopsDB->prefix('xdir_links') .
-                  ' WHERE (cid=' .
-                  $arr[$i] .
-                  ' OR cidalt1=' .
-                  $arr[$i] .
-                  ' OR cidalt2=' .
-                  $arr[$i] .
-                  ' OR cidalt3=' .
-                  $arr[$i] .
-                  ' OR cidalt4=' .
-                  $arr[$i] .
-                  ')';
+        $query2 = 'SELECT count(*) FROM ' . $xoopsDB->prefix('xdir_links') . ' WHERE (cid=' . $arr[$i] . ' OR cidalt1=' . $arr[$i] . ' OR cidalt2=' . $arr[$i] . ' OR cidalt3=' . $arr[$i] . ' OR cidalt4=' . $arr[$i] . ')';
         if ($status != '') {
             $query2 .= " and status>=$status";
         }
@@ -307,7 +272,8 @@ function letters()
     }
     $letterchoice .= '&nbsp;';
     //	$letterchoice .= "|&nbsp;";
-    while (list(, $ltr) = each($alphabet)) {
+    //    while (list($key, $ltr) = each($alphabet)) {
+    foreach ($alphabet as $key => $ltr) {
         $letterchoice .= (($xoopsModuleConfig['num_letters'] = true) && ($ltr === '&nbsp;-&nbsp;')) ? $ltr : "<a href='viewalpha.php?list=$ltr'>$ltr</a>";
         //		$letterchoice .= "<a href='viewalpha.php?list=$ltr'>$ltr</a>";
         //		$letterchoice .= "&nbsp;|&nbsp;";
@@ -376,11 +342,11 @@ function displayTime($value)
     $clocktype = ($clocktype < 1) ? $clocktype = $timearray : $clocktype = $ampmarray;
 
     //display specific
-    $value = (($value !== '') &&
-              ($closestrip !== '25:00') &&
-              ($closestrip !== '26:00') &&
-              ($openstrip !== '25:00') &&
-              ($openstrip !== '26:00')) ? ((isset($clocktype[$openstrip]) ? $clocktype[$openstrip] : 0) . ' - ' . (isset($clocktype[$closestrip]) ? $clocktype[$closestrip] : 0)) : $value;
+    $value = (($value !== '')
+              && ($closestrip !== '25:00')
+              && ($closestrip !== '26:00')
+              && ($openstrip !== '25:00')
+              && ($openstrip !== '26:00')) ? ((isset($clocktype[$openstrip]) ? $clocktype[$openstrip] : 0) . ' - ' . (isset($clocktype[$closestrip]) ? $clocktype[$closestrip] : 0)) : $value;
     $value = (($openstrip === '25:00') || ($closestrip === '25:00')) ? _MD_MXDIR_BUSCLOSED : $value;
     $value = (($openstrip === '26:00') || ($closestrip === '26:00')) ? _MD_MXDIR_ALOPEN : $value;
     $value = (($value === ' - ') || ($openstrip === ' - ') || ($closestrip === ' - ')) ? _MD_MXDIR_UNKNOWN : $value;
