@@ -233,3 +233,16 @@ define('_MI_MXDIR_LINK_APPROVE_NOTIFY', 'Listing Approved');
 define('_MI_MXDIR_LINK_APPROVE_NOTIFYCAP', 'Notify me when this listing is approved.');
 define('_MI_MXDIR_LINK_APPROVE_NOTIFYDSC', 'Receive notification when this listing is approved.');
 define('_MI_MXDIR_LINK_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : Listing approved');
+
+//Help
+define('_MI_MXDIR_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_MXDIR_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_MXDIR_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_MXDIR_OVERVIEW', 'Overview');
+
+//define('_MI_MXDIR_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_MXDIR_DISCLAIMER', 'Disclaimer');
+define('_MI_MXDIR_LICENSE', 'License');
+define('_MI_MXDIR_SUPPORT', 'Support');

@@ -29,7 +29,7 @@ if (!preg_match('/^(\D+)(\d*)$/', $mydirname)) {
 $modversion                  = [];
 $modversion['version']       = 3.02;
 $modversion['module_status'] = 'Beta 1';
-$modversion['release_date']  = '2013/08/02';
+$modversion['release_date']  = '2017/07/02';
 $modversion['name']          = _MI_MXDIR_NAME;
 $modversion['description']   = _MI_MXDIR_DESC;
 $modversion['author']        = 'Tripmon, Zyspec & Mithy based on xDirectory by Adam Frick';
@@ -41,14 +41,8 @@ $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']    = 0;
 $modversion['image']       = 'images/xdir_slogo.png';
 $modversion['dirname']     = $mydirname;
-
-//$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-//$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-//$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 $modversion['modicons16'] = 'assets/images/icons/16';
 $modversion['modicons32'] = 'assets/images/icons/32';
-
-//about
 $modversion['module_website_url']  = 'www.xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['min_php']             = '5.5';
@@ -75,6 +69,14 @@ $modversion['hasAdmin']    = 1;
 $modversion['system_menu'] = 1;
 $modversion['adminindex']  = 'admin/index.php';
 $modversion['adminmenu']   = 'admin/menu.php';
+
+// ------------------- Help files ------------------- //
+$modversion['helpsection'] = array(
+    ['name' => _MI_MXDIR_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_MXDIR_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_MXDIR_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_MXDIR_SUPPORT, 'link' => 'page=support'],
+);
 
 // Blocks
 $modversion['blocks'][1]['file']        = 'xdir_top.php';

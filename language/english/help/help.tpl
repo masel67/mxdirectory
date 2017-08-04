@@ -3,7 +3,7 @@
         <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/mxDirectory/admin/index.php"
            title="Back to the administration of mxDirectory"> mxDirectory
             <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of mxDirectory"/>
+                 alt="Back to the Administration of mxDirectory">
         </a></h1>
 
     <h4 class="odd">Description</h4>
