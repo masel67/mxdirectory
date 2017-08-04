@@ -67,7 +67,7 @@
       </td></tr>
       <tr>
       <{if $links[i].logourl != "" && $links[i].lvlopts.7 == "1" && $show_screenshot == "1"}>
-        <td class="link_image_panel"><a href="<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$links[i].cid}>&amp;lid=<{$links[i].id}>"><img src="images/shots/<{$links[i].logourl}>" alt="<{$smarty.const._MD_MXDIR_LOGO}>"/></a></td>
+        <td class="link_image_panel"><a href="<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$links[i].cid}>&amp;lid=<{$links[i].id}>"><img src="images/shots/<{$links[i].logourl}>" alt="<{$smarty.const._MD_MXDIR_LOGO}>"></a></td>
         <td style="text-align: left; vertical-align: bottom;">
       <{else}>
         <td colspan='2' style="text-align: left; vertical-align: bottom;">

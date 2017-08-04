@@ -147,7 +147,7 @@ if (!empty($_POST['submit'])) {
     $newid = $xoopsDB->genId($xoopsDB->prefix('xdir_mod') . '_requestid_seq');
     $sql   = sprintf("INSERT INTO %s (requestid, lid, cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, logourl, admcontname, admcontnumb, premium, description, modifysubmitter) VALUES (%u, %u, %u, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %u)",
                      $xoopsDB->prefix('xdir_mod'), $newid, $lid, $cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $logourl, $admcontname, $admcontnumb, $premium, $moddesc, $modifysubmitter);
-    $xoopsDB->query($sql) or $eh->show('0013');
+    $xoopsDB->query($sql) || $eh->show('0013');
     //
     // and finally set the notification
     //
@@ -168,7 +168,7 @@ if (!empty($_POST['submit'])) {
     $arry1         = array(0 => _MD_MXDIR_NONE);
     $linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/modules/' . $mydirname . '/images/shots/');
     $linkimg_array = array_merge($arry1, $linkimg_array);
-    $result = $xoopsDB->query('select cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium from ' . $xoopsDB->prefix('xdir_links') . " where lid=$lid") or $eh->show('0013');
+    $result = $xoopsDB->query('select cid, title, address, address2, city, state, zip, country, mfhrs, sathrs, sunhrs, phone, fax, mobile, home, tollfree, email, url, admcontname, admcontnumb, logourl, premium from ' . $xoopsDB->prefix('xdir_links') . " where lid=$lid") || $eh->show('0013');
     list($cid, $title, $address, $address2, $city, $state, $zip, $country, $mfhrs, $sathrs, $sunhrs, $phone, $fax, $mobile, $home, $tollfree, $email, $url, $admcontname, $admcontnumb, $logourl, $premium) = $xoopsDB->fetchRow($result);
 
     $title    = $myts->htmlSpecialChars($title);

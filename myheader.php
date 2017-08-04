@@ -43,7 +43,7 @@ $mail_body    = rawurlencode(sprintf(_MD_MXDIR_INTLINKFOUND, $xoopsConfig['siten
 <body>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-        <td width="150"><a href="<?php echo XOOPS_URL; ?>" target="xoopshead"><img src="<?php echo XOOPS_URL; ?>/images/logo.gif" alt=""/></a>
+        <td width="150"><a href="<?php echo XOOPS_URL; ?>" target="xoopshead"><img src="<?php echo XOOPS_URL; ?>/images/logo.gif" alt=""></a>
         <td width="100%" align="center">
             <table class="bg3" width=95% cellspacing="2" cellpadding="3" border="0" style="border: #e0e0e0 1px solid;">
                 <tr>

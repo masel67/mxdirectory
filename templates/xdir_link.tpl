@@ -18,7 +18,7 @@
       <td class="link_rating"><a href="<{$xoops_url}>/modules/<{$smartydir}>/ratelink.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>"><{$lang_rating}><{$link.rating}> (<{$link.votes}>)</a></td>
     </tr></table></td></tr>
     <tr> <{if $link.logourl != "" && $link.lvlopts.7 == "1" && $show_screenshot == "1"}>
-      <td class="link_image_panel"><a href="<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>"><img src="images/shots/<{$link.logourl}>" alt="<{$smarty.const._MD_MXDIR_LOGO}>"/></a></td>
+      <td class="link_image_panel"><a href="<{$xoops_url}>/modules/<{$smartydir}>/singlelink.php?cid=<{$link.cid}>&amp;lid=<{$link.id}>"><img src="images/shots/<{$link.logourl}>" alt="<{$smarty.const._MD_MXDIR_LOGO}>"></a></td>
     <{/if}>
 	<td style="text-align: left; vertical-align: bottom;">
       <!-- (<{$lang_category}> <{$link.category}>) -->

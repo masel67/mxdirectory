@@ -80,7 +80,7 @@ if (!empty($HTTP_POST_VARS['submit'])) {
     $newid    = $xoopsDB->genId($xoopsDB->prefix('xdir_votedata') . '_ratingid_seq');
     $datetime = time();
     $sql      = sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix('xdir_votedata'), $newid, $lid, $ratinguser, $rating, $ip, $datetime);
-    $xoopsDB->query($sql) or $eh->show('0013');
+    $xoopsDB->query($sql) || $eh->show('0013');
 
     //All is well.  Calculate Score & Add to Summary (for quick retrieval & sorting) to DB.
     updaterating($lid);

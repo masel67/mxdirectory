@@ -179,7 +179,7 @@ while (list($lid, $cid, $ltitle, $address, $address2, $city, $state, $zip, $coun
 
     $ratingfl = (($rating / 2) - floor($rating / 2) < 0.5) ? (int)(floor($rating / 2) * 10) : (int)((floor($rating / 2) + .5) * 10);
     $ratingfl = str_pad($ratingfl, 2, '0', STR_PAD_LEFT);
-    $rating   = "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "'/> ";
+    $rating   = "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images/ratings/rate' . $ratingfl . ".gif' alt='" . _MD_MXDIR_RATINGC . number_format($rating, 2) . "'> ";
 
     $xoopsTpl->append('links', array(
         'id'           => $lid,

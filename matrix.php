@@ -42,7 +42,7 @@ include __DIR__ . '/header.php'
             <th colspan="3" align="center"><b><span>Basic Listings</span></b></th>
         </tr>
         <tr>
-            <td width="70" height="40" align="center" class="head"><span>Normal</span><span><br/>
+            <td width="70" height="40" align="center" class="head"><span>Normal</span><span><br>
         Listing</span></td>
             <td class="even">Company Name, Address, Map Link, Phone, Fax, e-Mail,
                 Description,
@@ -52,8 +52,8 @@ include __DIR__ . '/header.php'
             </td>
         </tr>
         <tr>
-            <td width="70" height="40" align="center" class="head"><p><font>Copper</font><font><br/>
-                        Listing<br/>
+            <td width="70" height="40" align="center" class="head"><p><font>Copper</font><font><br>
+                        Listing<br>
                         &#163;4.99/year </font></p>
             </td>
             <td class="odd">Company Name, Address, Map Link, Phone, Fax, e-Mail,
@@ -61,7 +61,7 @@ include __DIR__ . '/header.php'
             </td>
             <td width="80">
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                    <input src="images/matriximages/x-click-butcc.gif" name="I1" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image"/>
+                    <input src="images/matriximages/x-click-butcc.gif" name="I1" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image">
                 </form>
             </td>
         </tr>
@@ -77,8 +77,8 @@ include __DIR__ . '/header.php'
                         <th colspan="3" align="center"><b> <font>Premium Listings</font></b></th>
                     </tr>
                     <tr>
-                        <td align="center" width="70" class="head"><font> <b>Silver<br/>
-                                    Listing</b><br/>
+                        <td align="center" width="70" class="head"><font> <b>Silver<br>
+                                    Listing</b><br>
                                 &#163;14.99/year</font>
                         </td>
                         <td class="even">Company Name, Address, Map Link, Phone,
@@ -87,13 +87,13 @@ include __DIR__ . '/header.php'
                         </td>
                         <td align="center">
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                                <input src="images/matriximages/x-click-butcc.gif" name="I1" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image"/>
+                                <input src="images/matriximages/x-click-butcc.gif" name="I1" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image">
                             </form>
                         </td>
                     </tr>
                     <tr>
-                        <td align="center" width="70" class="head"><font> <b>Gold<br/>
-                                    Listing</b><br/>
+                        <td align="center" width="70" class="head"><font> <b>Gold<br>
+                                    Listing</b><br>
                                 &#163;24.99/year</font></td>
                         <td class="odd">Company Name, Address, Map Link, Phone,
                             Fax, e-Mail, Description, Link to Website, Description Plus
@@ -102,13 +102,13 @@ include __DIR__ . '/header.php'
                                 Listing</a></td>
                         <td align="center">
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                                <input src="images/matriximages/x-click-butcc.gif" name="I2" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image"/>
+                                <input src="images/matriximages/x-click-butcc.gif" name="I2" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image">
                             </form>
                         </td>
                     </tr>
                     <tr>
-                        <td align="center" class="head" width="70"><font> <b>Platinum<br/>
-                                    Listing</b><br/>
+                        <td align="center" class="head" width="70"><font> <b>Platinum<br>
+                                    Listing</b><br>
                                 &#163;29.99/year</font></td>
                         <td class="even">Company Name, Address, Map Link, Phone,
                             Fax, e-Mail, Description, Link to Website, Description Plus
@@ -117,7 +117,7 @@ include __DIR__ . '/header.php'
                                 Listing</a></td>
                         <td align="center">
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                                <input src="images/matriximages/x-click-butcc.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image"/>
+                                <input src="images/matriximages/x-click-butcc.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" border="0" type="image">
                             </form>
                         </td>
                     </tr>
@@ -129,7 +129,7 @@ include __DIR__ . '/header.php'
     </table>
 
 
-    <div id="content" style="padding-top:25px;"><font size="3"><b>Premium Services</b></font><br/>
+    <div id="content" style="padding-top:25px;"><font size="3"><b>Premium Services</b></font><br>
 
         <table width="100%" height="544" border="0" cellpadding="4" cellspacing="1" id="table23" class="outer">
             <!--DWLayoutTable-->
@@ -157,22 +157,22 @@ include __DIR__ . '/header.php'
                                     </tr>
                                     <tr>
                                         <th width="87" height="65" align="center" valign="middle" id="maincontent6">
-                                            <div align="center"><font><b>Normal</b><br/>
+                                            <div align="center"><font><b>Normal</b><br>
                                                     Free</font></div>
                                         </th>
                                         <th width="96" id="maincontent6">
-                                            <p align="center"><font><b>Copper</b><br/>
-                                                    Free</font><br/>
+                                            <p align="center"><font><b>Copper</b><br>
+                                                    Free</font><br>
                                                 <font>4.99/year </font></p>
                                         </th>
-                                        <th width="87" align="center" id="maincontent5"><font><b>Silver<br/>
-                                                    Listing</b><br/>
+                                        <th width="87" align="center" id="maincontent5"><font><b>Silver<br>
+                                                    Listing</b><br>
                                                 &#163;14.99/year</font></th>
-                                        <th width="97" align="center" id="maincontent4"><font><b>Gold<br/>
-                                                    Listing</b><br/>
+                                        <th width="97" align="center" id="maincontent4"><font><b>Gold<br>
+                                                    Listing</b><br>
                                                 &#163;24.99/year</font></th>
-                                        <th width="96" align="center" id="maincontent3"><font><b>Platinum<br/>
-                                                    Listing</b><br/>
+                                        <th width="96" align="center" id="maincontent3"><font><b>Platinum<br>
+                                                    Listing</b><br>
                                                 &#163;29.99/year</font></th>
                                     </tr>
                                     <tr class="even">
@@ -336,27 +336,27 @@ include __DIR__ . '/header.php'
         <table class="outer">
             <tr class="odd">
                 <td>
-                    <p><strong>Map Link</strong><br/>
+                    <p><strong>Map Link</strong><br>
                         We`ll take your address and link it to Yahoo maps making it easy for your
                         customers to find you.</p>
-                    <p><strong>Multiple Category Listing:</strong><br/>
+                    <p><strong>Multiple Category Listing:</strong><br>
                         Increase your exposure by getting listed in multiple categories. </p>
-                    <p><strong>Description</strong><br/>
+                    <p><strong>Description</strong><br>
                         Your description should include your best sales pitch! This is where you
                         have the opportunity to tell prospective clients who you are, what you
                         do, and why they should do business with you.</p>
-                    <p><strong>Description Plus</strong><br/>
+                    <p><strong>Description Plus</strong><br>
                         Same as the description but with modified text. Description Plus allows
                         you to add bold headings, colored text, multiple links to specific areas
                         of your site. (website links are for Gold and Platinum Listings only)</p>
-                    <p><strong>Photos &amp; Images</strong><br/>
+                    <p><strong>Photos &amp; Images</strong><br>
                         Add photos to your display ad. Whether it is a photo of you business, products,
                         services, supplier logos, etc. Adding pictures to your display ad will
                         help promote your business.</p>
-                    <p><strong>Coupons/Special Offers</strong><br/>
+                    <p><strong>Coupons/Special Offers</strong><br>
                         Give visitors a reason to use your services! Special offers, discounts,
                         Giveaways, etc. Get creative!</p>
-                    <p><strong>Modify your Listing:</strong><br/>
+                    <p><strong>Modify your Listing:</strong><br>
                         To modify your premium business listing simply click on the link below
                         your listing titled "Modify This Listing" You will be able to make all
                         the appropriate changes to you listing you need to make. (Gold and Platinum
@@ -373,7 +373,7 @@ include __DIR__ . '/header.php'
         </table>
 
 
-        <b><h2>Example Listings:</h2></b><br/>
+        <b><h2>Example Listings:</h2></b><br>
 
         <table id="table5" cellpadding="10" cellspacing="1" width="100%" class="outer">
             <tbody>
@@ -382,36 +382,36 @@ include __DIR__ . '/header.php'
                     <table id="table6" cellpadding="10" cellspacing="1" width="100%" class="">
                         <tbody>
                         <tr class="even">
-                            <td align="left" valign="top" width="100"><a href="matrix.php"> <br/>
+                            <td align="left" valign="top" width="100"><a href="matrix.php"> <br>
                                     <img src="images/matriximages/acme_company_example.gif" border="0"></a></td>
                             <td width="8"><img src="images/matriximages/spacer.gif" width="8"></td>
                             <td align="left" valign="top" width="60%"><font size="2"> <a href="matrix.php"> <b>Acme
-                                            Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a></font><br/>
-                                555 Main St<br/>
-                                Anytown, AL 90210<br/>
-                                <strong>Phone: </strong>(877) 555-1212<br/>
-                                <strong>Fax: </strong>(877) 555-1313<br/>
-                                <strong>Cell: </strong>(877) 555-1414<br/>
-                                <strong>Website: </strong><a href="http://www.acme-company-website.com/" target="_blank">http://www.acme-company-website.com</a> <br/>
+                                            Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a></font><br>
+                                555 Main St<br>
+                                Anytown, AL 90210<br>
+                                <strong>Phone: </strong>(877) 555-1212<br>
+                                <strong>Fax: </strong>(877) 555-1313<br>
+                                <strong>Cell: </strong>(877) 555-1414<br>
+                                <strong>Website: </strong><a href="http://www.acme-company-website.com/" target="_blank">http://www.acme-company-website.com</a> <br>
                             </td>
                             <td align="right" width="30%"><a href="matrix.php"> <b>Rating </b>10.00
-                                    (4 votes) </a><br/>
+                                    (4 votes) </a><br>
                                 <table id="table7" border="0">
                                     <tbody>
                                     <tr>
                                         <td>
                                             <form name="email" method="get" action="contact.php">
-                                                <input value="1489" name="lid" type="hidden"/>
-                                                <input name="submit" type="submit" value="Email"/>
+                                                <input value="1489" name="lid" type="hidden">
+                                                <input name="submit" type="submit" value="Email">
                                             </form>
                                         </td>
                                         <td>
                                             <form name="mapForm2" method="get" target="_new" action="http://us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps">
-                                                <input value="6606  Auburn Rd." name="addr" type="hidden"/>
-                                                <input value="Anytown, AL 90210" name="csz" type="hidden"/>
-                                                <input value="us" name="country" type="hidden"/>
-                                                <input value="a" name="srchtype" type="hidden"/>
-                                                <input value="Map" name="getmap1" type="submit"/>
+                                                <input value="6606  Auburn Rd." name="addr" type="hidden">
+                                                <input value="Anytown, AL 90210" name="csz" type="hidden">
+                                                <input value="us" name="country" type="hidden">
+                                                <input value="a" name="srchtype" type="hidden">
+                                                <input value="Map" name="getmap1" type="submit">
                                             </form>
                                         </td>
                                     </tr>
@@ -428,12 +428,12 @@ include __DIR__ . '/header.php'
                                     this Business </a>| <a href="matrix.php"> Modify this Listing </a>| <a target="_top"
                                                                                                            href="mailto:?subject=Interesting%20Business%20Listing%20at%20Shoals%20Living%20.com&amp;body=Here%20is%20an%20interesting%20Business%20I%20have%20found%20at%20Shoals%20Living%20.com">
                                     Tell
-                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br/>
+                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <hr/>
+                    <hr>
                 </td>
                 <td valign="top" width="20%">
                     <table id="table9" cellpadding="10" cellspacing="1" width="100%">
@@ -452,36 +452,36 @@ include __DIR__ . '/header.php'
                     <table id="table10" cellpadding="10" cellspacing="1" width="100%">
                         <tbody>
                         <tr>
-                            <td align="left" valign="top" width="100"><a href="matrix.php"> <br/>
+                            <td align="left" valign="top" width="100"><a href="matrix.php"> <br>
                                     <img src="images/matriximages/acme_company_example.gif" border="0"></a></td>
                             <td width="8"><img src="images/matriximages/spacer.gif" width="8"></td>
                             <td align="left" valign="top" width="60%"><font size="2"> <a href="matrix.php"> <b>Acme
-                                            Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a></font><br/>
-                                555 Main St<br/>
-                                Shoals, AL 35660<br/>
-                                <strong>Phone: </strong>(877) 555-1212<br/>
-                                <strong>Fax: </strong>(877) 555-1313<br/>
-                                <strong>Cell: </strong>(877) 555-1414<br/>
-                                <strong>Website: </strong><a href="http://www.acme-company-website.com/" target="_blank">http://www.acme-company-website.com</a> <br/>
+                                            Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a></font><br>
+                                555 Main St<br>
+                                Shoals, AL 35660<br>
+                                <strong>Phone: </strong>(877) 555-1212<br>
+                                <strong>Fax: </strong>(877) 555-1313<br>
+                                <strong>Cell: </strong>(877) 555-1414<br>
+                                <strong>Website: </strong><a href="http://www.acme-company-website.com/" target="_blank">http://www.acme-company-website.com</a> <br>
                             </td>
                             <td align="right" width="30%"><a href="matrix.php"> <b>Rating </b>10.00
-                                    (4 votes) </a><br/>
+                                    (4 votes) </a><br>
                                 <table id="table11" border="0">
                                     <tbody>
                                     <tr>
                                         <td>
                                             <form name="email" method="get" action="http://www.advenquest.com/modules/xdirectory/contact.php">
-                                                <input value="1489" name="lid" type="hidden"/>
-                                                <input name="submit" type="submit" value="Email"/>
+                                                <input value="1489" name="lid" type="hidden">
+                                                <input name="submit" type="submit" value="Email">
                                             </form>
                                         </td>
                                         <td>
                                             <form name="mapForm2" method="get" target="_new" action="http://us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps">
-                                                <input value="6606 Shoals Auburn Rd." name="addr" type="hidden"/>
-                                                <input value="Shoals, AL 35660" name="csz" type="hidden"/>
-                                                <input value="us" name="country" type="hidden"/>
-                                                <input value="a" name="srchtype" type="hidden"/>
-                                                <input value="Map" name="getmap2" type="submit"/>
+                                                <input value="6606 Shoals Auburn Rd." name="addr" type="hidden">
+                                                <input value="Shoals, AL 35660" name="csz" type="hidden">
+                                                <input value="us" name="country" type="hidden">
+                                                <input value="a" name="srchtype" type="hidden">
+                                                <input value="Map" name="getmap2" type="submit">
                                             </form>
                                         </td>
                                     </tr>
@@ -498,12 +498,12 @@ include __DIR__ . '/header.php'
                                     this Business </a>| <a href="matrix.php"> Modify this Listing </a>| <a target="_top"
                                                                                                            href="mailto:?subject=Interesting%20Business%20Listing%20at%20Shoals%20Living%20.com&amp;body=Here%20is%20an%20interesting%20Business%20I%20have%20found%20at%20Shoals%20Living%20.com">
                                     Tell
-                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br/>
+                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <hr/>
+                    <hr>
                 </td>
                 <td valign="top" width="20%">
                     <table id="table13" cellpadding="10" cellspacing="1" width="100%">
@@ -525,31 +525,31 @@ include __DIR__ . '/header.php'
                             <td align="left" valign="top" width="100"><a href="matrix.php"> <img src="images/matriximages/acme_company_example.gif" border="0"></a></td>
                             <td width="8"><img src="images/matriximages/spacer.gif" width="8"></td>
                             <td align="left" valign="top" width="60%"><font size="2"> <a href="matrix.php"> <b>Acme
-                                            Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a></font><br/>
-                                555 Main St<br/>
-                                Shoals, AL 35660<br/>
-                                <strong>Phone: </strong>(877) 555-1212<br/>
-                                <strong>Fax: </strong>(877) 555-1313<br/>
-                                <strong>Cell: </strong>(877) 555-1414<br/>
+                                            Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a></font><br>
+                                555 Main St<br>
+                                Shoals, AL 35660<br>
+                                <strong>Phone: </strong>(877) 555-1212<br>
+                                <strong>Fax: </strong>(877) 555-1313<br>
+                                <strong>Cell: </strong>(877) 555-1414<br>
                             </td>
                             <td align="right" width="30%"><a href="matrix.php"> <b>Rating </b>10.00
-                                    (4 votes) </a><br/>
+                                    (4 votes) </a><br>
                                 <table id="table15" border="0">
                                     <tbody>
                                     <tr>
                                         <td>
                                             <form name="email" method="get" action="http://www.advenquest.com/modules/xdirectory/contact.php">
-                                                <input value="1489" name="lid" type="hidden"/>
-                                                <input name="submit" type="submit" value="Email"/>
+                                                <input value="1489" name="lid" type="hidden">
+                                                <input name="submit" type="submit" value="Email">
                                             </form>
                                         </td>
                                         <td>
                                             <form name="mapForm2" method="get" target="_new" action="http://us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps">
-                                                <input value="6606 Shoals Auburn Rd." name="addr" type="hidden"/>
-                                                <input value="Shoals, AL 35660" name="csz" type="hidden"/>
-                                                <input value="us" name="country" type="hidden"/>
-                                                <input value="a" name="srchtype" type="hidden"/>
-                                                <input value="Map" name="getmap3" type="submit"/>
+                                                <input value="6606 Shoals Auburn Rd." name="addr" type="hidden">
+                                                <input value="Shoals, AL 35660" name="csz" type="hidden">
+                                                <input value="us" name="country" type="hidden">
+                                                <input value="a" name="srchtype" type="hidden">
+                                                <input value="Map" name="getmap3" type="submit">
                                             </form>
                                         </td>
                                     </tr>
@@ -566,18 +566,18 @@ include __DIR__ . '/header.php'
                                     this Business </a>| <a href="matrix.php"> Modify this Listing </a>| <a target="_top"
                                                                                                            href="mailto:?subject=Interesting%20Business%20Listing%20at%20Shoals%20Living%20.com&amp;body=Here%20is%20an%20interesting%20Business%20I%20have%20found%20at%20Shoals%20Living%20.com">
                                     Tell
-                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br/>
+                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <hr/>
+                    <hr>
                 </td>
                 <td valign="top" width="20%">
                     <table id="table17" cellpadding="10" cellspacing="1" width="100%">
                         <tbody>
                         <tr>
-                            <th width="100%"><font><b>Silver Listing:</b> <br/>
+                            <th width="100%"><font><b>Silver Listing:</b> <br>
                                     Priority positioning under all Platinum and Gold listings
                                     in your category - alphabetical order. </font></th>
                         </tr>
@@ -591,30 +591,30 @@ include __DIR__ . '/header.php'
                         <tbody>
                         <tr>
                             <td align="left" valign="top" width="70%"><a href="matrix.php"> <b>Acme
-                                        Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a><br/>
-                                555 Main St<br/>
-                                Shoals, AL 35660<br/>
-                                <strong>Phone: </strong>(877) 555-1212<br/>
-                                <strong>Website: </strong><a href="http://www.acme-company-website.com/" target="_blank">http://www.acme-company-website.com</a> <br/>
+                                        Company <img alt="New this week" src="images/matriximages/newred.gif"></b></a><br>
+                                555 Main St<br>
+                                Shoals, AL 35660<br>
+                                <strong>Phone: </strong>(877) 555-1212<br>
+                                <strong>Website: </strong><a href="http://www.acme-company-website.com/" target="_blank">http://www.acme-company-website.com</a> <br>
                             </td>
                             <td align="right" width="30%"><a href="matrix.php"> <b>Rating </b>10.00
-                                    (4 votes) </a><br/>
+                                    (4 votes) </a><br>
                                 <table id="table19" border="0">
                                     <tbody>
                                     <tr>
                                         <td>
                                             <form name="email" method="get" action="http://www.advenquest.com/modules/xdirectory/contact.php">
-                                                <input value="1489" name="lid" type="hidden"/>
-                                                <input name="submit" type="submit" value="Email"/>
+                                                <input value="1489" name="lid" type="hidden">
+                                                <input name="submit" type="submit" value="Email">
                                             </form>
                                         </td>
                                         <td>
                                             <form name="mapForm2" method="get" target="_new" action="http://us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps">
-                                                <input value="6606 Shoals Auburn Rd." name="addr" type="hidden"/>
-                                                <input value="Shoals, AL 35660" name="csz" type="hidden"/>
-                                                <input value="us" name="country" type="hidden"/>
-                                                <input value="a" name="srchtype" type="hidden"/>
-                                                <input value="Map" name="getmap4" type="submit"/>
+                                                <input value="6606 Shoals Auburn Rd." name="addr" type="hidden">
+                                                <input value="Shoals, AL 35660" name="csz" type="hidden">
+                                                <input value="us" name="country" type="hidden">
+                                                <input value="a" name="srchtype" type="hidden">
+                                                <input value="Map" name="getmap4" type="submit">
                                             </form>
                                         </td>
                                     </tr>
@@ -631,12 +631,12 @@ include __DIR__ . '/header.php'
                                     this Business </a>| <a href="matrix.php"> Modify this Listing </a>| <a target="_top"
                                                                                                            href="mailto:?subject=Interesting%20Business%20Listing%20at%20Shoals%20Living%20.com&amp;body=Here%20is%20an%20interesting%20Business%20I%20have%20found%20at%20Shoals%20Living%20.com">
                                     Tell
-                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br/>
+                                    a Friend </a>| <a href="matrix.php"> Comments (0) </a><br>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <hr/>
+                    <hr>
                 </td>
                 <td valign="top" width="20%">
                     <table id="table21" cellpadding="10" cellspacing="1" width="100%">

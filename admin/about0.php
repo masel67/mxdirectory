@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------ //
 // XOOPS - PHP Content Management System                      //
 // Copyright (c) 2000 XOOPS.org                           //
-// <http://www.xoops.org/>                             //
+// <https://xoops.org>                             //
 // ------------------------------------------------------------------------ //
 // This program is free software; you can redistribute it and/or modify     //
 // it under the terms of the GNU General Public License as published by     //
@@ -54,7 +54,7 @@ echo "<input type=\"hidden\" name=\"business\" value=\"donations@xoops.org\">";
 echo "<input type=\"hidden\" name=\"item_name\" value=\"XOOPS.org Donation\">";
 echo "<input type=\"hidden\" name=\"item_number\" value=\"110\">";
 echo "<input type=\"hidden\" name=\"rm\" value=\"2\">";
-echo "<input type=\"hidden\" name=\"notify_url\" value=\"http://www.xoops.org/modules/xdonations/ipnppd.php\">";
+echo "<input type=\"hidden\" name=\"notify_url\" value=\"https://xoops.org/modules/xdonations/ipnppd.php\">";
 echo "<input type=\"hidden\" name=\"on0\" value=\"List your name? \">";
 echo "<input type=\"hidden\" name=\"on1\" value=\"Module: \">";
 echo "<input type=\"hidden\" name=\"os1\" value=\"mx-directory\">";
@@ -63,8 +63,8 @@ echo "<input type=\"hidden\" name=\"no_shipping\" value=\"1\">";
 echo "<input type=\"hidden\" name=\"currency_code\" value=\"EUR\">";
 echo "<input type=\"hidden\" name=\"cn\" value=\"Comments\">";
 echo "<input type=\"hidden\" name=\"custom\" value=\"\">";
-echo "<input type=\"hidden\" name=\"cancel_return\" value=\"http://www.xoops.org/modules/xdonations/cancel.php\">";
-echo "<input type=\"hidden\" name=\"return\" value=\"http://www.xoops.org/modules/xdonations/success.php\">";
+echo "<input type=\"hidden\" name=\"cancel_return\" value=\"https://xoops.org/modules/xdonations/cancel.php\">";
+echo "<input type=\"hidden\" name=\"return\" value=\"https://xoops.org/modules/xdonations/success.php\">";
 echo "<input type=\"hidden\" name=\"image_url\" value=\"\">";
 echo "<input type=\"submit\" value=\"Submit Donation\" name=\"I1\">";
 echo '</form>';

@@ -2,7 +2,7 @@
 // ------------------------------------------------------------------------- //
 //                     myblocksadmin_for_2.2.php                             //
 //                - XOOPS block admin for each modules -                     //
-//                          GIJOE <http://www.peak.ne.jp/>                   //
+//                          GIJOE <http://www.peak.ne.jp>                   //
 // ------------------------------------------------------------------------- //
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../../include/cp_header.php';
 
 require_once __DIR__ . '/mygrouppermform.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-require_once __DIR__ . '/../include/gtickets.php';
+//require_once __DIR__ . '/../include/gtickets.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
