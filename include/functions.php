@@ -53,7 +53,7 @@ function popgraphic($hits)
 {
     global $xoopsModuleConfig, $mydirname;
     if ($hits >= $xoopsModuleConfig['popular']) {
-        return "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/pop.gi_MD_MXDIR_alt=\"" . _MD_POPULAR . "\">";
+        return "&nbsp;<img src=\"" . XOOPS_URL . '/modules/' . $mydirname . "/images/pop.gif\" alt=\"" . _MD_POPULAR . "\">";
     }
 
     return '';
